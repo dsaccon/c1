@@ -1,0 +1,56 @@
+version: '2'
+
+networks:
+  basic:
+
+services:
+  c1_backend:
+    restart: on-failure
+    container_name: c1_backend
+    build: ./c1_backend
+    command: bash -c "flask run --with-threads --host=0.0.0.0 --port=8000 --debugger"
+    volumes: 
+      - ./backend:/app
+    expose: ["8001"]
+    ports: ["8001:8001"]
+    env_file:
+      - env_vars
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_DEFAULT_REGION
+    networks:
+      - basic
+    depends_on:
+      - c1_db
+
+  c1_db:
+    container_name: c1_db
+    image: mdillon/postgis:latest
+    restart: on-failure
+    env_file:
+      - env_vars
+    expose: ["5432"]
+    ports: ["5432:5432"]
+    networks:
+      - basic
+    volumes:
+      - ./data.sql.gz:/docker-entrypoint-initdb.d/data.sql.gz
+      - ./:/app
+
+  c1_frontend:
+    build: ./c1_frontend/
+    container_name: c1_frontend
+    command: "npm start"
+    restart: on-failure
+    ports: ["8000:8000"]
+    environment:
+      - PORT=8000
+    env_file:
+      - env_vars
+    volumes:
+      - ./c1_frontend:/app
+      - /app/node_modules
+    networks:
+      - basic
+
