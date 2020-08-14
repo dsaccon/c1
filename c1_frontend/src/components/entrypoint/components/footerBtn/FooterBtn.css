@@ -1,0 +1,28 @@
+.footerBtn {
+  width: 335px;
+  height: 52px;
+
+  border-radius: 6px;
+
+  border: none;
+  outline:none;
+}
+
+.footerBtn:focus {
+  border: none;
+  outline:none;
+}
+
+.footerBtn__text {
+  text-align: center;
+
+  font-family: Cantarell;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+  color: #000000;
+}

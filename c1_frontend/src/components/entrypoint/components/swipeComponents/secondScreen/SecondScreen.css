@@ -1,0 +1,12 @@
+.entrypoint__second-screen {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  flex-direction: column;
+
+  box-sizing: border-box;
+
+  padding-top: 49px;
+
+  align-items: center;
+}

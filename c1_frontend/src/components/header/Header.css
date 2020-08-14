@@ -1,0 +1,20 @@
+.entrypoint__header {
+  width: 100%;
+
+  margin-left: 16px;
+
+  display: flex;
+
+  align-items: center;
+}
+
+.entrypoint__header__back-btn {
+  position: absolute;
+}
+
+.entrypoint__header__logo {
+  display: flex;
+  width: 100%;
+
+  justify-content: center;
+}
