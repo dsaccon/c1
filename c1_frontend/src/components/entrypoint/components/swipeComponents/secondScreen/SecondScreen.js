@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import './SecondScreen.css'
+import styles from './SecondScreen.module.css'
 import { DoubleStarLogo } from '../../../../doubleStarLogo/DoubleStarLogo'
 import { Content } from '../../content/Content'
 
@@ -21,7 +21,7 @@ export class SecondScreen extends Component {
 
   render() {
     return (
-      <div className="entrypoint__second-screen">
+      <div className={styles.entrypoint__second_screen}>
         <div>
           <DoubleStarLogo />
         </div>

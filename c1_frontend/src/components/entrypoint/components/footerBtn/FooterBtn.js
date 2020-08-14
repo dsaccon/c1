@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './FooterBtn.css'
+import styles from './FooterBtn.module.css'
 
 export class FooterBtn extends Component {
   onClick = e => {
@@ -11,8 +11,8 @@ export class FooterBtn extends Component {
 
   render() {
     return (
-      <button className="footerBtn" onClick={this.onClick}>
-        <div className="footerBtn__text">{this.props.btnText}</div>
+      <button className={styles.footerBtn} onClick={this.onClick}>
+        <div className={styles.footerBtn__text}>{this.props.btnText}</div>
       </button>
     )
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import './Entrypoint.css'
+import styles from './Entrypoint.module.css'
 
 import { FooterBtn } from './components/footerBtn/FooterBtn'
 import { RootSwiper } from './components/swipeComponents/RootSwiper'
@@ -14,38 +14,42 @@ export class Entrypoint extends Component {
 
   state = { isBeginning: true, isEnd: false }
 
-  handleSlideSwap = slideState => {
+  handleSlideSwap = (slideState) => {
     this.setState(slideState)
   }
 
-  onNextClicked = e => {
+  onNextClicked = () => {
     this.child.current.toNextSlide()
   }
 
-  onPrevClicked = e => {
+  onPrevClicked = () => {
     this.child.current.toPrevSlide()
+  }
+
+  onLoginClicked = () => {
+    this.props.history.push('/login')
   }
 
   render() {
     return (
-      <div className="entrypoint">
-        <div className="entrypoint__bg">
-          <div className="entrypoint__bg__header">
+      <div className={styles.entrypoint}>
+        <div className={styles.entrypoint__bg}>
+          <div className={styles.entrypoint__bg__header}>
             <Header
               toHideBtn={this.state.isBeginning}
               onClick={this.onPrevClicked}
             />
           </div>
-          <div className="entrypoint__bg__main">
+          <div className={styles.entrypoint__bg__main}>
             <RootSwiper
               handleSlideSwap={this.handleSlideSwap}
               ref={this.child}
             />
           </div>
         </div>
-        <div className="entrypoint__footer">
+        <div className={styles.entrypoint__footer}>
           {this.state.isEnd ? (
-            <FooterBtn btnText={'log in'} />
+            <FooterBtn btnText={'log in'} onClick={this.onLoginClicked} />
           ) : (
             <FooterBtn btnText={'next'} onClick={this.onNextClicked} />
           )}

@@ -1,9 +1,9 @@
-.entrypoint__content {
+.content {
   margin-top: auto;
   margin-bottom: 120px;
 }
 
-.entrypoint__content__title {
+.content__title {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -14,7 +14,7 @@
   color: #ffffff;
 }
 
-.entrypoint__content__description {
+.content__description {
   width: 311px;
 
   font-family: Cantarell;
@@ -29,18 +29,18 @@
 }
 
 @media only screen and (max-height: 700px) {
-  .entrypoint__content {
+  .content {
     margin-bottom: 40px;
   }
 }
 
 @media only screen and (max-height: 640px) {
-  .entrypoint__content__title {
+  .content__title {
     font-size: 20px;
     line-height: 24px;
   }
 
-  .entrypoint__content__description {
+  .content__description {
     font-size: 15px;
     line-height: 19px;
   }

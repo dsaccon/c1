@@ -1,4 +1,4 @@
-.entrypoint__first-screen {
+.entrypoint__first_screen {
   height: 100%;
   display: flex;
   flex-wrap: wrap-reverse;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.entrypoint__first-screen__image {
+.entrypoint__first_screen__image {
   width: 345px;
 
   box-sizing: border-box;
@@ -15,7 +15,7 @@
 }
 
 @media only screen and (max-width: 360px) {
-  .entrypoint__first-screen__image {
+  .entrypoint__first_screen__image {
     width: 250px;
   }
 }

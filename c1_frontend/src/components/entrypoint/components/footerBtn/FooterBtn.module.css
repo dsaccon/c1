@@ -4,13 +4,11 @@
 
   border-radius: 6px;
 
-  border: none;
-  outline:none;
+  outline: none;
 }
 
 .footerBtn:focus {
-  border: none;
-  outline:none;
+  outline: none;
 }
 
 .footerBtn__text {

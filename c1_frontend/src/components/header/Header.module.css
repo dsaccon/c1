@@ -1,4 +1,4 @@
-.entrypoint__header {
+.header {
   width: 100%;
 
   margin-left: 16px;
@@ -8,11 +8,11 @@
   align-items: center;
 }
 
-.entrypoint__header__back-btn {
+.header__back_btn {
   position: absolute;
 }
 
-.entrypoint__header__logo {
+.header__logo {
   display: flex;
   width: 100%;
 
