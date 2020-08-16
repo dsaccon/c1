@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+
+import Button from '@material-ui/core/Button'
+
 import styles from './Footer.module.css'
 
 export class Footer extends Component {
@@ -12,9 +15,16 @@ export class Footer extends Component {
   render() {
     return (
       <div className={styles.footer}>
-        <button className={styles.footer__btn} onClick={this.onClick}>
-          <div className={styles.footer__btn__text}>{this.props.btnText}</div>
-        </button>
+        <Button
+          onClick={this.props.onClick}
+          classes={{
+            root: styles.footer__btn,
+            label: styles.footer__btn__text
+          }}
+          style={{ backgroundColor: '#e3e3e3' }}
+        >
+          {this.props.btnText}
+        </Button>
       </div>
     )
   }
