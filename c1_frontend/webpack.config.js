@@ -30,7 +30,19 @@ const PostCSSLoader = {
     sourceMap: false, // turned off as causes delay
     plugins: () => [
       autoprefixer({
-        browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9']
+        browser: [
+          '> 1%',
+          'ie >= 8',
+          'edge >= 15',
+          'ie_mob >= 10',
+          'ff >= 45',
+          'chrome >= 45',
+          'safari >= 7',
+          'opera >= 23',
+          'ios >= 7',
+          'android >= 4',
+          'bb >= 10'
+        ]
       })
     ]
   }

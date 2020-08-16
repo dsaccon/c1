@@ -5,8 +5,8 @@ import GoogleButton from 'react-google-button'
 
 import styles from './Login.module.css'
 import { Header } from '../header/Header'
-import { MyInput } from './components/Myinput/MyInput'
-import { LoginBtn } from './components/LoginBtn/LoginBtn'
+import { MyInput } from './components/myinput/MyInput'
+import { LoginBtn } from './components/loginBtn/LoginBtn'
 import { Breakline } from './components/breakline/Breakline'
 import { authorize } from './redux/action'
 
@@ -14,16 +14,7 @@ export class Login extends Component {
   constructor(props) {
     super(props)
     this.state = { email: '', password: '' }
-
-    console.log(this.props.store)
-
     this.handleChange = this.handleChange.bind(this)
-  }
-
-  componentDidMount() {
-    console.log(this.props.dispatch)
-    //now has access to data like this.props.something, which is from store
-    //now has access to dispatch actions like this.props.getSomething
   }
 
   handleChange = e => {
@@ -79,12 +70,15 @@ export class Login extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  console.log(dispatch)
+const mapStateToProps = state => {
+  console.log(state)
+  return {}
+}
 
+const mapDispatchToProps = dispatch => {
   return {
     authorize: (email, password) => dispatch(authorize(email, password))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

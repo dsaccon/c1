@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import './DoubleStarLogo.css'
 import styles from './DoubleStarLogo.module.css'
 import grey_star from './images/grey_star.svg'
 

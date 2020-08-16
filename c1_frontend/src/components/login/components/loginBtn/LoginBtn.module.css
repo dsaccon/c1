@@ -1,19 +1,27 @@
-.footerBtn {
-  width: 335px;
+.container {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  padding-left: 28px;
+  padding-right: 32px;
+}
+
+.login_btn {
+  width: 100%;
   height: 52px;
+  max-width: 315px;
 
+  border: 2px solid #e3e3e3;
   border-radius: 6px;
+}
 
+.login_btn:focus {
   outline: none;
 }
 
-.footerBtn:focus {
-  outline: none;
-}
-
-.footerBtn__text {
-  text-align: center;
-
+.login_btn__text {
   font-family: Cantarell;
   font-style: normal;
   font-weight: 500;
@@ -22,5 +30,6 @@
 
   letter-spacing: 0.05em;
   text-transform: capitalize;
+
   color: #000000;
 }

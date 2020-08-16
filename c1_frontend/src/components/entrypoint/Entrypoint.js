@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import styles from './Entrypoint.module.css'
 
-import { FooterBtn } from './components/footerBtn/FooterBtn'
+import { Footer } from './components/footerBtn/Footer'
 import { RootSwiper } from './components/swipeComponents/RootSwiper'
 import { Header } from '../header/Header'
 
@@ -14,7 +14,7 @@ export class Entrypoint extends Component {
 
   state = { isBeginning: true, isEnd: false }
 
-  handleSlideSwap = (slideState) => {
+  handleSlideSwap = slideState => {
     this.setState(slideState)
   }
 
@@ -47,13 +47,10 @@ export class Entrypoint extends Component {
             />
           </div>
         </div>
-        <div className={styles.entrypoint__footer}>
-          {this.state.isEnd ? (
-            <FooterBtn btnText={'log in'} onClick={this.onLoginClicked} />
-          ) : (
-            <FooterBtn btnText={'next'} onClick={this.onNextClicked} />
-          )}
-        </div>
+        <Footer
+          btnText={this.state.isEnd ? 'log in' : 'next'}
+          onClick={this.state.isEnd ? this.onLoginClicked : this.onNextClicked}
+        />
       </div>
     )
   }

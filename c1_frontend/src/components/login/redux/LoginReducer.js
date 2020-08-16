@@ -21,7 +21,8 @@ export const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthorizing: false,
-        authorized: false
+        authorized: false,
+        error: action.payload
       }
     default:
       return state
