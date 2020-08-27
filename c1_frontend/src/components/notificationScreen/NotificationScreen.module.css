@@ -1,0 +1,17 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+}
+
+.content {
+  width: 100%;
+  background: #f4f4f4;
+  flex: 1;
+}

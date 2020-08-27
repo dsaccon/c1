@@ -1,0 +1,25 @@
+.header {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding-left: 16px;
+  padding-right: 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  background: radial-gradient(
+    55.61% 85.51% at 49.87% 78.12%,
+    #464545 0%,
+    #1a1919 100%
+  );
+}
+
+.header__logo {
+  display: flex;
+  width: 100%;
+
+  justify-content: center;
+}

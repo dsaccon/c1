@@ -9,6 +9,9 @@
 # production
 /build
 
+# for locally https
+/dev_certs
+
 # misc
 .DS_Store
 .env.local

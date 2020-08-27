@@ -9,14 +9,16 @@ export class Header extends Component {
   render() {
     return (
       <div className={styles.header}>
-        {this.props.toHideBtn ? null : (
-          <div
-            onClick={this.props.onClick}
-            className={styles.header__back_btn}
-          >
-            <img src={backBtn} alt="" />
-          </div>
-        )}
+        <div
+          style={
+            this.props.toHideBtn
+              ? { visibility: 'hidden' }
+              : { visibility: 'visible' }
+          }
+          onClick={this.props.onClick}
+        >
+          <img src={backBtn} alt="" />
+        </div>
         <div className={styles.header__logo}>
           <img src={logo} alt="" />
         </div>

@@ -4,7 +4,7 @@ import styles from './Entrypoint.module.css'
 
 import { Footer } from './components/footerBtn/Footer'
 import { RootSwiper } from './components/swipeComponents/RootSwiper'
-import { Header } from '../header/Header'
+import { Header } from './components/header/Header'
 
 export class Entrypoint extends Component {
   constructor(props) {

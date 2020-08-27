@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import GoogleButton from 'react-google-button'
 
 import styles from './Login.module.css'
-import { Header } from '../header/Header'
+import { Header } from '../entrypoint/components/header/Header'
 import { MyInput } from './components/myinput/MyInput'
 import { LoginBtn } from './components/loginBtn/LoginBtn'
 import { Breakline } from './components/breakline/Breakline'
