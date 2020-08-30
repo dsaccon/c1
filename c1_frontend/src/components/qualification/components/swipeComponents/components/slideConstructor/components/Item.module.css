@@ -1,0 +1,41 @@
+.item {
+  display: flex;
+
+  box-sizing: border-box;
+  margin-bottom: 15px;
+
+  height: 48px;
+  width: 100%;
+
+  align-items: center;
+
+  background: #e3e3e3;
+  border: 1px solid #d3d3d3;
+
+  padding-left: 18px;
+} 
+
+.item:active > .item__text {
+  position: relative;
+  top: 1px;
+}
+
+.item__text {
+  font-family: Cantarell;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  text-transform: none;
+
+  color: #000000;
+}
+
+.ic_img {
+  margin-right: 23px;
+}
+
+.ic_selected {
+  margin-left: auto;
+  margin-right: 12px;
+}

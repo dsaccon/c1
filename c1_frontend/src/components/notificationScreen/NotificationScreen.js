@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
 import { Footer } from './components/footer/Footer'
-import { Header } from './components/headerLogoOnly/Header'
+import { Header } from '../headerLogoOnly/Header'
 import { Content } from './components/content/Content'
-import { SecondaryHeader } from './components/secondaryHeader/SecondaryHeader'
+import { SecondaryHeader } from '../secondaryHeader/SecondaryHeader'
 
 import styles from './NotificationScreen.module.css'
 
