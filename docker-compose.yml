@@ -8,9 +8,9 @@ services:
     restart: on-failure
     container_name: c1_backend
     build: ./c1_backend
-    command: bash -c "flask run --with-threads --host=0.0.0.0 --port=8000 --debugger"
+    command: bash -c "flask run --with-threads --host=0.0.0.0 --port=8001 --debugger"
     volumes: 
-      - ./backend:/app
+      - ./c1_backend:/app
     expose: ["8001"]
     ports: ["8001:8001"]
     env_file:
@@ -38,19 +38,18 @@ services:
       - ./data.sql.gz:/docker-entrypoint-initdb.d/data.sql.gz
       - ./:/app
 
-  c1_frontend:
-    build: ./c1_frontend/
-    container_name: c1_frontend
-    command: "npm start"
-    restart: on-failure
-    ports: ["8000:8000"]
-    environment:
-      - PORT=8000
-    env_file:
-      - env_vars
-    volumes:
-      - ./c1_frontend:/app
-      - /app/node_modules
-    networks:
-      - basic
-
+  #c1_frontend:
+  #  build: ./c1_frontend/
+  #  container_name: c1_frontend
+  #  command: "npm start"
+  #  restart: on-failure
+  #  ports: ["8000:8000"]
+  #  environment:
+  #    - PORT=8000
+  #  env_file:
+  #    - env_vars
+  #  volumes:
+  #    - ./c1_frontend:/app
+  #    - /app/node_modules
+  #  networks:
+  #    - basic
