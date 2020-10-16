@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Corrosion One Admin</title>
+  <!-- favicon -->
+  <link rel="icon" href="/static/favicon.ico" type="image/ico" />
+
+  <!-- global css -->
+  <link href="/static/css/global.css?{{ range(1, 9999) | random }}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {% include "headerincludes.html" %}
+      
+  <!-- font awesome -->
+  <script src="https://kit.fontawesome.com/4fe599acc3.js" crossorigin="anonymous"></script>
+
+  <!-- sorttable -->
+  <script src="/static/js/sorttable.js?{{ range(1, 9999) | random }}"></script>
+  <script src="/static/js/autoform.js?{{ range(1, 9999) | random }}"></script>
+
+  <!-- enable twitter bootstrap tooltips -->
+  <script>
+    $(document).ready(function () {
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    });
+  </script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark" id='navbar'>
+    <div class="navbar-collapse" id="navbarSupportedContent">
+      <a href='/' class='navbar-brand'><b>CorrosionOne</b></span>
+      </a>
+
+      <!-- this code shows the navbar hamburger on mobile -->
+      <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- actual navbar magic here -->
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item {{'active' if '/' in request.path}}">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+          </ul>
+        <!-- if logged in -->
+        {% if current_user %}
+        <ul class="navbar-nav pull-right dropdown">
+          <li class="nav-item dropdown pull-right" id="menu1">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#menu1">
+              {{current_user.name}} <i class='fas fa-caret'></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              {% if current_user.is_admin %}
+              <a href="/admin" class="dropdown-item">Admin</a>
+              {% endif %}
+              <a href="/logout" class="dropdown-item">Logout</a>
+            </div>
+          </li>
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class='container-fluid' style='margin-top: 10px'>
+    asdf
+    {% block content %}
+    {% endblock content %}
+  </div>
+</body>
+
+</html>
