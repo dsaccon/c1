@@ -2,3 +2,6 @@
 __pycache__
 
 env_vars_prod
+
+# For jetbrains ide
+.idea
