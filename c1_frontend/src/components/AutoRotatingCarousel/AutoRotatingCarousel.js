@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
+import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import { grey } from '@material-ui/core/colors'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Dots from 'material-ui-dots'
 import classNames from 'classnames'
 import Carousel from './SwipableCarouselView'
 import { modulo } from './util'
+import { IconButton } from "@material-ui/core";
 
 const styles = {
   root: {
@@ -29,6 +31,12 @@ const styles = {
   },
   arrowIcon: {
     color: grey[700]
+  },
+  backButton: {
+    position: 'absolute',
+    top: '20px',
+    zIndex: 1,
+    left: '10px',
   },
   carouselWrapper: {
     overflow: 'hidden',
@@ -124,7 +132,8 @@ class AutoRotatingCarousel extends Component {
       landscape: landscapeProp,
       mobile,
       open,
-      onStart
+      onStart,
+      backButton
     } = this.props
     const landscape = mobile && landscapeProp
     const hasMultipleChildren = children.length != null
@@ -229,7 +238,9 @@ AutoRotatingCarousel.propTypes = {
   /** Controls whether the AutoRotatingCarousel is opened or not. */
   open: PropTypes.bool,
   /** If `true`, the left and right arrows are hidden in the desktop version. */
-  hideArrows: PropTypes.bool
+  hideArrows: PropTypes.bool,
+  /** Back button to transition to previous slide **/
+  backButton: PropTypes.bool
 }
 
 export default withStyles(styles)(AutoRotatingCarousel)

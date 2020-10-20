@@ -1,9 +1,13 @@
 import React from 'react'
 import { Slide } from "material-auto-rotating-carousel";
-import { Button, makeStyles } from "@material-ui/core";
 import { CorrosionOneIconSvg } from "../../components/Icons/CorrosionOneIconSvg";
-import { CollectJobsSvg } from '../../components/Icons/CollectJobsSvg';
+// TODO this needs to be actual svg
+// import { CollectJobsSvg } from '../../components/Icons/CollectJobsSvg';
+import collectJobs from '../../components/Images/collectJobs.png';
 import AutoRotatingCarousel from "../../components/AutoRotatingCarousel/AutoRotatingCarousel";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   login: {
@@ -32,7 +36,7 @@ const useStyles = makeStyles({
   },
   footer: {
     display: 'flex',
-    height: '100px',
+    height: '10%',
     backgroundColor: '#296D8E'
   },
   button: {
@@ -40,7 +44,29 @@ const useStyles = makeStyles({
     width: '75%',
     font: 'Montserrat',
     backgroundColor: '#6DDA43',
-    color: 'white'
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#6DDA43'
+    },
+  },
+  collectJobsImage: {
+    width: '100%',
+  },
+  corrosionTitle: {
+    padding: '1.5rem 0',
+    fontWeight: 'bold',
+    fontSize: '2rem',
+    color: 'white',
+    '& span': {
+      color: '#6DDA43'
+    }
+  },
+  slideMedia: {
+    display: 'block',
+  },
+  slideTitle: {
+    fontSize: '1.125rem',
+    fontWeight: 800,
   }
 });
 
@@ -50,18 +76,31 @@ export const Login = () => {
   return (
     <div className={classes.login}>
       <AutoRotatingCarousel
+        backButton
         classes={{
           content: classes.content,
           carousel: classes.carousel
         }}
-        // mobile
         open
         autoplay={false}>
-        <Slide media={<CorrosionOneIconSvg className={classes.corrosionIcon}/>} />
-        <Slide media={<CollectJobsSvg />} alt="collect jobs"/>
-        <Slide media={<div>Screen 2</div>} />
-        <Slide media={<div>Screen 3</div>} />
-        <Slide media={<div>Screen 4</div>} />
+        <Slide media={<CorrosionOneIconSvg className={classes.corrosionIcon}/>}/>
+        <Slide
+          classes={{
+            media: classes.slideMedia,
+            title: classes.slideTitle,
+            subtitle: classes.slideSubtitle
+          }}
+           media={
+             <div>
+               <Typography className={classes.corrosionTitle}>CORROSION<span>ONE</span></Typography>
+               <img className={classes.collectJobsImage} src={collectJobs} alt="Collect Jobs"/>
+             </div>
+           }
+          title='All in the palm of your hand. '
+          subtitle='With global jobs right on your phone, you can easily fill your calendar and say goodbye to wasted time.' />
+        <Slide media={<div>Screen 2</div>}/>
+        <Slide media={<div>Screen 3</div>}/>
+        <Slide media={<div>Screen 4</div>}/>
       </AutoRotatingCarousel>
       <div className={classes.footer}>
         <Button className={classes.button} variant='contained'>LOG IN</Button>
