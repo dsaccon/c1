@@ -78,9 +78,9 @@ export const Login = () => {
       <div className={classes.formContent}>
         <TextInput fullWidth placeholder="username" />
         <TextInput fullWidth placeholder="password" />
-        <Button className={classes.loginButton} fullWidth>LOG IN</Button>
+        <Button size="large" className={classes.loginButton} fullWidth>LOG IN</Button>
         <Typography className={classes.or}>OR</Typography>
-        <Button className={classes.signUpButton} fullWidth>Sign up with Google</Button>
+        <Button size="large" className={classes.signUpButton} fullWidth>Sign up with Google</Button>
       </div>
     </div>
   )

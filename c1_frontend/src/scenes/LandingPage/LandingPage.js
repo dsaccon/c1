@@ -100,6 +100,7 @@ export const LandingPage = () => {
       </AutoRotatingCarousel>
       <div className={classes.footer}>
         <Button
+          size="large"
           className={classes.button}
           variant='contained'
           component={Link}
