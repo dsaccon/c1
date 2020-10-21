@@ -36,11 +36,10 @@ const useStyles = makeStyles({
   formContent: {
     display: 'flex',
     flexDirection: 'column',
-    padding: '1rem',
+    padding: '3rem',
     flexGrow: 1,
-    justifyContent: 'center',
     '& > *': {
-      marginBottom: '1rem'
+      marginBottom: '1.5rem'
     }
   },
   loginButton: {
@@ -59,6 +58,10 @@ const useStyles = makeStyles({
       backgroundColor: '#C9D7DD'
     },
   },
+  or: {
+    textAlign: 'center',
+    fontWeight: 'bold'
+  }
 });
 
 export const Login = () => {
@@ -76,7 +79,7 @@ export const Login = () => {
         <TextInput fullWidth placeholder="username" />
         <TextInput fullWidth placeholder="password" />
         <Button className={classes.loginButton} fullWidth>LOG IN</Button>
-        <Typography>OR</Typography>
+        <Typography className={classes.or}>OR</Typography>
         <Button className={classes.signUpButton} fullWidth>Sign up with Google</Button>
       </div>
     </div>
