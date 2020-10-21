@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
-import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import { grey } from '@material-ui/core/colors'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Dots from 'material-ui-dots'
 import classNames from 'classnames'
 import Carousel from './SwipableCarouselView'
 import { modulo } from './util'
-import { IconButton } from "@material-ui/core";
 
 const styles = {
   root: {
@@ -31,12 +29,6 @@ const styles = {
   },
   arrowIcon: {
     color: grey[700]
-  },
-  backButton: {
-    position: 'absolute',
-    top: '20px',
-    zIndex: 1,
-    left: '10px',
   },
   carouselWrapper: {
     overflow: 'hidden',
@@ -100,27 +92,27 @@ class AutoRotatingCarousel extends Component {
     }, this.onChange(slideIndex))
   }
 
-  decreaseIndex () {
+  decreaseIndex = () => {
     const slideIndex = this.state.slideIndex - 1
     this.setState({
       slideIndex
     }, this.onChange(slideIndex))
   }
 
-  increaseIndex () {
+  increaseIndex = () => {
     const slideIndex = this.state.slideIndex + 1
     this.setState({
       slideIndex
     }, this.onChange(slideIndex))
   }
 
-  onChange (slideIndex) {
+  onChange = (slideIndex) => {
     if (this.props.onChange) {
       this.props.onChange(modulo(slideIndex, this.props.children.length))
     }
   }
 
-  render () {
+  render() {
     const {
       autoplay,
       ButtonProps,
@@ -133,7 +125,6 @@ class AutoRotatingCarousel extends Component {
       mobile,
       open,
       onStart,
-      backButton
     } = this.props
     const landscape = mobile && landscapeProp
     const hasMultipleChildren = children.length != null
@@ -142,7 +133,7 @@ class AutoRotatingCarousel extends Component {
       <Carousel
         autoplay={open && autoplay && hasMultipleChildren}
         className={classes.carousel}
-        containerStyle={{ height: '100%', ...containerStyle }}
+        containerStyle={{height: '100%', ...containerStyle}}
         index={this.state.slideIndex}
         interval={interval}
         onChangeIndex={this.handleChange}
@@ -151,53 +142,54 @@ class AutoRotatingCarousel extends Component {
         {
           React.Children.map(children, c => React.cloneElement(c, {
             mobile,
-            landscape
+            landscape,
+            goToPreviousSlide: this.decreaseIndex
           }))
         }
       </Carousel>
     )
 
     return (
+      <div
+        className={classNames(classes.content, {
+          [classes.contentMobile]: mobile
+        })}
+        onClick={this.handleContentClick}
+      >
+        <Paper
+          elevation={mobile ? 0 : 1}
+          className={classes.carouselWrapper}>
+          {carousel}
+        </Paper>
+        <div style={landscape ? {minWidth: 300, maxWidth: 'calc(50% - 48px)', padding: 24, float: 'right'} : null}>
           <div
-            className={classNames(classes.content, {
-              [classes.contentMobile]: mobile
+            className={classNames(classes.footer, {
+              [classes.footerMobile]: mobile,
+              [classes.footerMobileLandscape]: landscape
             })}
-            onClick={this.handleContentClick}
           >
-            <Paper
-              elevation={mobile ? 0 : 1}
-              className={classes.carouselWrapper}>
-              {carousel}
-            </Paper>
-            <div style={landscape ? { minWidth: 300, maxWidth: 'calc(50% - 48px)', padding: 24, float: 'right' } : null}>
-              <div
-                className={classNames(classes.footer, {
-                  [classes.footerMobile]: mobile,
-                  [classes.footerMobileLandscape]: landscape
+            {label && <Button
+              variant='contained'
+              onClick={onStart}
+              {...ButtonProps}
+            >
+              {label}
+            </Button>}
+            {
+              hasMultipleChildren &&
+              <Dots
+                count={children.length}
+                index={modulo(this.state.slideIndex, children.length)}
+                className={classNames(classes.dots, {
+                  [classes.dotsMobile]: mobile,
+                  [classes.dotsMobileLandscape]: landscape
                 })}
-              >
-                {label && <Button
-                  variant='contained'
-                  onClick={onStart}
-                  {...ButtonProps}
-                >
-                  {label}
-                </Button>}
-                {
-                  hasMultipleChildren &&
-                  <Dots
-                    count={children.length}
-                    index={modulo(this.state.slideIndex, children.length)}
-                    className={classNames(classes.dots, {
-                      [classes.dotsMobile]: mobile,
-                      [classes.dotsMobileLandscape]: landscape
-                    })}
-                    onDotClick={this.handleChange}
-                  />
-                }
-              </div>
-            </div>
+                onDotClick={this.handleChange}
+              />
+            }
           </div>
+        </div>
+      </div>
     )
   }
 }
@@ -239,8 +231,6 @@ AutoRotatingCarousel.propTypes = {
   open: PropTypes.bool,
   /** If `true`, the left and right arrows are hidden in the desktop version. */
   hideArrows: PropTypes.bool,
-  /** Back button to transition to previous slide **/
-  backButton: PropTypes.bool
 }
 
 export default withStyles(styles)(AutoRotatingCarousel)
