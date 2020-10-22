@@ -1,50 +1,32 @@
-import React from 'react';
-import Typography from "@material-ui/core/Typography";
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 import Slide from "../../components/AutoRotatingCarousel/Slide";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { CorrosionOne } from "../../components/Icons/CorrosionOne";
 
 const useStyles = makeStyles({
-  slideMedia: {
-    display: 'block',
-  },
-  slideTitle: {
-    fontSize: '1.125rem',
-    fontWeight: 800,
-  },
-  corrosionTitle: {
-    padding: '1.5rem 0',
-    fontWeight: 'bold',
-    fontSize: '2rem',
-    color: 'white',
-    '& span': {
-      color: '#6DDA43'
-    }
+  corrosionOne: {
+    margin: ".75rem auto",
   },
 });
 
-export const LandingPageSlide = ({ title, subtitle, media }) => {
+export const LandingPageSlide = ({ title, subtitle, media, decreaseIndex }) => {
   const classes = useStyles();
 
   return (
     <Slide
+      decreaseIndex={decreaseIndex}
       backButton
-      classes={{
-        media: classes.slideMedia,
-        title: classes.slideTitle,
-      }}
-      header={
-        <Typography className={classes.corrosionTitle}>CORROSION<span>ONE</span></Typography>
-      }
+      header={<CorrosionOne className={classes.corrosionOne} />}
       media={media}
       title={title}
       subtitle={subtitle}
     />
-  )
+  );
 };
 
 LandingPageSlide.propTypes = {
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  media: PropTypes.node
-}
+  title: PropTypes.node,
+  subtitle: PropTypes.node,
+  media: PropTypes.node,
+};

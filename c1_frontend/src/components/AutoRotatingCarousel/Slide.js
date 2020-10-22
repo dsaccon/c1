@@ -1,102 +1,39 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Typography from '@material-ui/core/Typography'
-import blue from '@material-ui/core/colors/blue'
-import withStyles from '@material-ui/core/styles/withStyles'
-import classNames from 'classnames'
+import React from "react";
+import PropTypes from "prop-types";
+import withStyles from "@material-ui/core/styles/withStyles";
 import { IconButton } from "@material-ui/core";
 import ArrowLeft from "@material-ui/icons/ArrowLeft";
+import { ScalableTypography } from "../Typography/ScalableTypography";
 
 const styles = {
   root: {
-    backgroundColor: blue[500],
-    height: '100%'
-  },
-  rootMobileLandscape: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  media: {
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '& > *': {
-      maxHeight: '100%'
-    }
-  },
-  mediaMobile: {
-    position: 'relative',
-    top: '50%',
-    transform: 'translateY(-50%)'
-  },
-  mediaMobileLandscape: {},
-  mediaBackground: {
-    backgroundColor: blue[700],
-    height: 'calc(100% - 216px)',
-    textAlign: 'center'
-  },
-  mediaBackgroundMobile: {
-    height: 'calc(100% - 241px)'
-  },
-  mediaBackgroundMobileLandscape: {
-    height: '100%',
-    flex: '1 1',
-    alignSelf: 'stretch'
-  },
-  text: {
-    textAlign: 'center',
-    maxWidth: '80%',
-    margin: '0 auto',
-    paddingTop: 32
-  },
-  textMobile: {
-    paddingTop: 30,
-    '& $title': {
-      marginBottom: 8
-    }
-  },
-  textMobileLandscape: {
-    minWidth: 300,
-    maxWidth: 'calc(50% - 48px)',
-    padding: '24px 24px 128px',
-    flex: '0 1',
-    alignSelf: 'center',
-    textAlign: 'left',
-    margin: 0
-  },
-  title: {
-    fontSize: '24px',
-    fontWeight: 700,
-    lineHeight: '32px',
-    marginBottom: 12,
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    color: '#fff'
-  },
-  subtitle: {
-    fontSize: '15px',
-    fontWeight: 400,
-    lineHeight: '18px',
-    margin: 0,
-    color: '#fff'
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   header: {
-    display: 'flex'
+    display: "flex",
   },
   backButton: {
-    color: '#6DDA43',
-    marginRight: '2rem'
+    position: "absolute",
+    margin: 0,
+    padding: ".2rem .5rem",
   },
-  // arrowLeft: {
-  //   height: '2rem',
-  //   width: '2rem',
-  // }
-}
+  textHolder: {
+    textAlign: "center",
+    margin: "auto",
+    padding: "0 2rem",
+  },
+  title: {
+    marginBottom: "1.5rem",
+  },
+  arrowLeft: {
+    height: "3rem",
+    width: "3rem",
+  },
+};
 
-function Slide (props) {
+const Slide = (props) => {
   const {
     classes,
     media,
@@ -108,63 +45,35 @@ function Slide (props) {
     backButton,
     goToPreviousSlide,
     header,
+    decreaseIndex,
     ...other
-  } = props
-
-  const mobileLandscape = mobile && landscape
+  } = props;
 
   return (
-    <div
-      className={classNames(classes.root, {
-        [classes.rootMobile]: mobile,
-        [classes.rootMobileLandscape]: mobileLandscape
-      })}
-      {...other}
-    >
-      <div
-        className={classNames(classes.mediaBackground, {
-          [classes.mediaBackgroundMobile]: mobile,
-          [classes.mediaBackgroundMobileLandscape]: mobileLandscape
-        })}
-        style={mediaBackgroundStyle}
-      >
-        <div className={classNames(classes.media, {
-          [classes.mediaMobile]: mobile,
-          [classes.mediaMobileLandscape]: mobileLandscape
-        })}>
-          <div className={classes.header}>
-            { backButton && (
-              <IconButton
-                size='medium'
-                onClick={goToPreviousSlide}
-                className={classes.backButton}
-              >
-                <ArrowLeft className={classes.arrowLeft}/>
-              </IconButton>
-            )}
-            { header }
-          </div>
-          {media}
-        </div>
+    <div className={classes.root} {...other}>
+      <div className={classes.header}>
+        {backButton && (
+          <IconButton
+            color="primary"
+            size="medium"
+            onClick={decreaseIndex}
+            className={classes.backButton}
+          >
+            <ArrowLeft className={classes.arrowLeft} />
+          </IconButton>
+        )}
+        {header}
       </div>
-      <div
-        className={classNames(classes.text, {
-          [classes.textMobile]: mobile,
-          [classes.textMobileLandscape]: mobileLandscape
-        })}
-      >
-        <div>
-          <Typography className={classes.title}>
-            {title}
-          </Typography>
-        </div>
-        <Typography className={classes.subtitle}>
-          {subtitle}
-        </Typography>
+      {media}
+      <div className={classes.textHolder}>
+        <ScalableTypography className={classes.title} sizing="title">
+          {title}
+        </ScalableTypography>
+        <ScalableTypography>{subtitle}</ScalableTypography>
       </div>
     </div>
-  )
-}
+  );
+};
 
 Slide.propTypes = {
   /**
@@ -200,7 +109,7 @@ Slide.propTypes = {
   /**
    * Back button
    * @ignore
-  */
+   */
   backButton: PropTypes.bool,
   /**
    * Function to go to previous slide
@@ -211,7 +120,7 @@ Slide.propTypes = {
    *
    * @ignore
    */
-  header: PropTypes.node
-}
+  header: PropTypes.node,
+};
 
-export default withStyles(styles)(Slide)
+export default withStyles(styles)(Slide);
