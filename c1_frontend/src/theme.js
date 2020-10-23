@@ -19,8 +19,16 @@ export const theme = createMuiTheme({
       default: "#F4F4F4",
     },
   },
+  typography: {
+    fontFamily: ["Montserrat", "sans-serif"].join(","),
+  },
   overrides: {
     MuiButton: {
+      root: {
+        maxWidth: "30rem",
+      },
+    },
+    MuiInputBase: {
       root: {
         maxWidth: "30rem",
       },

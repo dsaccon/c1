@@ -21,7 +21,7 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
   formContent: {
     display: "flex",
     flexDirection: "column",
-    padding: spacing(4),
+    padding: "10%",
     flexGrow: 1,
     "& > *": {
       marginBottom: spacing(3),
