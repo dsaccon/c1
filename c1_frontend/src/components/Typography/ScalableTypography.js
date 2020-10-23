@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles({
   header: {
     fontSize: "3.5vh",
-    fontWeight: 700,
+    fontWeight: 800,
   },
   title: {
     fontSize: "2.5vh",

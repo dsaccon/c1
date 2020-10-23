@@ -3,21 +3,10 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { TextInput } from "../../components/Form/TextInput";
 import { Button } from "@material-ui/core";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
-import { CorrosionOne } from "../../components/Icons/CorrosionOne";
+import { Header } from "../../components/Header/Header";
+import { Subheader } from "../../components/Subheader/Subheader";
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
-  corrosionOne: {
-    padding: spacing(2, 0),
-  },
-  header: {
-    backgroundColor: palette.secondary.dark,
-    textAlign: "center",
-  },
-  subHeader: {
-    backgroundColor: palette.secondary.main,
-    textAlign: "center",
-    padding: spacing(1),
-  },
   formContent: {
     display: "flex",
     flexDirection: "column",
@@ -39,12 +28,8 @@ export const Login = () => {
 
   return (
     <>
-      <div className={classes.header}>
-        <CorrosionOne className={classes.corrosionOne} />
-      </div>
-      <div className={classes.subHeader}>
-        <ScalableTypography sizing="title">YOUR ACCOUNT</ScalableTypography>
-      </div>
+      <Header />
+      <Subheader text="YOUR ACCOUNT" />
       <div className={classes.formContent}>
         <TextInput fullWidth placeholder="username" />
         <TextInput fullWidth placeholder="password" />

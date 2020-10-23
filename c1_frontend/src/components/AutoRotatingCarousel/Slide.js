@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { IconButton } from "@material-ui/core";
-import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import { ScalableTypography } from "../Typography/ScalableTypography";
 import { CarouselContext } from "./AutoRotatingCarousel";
+import { BackButton } from "../BackButton/BackButton";
 
 const styles = {
   root: {
@@ -15,11 +14,6 @@ const styles = {
   header: {
     display: "flex",
   },
-  backButton: {
-    position: "absolute",
-    margin: 0,
-    padding: ".2rem .5rem",
-  },
   textHolder: {
     textAlign: "center",
     margin: "auto",
@@ -27,10 +21,6 @@ const styles = {
   },
   title: {
     marginBottom: "1.5rem",
-  },
-  arrowLeft: {
-    height: "3rem",
-    width: "3rem",
   },
 };
 
@@ -55,16 +45,7 @@ const Slide = (props) => {
       {({ goToPreviousSlide }) => (
         <div className={classes.root} {...other}>
           <div className={classes.header}>
-            {backButton && (
-              <IconButton
-                color="primary"
-                size="medium"
-                onClick={goToPreviousSlide}
-                className={classes.backButton}
-              >
-                <ArrowLeft className={classes.arrowLeft} />
-              </IconButton>
-            )}
+            {backButton && <BackButton onClick={goToPreviousSlide} />}
             {header}
           </div>
           {media}

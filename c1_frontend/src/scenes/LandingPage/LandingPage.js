@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import Slide from "../../components/AutoRotatingCarousel/Slide";
 import { LandingPageSlide } from "./LandingPageSlide";
 import { Link } from "react-router-dom";
+import { Footer } from "../../components/Footer/Footer";
 
 const useStyles = makeStyles(({ palette }) => ({
   content: {
@@ -21,10 +22,7 @@ const useStyles = makeStyles(({ palette }) => ({
     transform: "none",
   },
   carousel: {
-    "& div": {
-      backgroundColor: `${palette.secondary.dark} !important`,
-      position: "static",
-    },
+    backgroundColor: palette.secondary.dark,
   },
   corrosionIcon: {
     height: "75%",
@@ -33,14 +31,8 @@ const useStyles = makeStyles(({ palette }) => ({
     maxHeight: "40rem",
     margin: "10% auto 0",
   },
-  footer: {
-    display: "flex",
-    height: "10%",
-    backgroundColor: palette.secondary.main,
-  },
   button: {
     margin: "auto",
-    width: "75%",
   },
   mediaImage: {
     width: "100%",
@@ -100,18 +92,19 @@ export const LandingPage = () => {
           subtitle="Employers can easily see your qualifications and offer you work. Let your certifications do the talking!"
         />
       </AutoRotatingCarousel>
-      <div className={classes.footer}>
+      <Footer>
         <Button
+          className={classes.button}
           color="primary"
           size="large"
-          className={classes.button}
           variant="contained"
           component={Link}
           to="/login"
+          fullWidth
         >
           LOG IN
         </Button>
-      </div>
+      </Footer>
     </>
   );
 };
