@@ -10,12 +10,11 @@ const useStyles = makeStyles({
   },
 });
 
-export const LandingPageSlide = ({ title, subtitle, media, decreaseIndex }) => {
+export const LandingPageSlide = ({ title, subtitle, media }) => {
   const classes = useStyles();
 
   return (
     <Slide
-      decreaseIndex={decreaseIndex}
       backButton
       header={<CorrosionOne className={classes.corrosionOne} />}
       media={media}

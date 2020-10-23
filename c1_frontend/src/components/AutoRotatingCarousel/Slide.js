@@ -4,6 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { IconButton } from "@material-ui/core";
 import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import { ScalableTypography } from "../Typography/ScalableTypography";
+import { CarouselContext } from "./AutoRotatingCarousel";
 
 const styles = {
   root: {
@@ -50,28 +51,32 @@ const Slide = (props) => {
   } = props;
 
   return (
-    <div className={classes.root} {...other}>
-      <div className={classes.header}>
-        {backButton && (
-          <IconButton
-            color="primary"
-            size="medium"
-            onClick={decreaseIndex}
-            className={classes.backButton}
-          >
-            <ArrowLeft className={classes.arrowLeft} />
-          </IconButton>
-        )}
-        {header}
-      </div>
-      {media}
-      <div className={classes.textHolder}>
-        <ScalableTypography className={classes.title} sizing="title">
-          {title}
-        </ScalableTypography>
-        <ScalableTypography>{subtitle}</ScalableTypography>
-      </div>
-    </div>
+    <CarouselContext.Consumer>
+      {({ goToPreviousSlide }) => (
+        <div className={classes.root} {...other}>
+          <div className={classes.header}>
+            {backButton && (
+              <IconButton
+                color="primary"
+                size="medium"
+                onClick={goToPreviousSlide}
+                className={classes.backButton}
+              >
+                <ArrowLeft className={classes.arrowLeft} />
+              </IconButton>
+            )}
+            {header}
+          </div>
+          {media}
+          <div className={classes.textHolder}>
+            <ScalableTypography className={classes.title} sizing="title">
+              {title}
+            </ScalableTypography>
+            <ScalableTypography>{subtitle}</ScalableTypography>
+          </div>
+        </div>
+      )}
+    </CarouselContext.Consumer>
   );
 };
 
@@ -111,11 +116,6 @@ Slide.propTypes = {
    * @ignore
    */
   backButton: PropTypes.bool,
-  /**
-   * Function to go to previous slide
-   * @ignore
-   */
-  goToPreviousSlide: PropTypes.func,
   /**
    *
    * @ignore

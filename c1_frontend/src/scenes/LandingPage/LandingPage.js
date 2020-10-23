@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { CorrosionOneIconSvg } from "../../components/Icons/CorrosionOneIconSvg";
 import collectJobs from "../../components/Images/collectJobs.png";
 import network from "../../components/Images/network.png";
@@ -51,27 +51,10 @@ const useStyles = makeStyles(({ palette }) => ({
 
 export const LandingPage = () => {
   const classes = useStyles();
-  const [slideIndex, setSlideIndex] = useState(0);
-
-  const handleChange = (slideIndex) => {
-    setSlideIndex(slideIndex);
-  };
-
-  const decreaseIndex = () => {
-    let nextSlideIndex = slideIndex - 1;
-    setSlideIndex(nextSlideIndex);
-  };
-
-  // const increaseIndex = () => {
-  //   const nextSlideIndex = slideIndex + 1
-  //   setSlideIndex(nextSlideIndex);
-  // }
 
   return (
     <>
       <AutoRotatingCarousel
-        handleChange={handleChange}
-        slideIndex={slideIndex}
         backButton
         classes={{
           content: classes.content,
@@ -84,7 +67,6 @@ export const LandingPage = () => {
           media={<CorrosionOneIconSvg className={classes.corrosionIcon} />}
         />
         <LandingPageSlide
-          decreaseIndex={decreaseIndex}
           media={
             <img
               className={classes.mediaImage}
@@ -96,7 +78,6 @@ export const LandingPage = () => {
           subtitle="With global jobs right on your phone, you can easily fill your calendar and say goodbye to wasted time."
         />
         <LandingPageSlide
-          decreaseIndex={decreaseIndex}
           media={
             <img
               className={classes.mediaImage}
@@ -108,7 +89,6 @@ export const LandingPage = () => {
           subtitle="It’ll never corrode or go out of style. Forge relationships with top coatings specialists and boost your career."
         />
         <LandingPageSlide
-          decreaseIndex={decreaseIndex}
           media={
             <img
               className={classes.mediaImage}

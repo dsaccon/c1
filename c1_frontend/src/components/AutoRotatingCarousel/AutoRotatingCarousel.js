@@ -5,7 +5,6 @@ import Paper from "@material-ui/core/Paper";
 import { grey } from "@material-ui/core/colors";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Dots from "material-ui-dots";
-import classNames from "classnames";
 import Carousel from "./SwipableCarouselView";
 import { modulo } from "./util";
 
@@ -42,32 +41,13 @@ const styles = {
     paddingTop: 24,
     margin: "0 auto",
   },
-  dotsMobile: {
-    paddingTop: 0,
-  },
-  dotsMobileLandscape: {
-    paddingTop: 20,
-  },
   footer: {
     marginTop: -72,
     width: "100%",
     position: "relative",
     textAlign: "center",
   },
-  footerMobile: {
-    marginTop: -92,
-  },
-  footerMobileLandscape: {
-    marginTop: -3,
-    transform: "translateY(-50vh)",
-    display: "inline-block",
-    width: "auto",
-  },
   slide: {
-    width: "100%",
-    height: "100%",
-  },
-  slideMobile: {
     width: "100%",
     height: "100%",
   },
@@ -80,6 +60,8 @@ const styles = {
   closed: {},
 };
 
+export const CarouselContext = React.createContext();
+
 class AutoRotatingCarousel extends Component {
   state = {
     slideIndex: 0,
@@ -90,6 +72,12 @@ class AutoRotatingCarousel extends Component {
   handleChange = (slideIndex) => {
     this.setState({
       slideIndex,
+    });
+  };
+
+  goToPreviousSlide = () => {
+    this.setState({
+      slideIndex: this.state.slideIndex - 1,
     });
   };
 
@@ -106,11 +94,10 @@ class AutoRotatingCarousel extends Component {
       mobile,
       open,
       onStart,
-      handleChange,
-      slideIndex,
     } = this.props;
     const landscape = mobile && landscapeProp;
     const hasMultipleChildren = children.length != null;
+    const { slideIndex } = this.state;
 
     const carousel = (
       <Carousel
@@ -119,7 +106,7 @@ class AutoRotatingCarousel extends Component {
         containerStyle={{ height: "100%", ...containerStyle }}
         index={slideIndex}
         interval={interval}
-        onChangeIndex={handleChange}
+        onChangeIndex={this.handleChange}
         slideClassName={classes.slide}
       >
         {React.Children.map(children, (c) =>
@@ -132,52 +119,43 @@ class AutoRotatingCarousel extends Component {
     );
 
     return (
-      <div
-        className={classNames(classes.content, {
-          [classes.contentMobile]: mobile,
-        })}
-        onClick={this.handleContentClick}
+      <CarouselContext.Provider
+        value={{ goToPreviousSlide: this.goToPreviousSlide }}
       >
-        <Paper elevation={mobile ? 0 : 1} className={classes.carouselWrapper}>
-          {carousel}
-        </Paper>
-        <div
-          style={
-            landscape
-              ? {
-                  minWidth: 300,
-                  maxWidth: "calc(50% - 48px)",
-                  padding: 24,
-                  float: "right",
-                }
-              : null
-          }
-        >
+        <div className={classes.content} onClick={this.handleContentClick}>
+          <Paper elevation={mobile ? 0 : 1} className={classes.carouselWrapper}>
+            {carousel}
+          </Paper>
           <div
-            className={classNames(classes.footer, {
-              [classes.footerMobile]: mobile,
-              [classes.footerMobileLandscape]: landscape,
-            })}
+            style={
+              landscape
+                ? {
+                    minWidth: 300,
+                    maxWidth: "calc(50% - 48px)",
+                    padding: 24,
+                    float: "right",
+                  }
+                : null
+            }
           >
-            {label && (
-              <Button variant="contained" onClick={onStart} {...ButtonProps}>
-                {label}
-              </Button>
-            )}
-            {hasMultipleChildren && (
-              <Dots
-                count={children.length}
-                index={modulo(slideIndex, children.length)}
-                className={classNames(classes.dots, {
-                  [classes.dotsMobile]: mobile,
-                  [classes.dotsMobileLandscape]: landscape,
-                })}
-                onDotClick={handleChange}
-              />
-            )}
+            <div className={classes.footer}>
+              {label && (
+                <Button variant="contained" onClick={onStart} {...ButtonProps}>
+                  {label}
+                </Button>
+              )}
+              {hasMultipleChildren && (
+                <Dots
+                  count={children.length}
+                  index={modulo(slideIndex, children.length)}
+                  className={classes.dots}
+                  onDotClick={this.handleChange}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </CarouselContext.Provider>
     );
   }
 }
