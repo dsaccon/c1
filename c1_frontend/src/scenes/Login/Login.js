@@ -5,21 +5,16 @@ import { Button } from "@material-ui/core";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
 import { Header } from "../../components/Header/Header";
 import { Subheader } from "../../components/Subheader/Subheader";
+import { Link } from "react-router-dom";
+import { Content } from "../../components/Content/Content";
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
-  formContent: {
-    display: "flex",
-    flexDirection: "column",
-    padding: "10%",
-    flexGrow: 1,
-    "& > *": {
-      marginBottom: spacing(3),
-    },
-    alignItems: "center",
-  },
   signUpButton: {
     backgroundColor: palette.secondary.light,
     color: palette.secondary.dark,
+  },
+  or: {
+    alignSelf: "center",
   },
 }));
 
@@ -30,13 +25,17 @@ export const Login = () => {
     <>
       <Header />
       <Subheader text="YOUR ACCOUNT" />
-      <div className={classes.formContent}>
+      <Content>
         <TextInput fullWidth placeholder="username" />
         <TextInput fullWidth placeholder="password" />
         <Button variant="contained" color="primary" size="large" fullWidth>
           LOG IN
         </Button>
-        <ScalableTypography sizing="title" color="textSecondary">
+        <ScalableTypography
+          className={classes.or}
+          sizing="title"
+          color="textSecondary"
+        >
           OR
         </ScalableTypography>
         <Button
@@ -44,10 +43,13 @@ export const Login = () => {
           variant="contained"
           size="large"
           fullWidth
+          to="/registration"
+          component={Link}
         >
           Sign up with Google
         </Button>
-      </div>
+      </Content>
+      >
     </>
   );
 };

@@ -92,7 +92,6 @@ class AutoRotatingCarousel extends Component {
       label,
       landscape: landscapeProp,
       mobile,
-      open,
       onStart,
     } = this.props;
     const landscape = mobile && landscapeProp;
@@ -101,7 +100,7 @@ class AutoRotatingCarousel extends Component {
 
     const carousel = (
       <Carousel
-        autoplay={open && autoplay && hasMultipleChildren}
+        autoplay={autoplay && hasMultipleChildren}
         className={classes.carousel}
         containerStyle={{ height: "100%", ...containerStyle }}
         index={slideIndex}
@@ -163,8 +162,6 @@ class AutoRotatingCarousel extends Component {
 AutoRotatingCarousel.defaultProps = {
   autoplay: true,
   interval: 3000,
-  mobile: false,
-  open: false,
   hideArrows: false,
 };
 
@@ -191,8 +188,6 @@ AutoRotatingCarousel.propTypes = {
   onClose: PropTypes.func,
   /** Fired when the user clicks the getting started button. */
   onStart: PropTypes.func,
-  /** Controls whether the AutoRotatingCarousel is opened or not. */
-  open: PropTypes.bool,
   /** If `true`, the left and right arrows are hidden in the desktop version. */
   hideArrows: PropTypes.bool,
 };

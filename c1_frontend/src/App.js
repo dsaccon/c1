@@ -3,6 +3,7 @@ import { LandingPage } from "./scenes/LandingPage/LandingPage";
 import { Switch, Route } from "react-router-dom";
 import { Login } from "./scenes/Login/Login";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { Registration } from "./scenes/Registration/Registration";
 
 const useStyles = makeStyles({
   app: {
@@ -23,6 +24,9 @@ const App = () => {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/registration">
+          <Registration />
         </Route>
         <Route path="/">
           <LandingPage />

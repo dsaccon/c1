@@ -47,12 +47,10 @@ export const LandingPage = () => {
   return (
     <>
       <AutoRotatingCarousel
-        backButton
         classes={{
           content: classes.content,
           carousel: classes.carousel,
         }}
-        open
         autoplay={false}
       >
         <Slide

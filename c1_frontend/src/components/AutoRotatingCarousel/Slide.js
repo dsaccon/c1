@@ -37,6 +37,7 @@ const Slide = (props) => {
     goToPreviousSlide,
     header,
     decreaseIndex,
+    classOverrides,
     ...other
   } = props;
 
@@ -45,7 +46,12 @@ const Slide = (props) => {
       {({ goToPreviousSlide }) => (
         <div className={classes.root} {...other}>
           <div className={classes.header}>
-            {backButton && <BackButton onClick={goToPreviousSlide} />}
+            {backButton && (
+              <BackButton
+                className={classOverrides.backButton}
+                onClick={goToPreviousSlide}
+              />
+            )}
             {header}
           </div>
           {media}
