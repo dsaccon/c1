@@ -28,6 +28,10 @@ export const theme = createMuiTheme({
       root: {
         maxWidth: "30rem",
       },
+      contained: {
+        backgroundColor: "#C9D7DD",
+        color: "#274253",
+      },
     },
     MuiInputBase: {
       root: {

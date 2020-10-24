@@ -3,31 +3,43 @@ import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-const contentStyling = {
-  display: "flex",
-  flexDirection: "column",
-  padding: "10%",
-  flexGrow: 1,
-};
-
 const useStyles = makeStyles(({ spacing }) => ({
-  content: contentStyling,
-  contentAutoSpacing: {
-    ...contentStyling,
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: 1,
+  },
+  autoSpacing: {
     "& > *": {
       marginBottom: spacing(3),
     },
   },
+  padding: {
+    padding: "10%",
+  },
 }));
 
-export const Content = ({ className, autoSpacing, children, ...props }) => {
+export const Content = ({
+  className,
+  autoSpacing,
+  padding,
+  children,
+  ...props
+}) => {
   const classes = useStyles();
-  const contentClass = autoSpacing
-    ? classes.contentAutoSpacing
-    : classes.content;
 
   return (
-    <div className={classNames(contentClass, className)} {...props}>
+    <div
+      className={classNames(
+        classes.content,
+        {
+          [classes.autoSpacing]: autoSpacing,
+          [classes.padding]: padding,
+        },
+        className
+      )}
+      {...props}
+    >
       {children}
     </div>
   );
@@ -35,8 +47,10 @@ export const Content = ({ className, autoSpacing, children, ...props }) => {
 
 Content.propTypes = {
   autoSpacing: PropTypes.bool,
+  padding: PropTypes.bool,
 };
 
 Content.defaultProps = {
   autoSpacing: true,
+  padding: true,
 };

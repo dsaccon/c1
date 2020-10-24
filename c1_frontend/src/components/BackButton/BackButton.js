@@ -4,17 +4,16 @@ import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import { IconButton } from "@material-ui/core";
 import classNames from "classnames";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(({ spacing }) => ({
   backButton: {
     position: "absolute",
-    margin: 0,
-    padding: ".2rem .5rem",
+    padding: 0,
   },
   arrowLeft: {
-    height: "3rem",
-    width: "3rem",
+    height: "7.5vh",
+    width: "7.5vh",
   },
-});
+}));
 
 export const BackButton = ({ className, ...props }) => {
   const classes = useStyles();

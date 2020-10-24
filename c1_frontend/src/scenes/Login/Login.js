@@ -9,10 +9,6 @@ import { Link } from "react-router-dom";
 import { Content } from "../../components/Content/Content";
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
-  signUpButton: {
-    backgroundColor: palette.secondary.light,
-    color: palette.secondary.dark,
-  },
   or: {
     alignSelf: "center",
   },
@@ -39,7 +35,6 @@ export const Login = () => {
           OR
         </ScalableTypography>
         <Button
-          className={classes.signUpButton}
           variant="contained"
           size="large"
           fullWidth

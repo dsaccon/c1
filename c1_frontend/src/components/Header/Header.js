@@ -4,20 +4,22 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import classNames from "classnames";
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
-  corrosionOne: {
-    padding: spacing(2, 0),
-  },
   header: {
     backgroundColor: palette.secondary.dark,
-    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+  },
+  corrosionOne: {
+    alignSelf: "center",
   },
 }));
 
-export const Header = ({ className, children, ...props }) => {
+export const Header = ({ backButton, className, children, ...props }) => {
   const classes = useStyles();
 
   return (
     <div className={classNames(classes.header, className)} {...props}>
+      {backButton}
       <CorrosionOne className={classes.corrosionOne} />
       {children}
     </div>

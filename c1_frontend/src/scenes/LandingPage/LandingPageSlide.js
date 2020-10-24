@@ -1,31 +1,36 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Slide from "../../components/AutoRotatingCarousel/Slide";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import { CorrosionOne } from "../../components/Icons/CorrosionOne";
+import { Content } from "../../components/Content/Content";
+import { CarouselBackButton } from "../../components/AutoRotatingCarousel/CarouselBackButton";
+import { Header } from "../../components/Header/Header";
+import { ScalableTypography } from "../../components/Typography/ScalableTypography";
+import { CarouselDots } from "../../components/AutoRotatingCarousel/CarouselDots";
 
 const useStyles = makeStyles({
-  corrosionOne: {
-    margin: ".75rem auto",
+  content: {
+    height: "100%",
+  },
+  textHolder: {
+    textAlign: "center",
   },
 });
 
-export const LandingPageSlide = ({ title, subtitle, media }) => {
+export const LandingPageSlide = ({ media, title, subtitle }) => {
   const classes = useStyles();
 
   return (
-    <Slide
-      backButton
-      header={<CorrosionOne className={classes.corrosionOne} />}
-      media={media}
-      title={title}
-      subtitle={subtitle}
-    />
+    <Content className={classes.content} padding={false} autoSpacing={false}>
+      <Header backButton={<CarouselBackButton />} />
+      {media}
+      <Content className={classes.textHolder}>
+        <ScalableTypography className={classes.title} sizing="title">
+          {title}
+        </ScalableTypography>
+        <ScalableTypography>{subtitle}</ScalableTypography>
+        <CarouselDots />
+      </Content>
+    </Content>
   );
 };
 
-LandingPageSlide.propTypes = {
-  title: PropTypes.node,
-  subtitle: PropTypes.node,
-  media: PropTypes.node,
-};
+LandingPageSlide.propTypes = {};

@@ -1,60 +1,38 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import Slide from "../../components/AutoRotatingCarousel/Slide";
 import { Content } from "../../components/Content/Content";
 import { Header } from "../../components/Header/Header";
 import { Subheader } from "../../components/Subheader/Subheader";
-import { Footer } from "../../components/Footer/Footer";
-import Button from "@material-ui/core/Button";
+import { CarouselBackButton } from "../../components/AutoRotatingCarousel/CarouselBackButton";
+import classNames from "classnames";
 
 const useStyles = makeStyles({
-  slide: {
-    display: "flex",
-    flexDirection: "column",
+  content: {
     height: "100vh",
-  },
-  header: {
-    width: "100%",
-  },
-  backButton: {
-    marginTop: ".55rem",
   },
 });
 
 export const RegistrationSlide = ({
+  className,
   subheaderText,
   media,
   children,
+  backButton,
   ...props
 }) => {
   const classes = useStyles();
+  const button = backButton ? <CarouselBackButton /> : null;
 
   return (
-    <Slide
-      classOverrides={{
-        backButton: classes.backButton,
-      }}
-      className={classes.slide}
-      backButton
-      header={<Header className={classes.header} />}
-      media={
-        <>
-          <Subheader text={subheaderText} />
-          <Content>{children}</Content>
-          <Footer>
-            <Button
-              className={classes.button}
-              color="primary"
-              size="large"
-              variant="contained"
-              fullWidth
-            >
-              Next
-            </Button>
-          </Footer>
-        </>
-      }
+    <Content
+      className={classNames(classes.content, className)}
+      padding={false}
+      autoSpacing={false}
       {...props}
-    />
+    >
+      <Header backButton={button} />
+      <Subheader text={subheaderText} />
+      {children}
+    </Content>
   );
 };
