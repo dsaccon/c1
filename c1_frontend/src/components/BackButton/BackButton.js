@@ -18,7 +18,6 @@ const useStyles = makeStyles({
 
 export const BackButton = ({ className, ...props }) => {
   const classes = useStyles();
-  console.log("CLASSNAME: ", className);
 
   return (
     <IconButton

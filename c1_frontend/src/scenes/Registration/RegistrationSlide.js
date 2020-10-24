@@ -5,7 +5,6 @@ import { Content } from "../../components/Content/Content";
 import { Header } from "../../components/Header/Header";
 import { Subheader } from "../../components/Subheader/Subheader";
 import { Footer } from "../../components/Footer/Footer";
-import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({

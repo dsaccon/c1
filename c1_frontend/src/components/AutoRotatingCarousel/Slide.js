@@ -110,4 +110,8 @@ Slide.propTypes = {
   header: PropTypes.node,
 };
 
+Slide.defaultProps = {
+  classOverrides: {},
+};
+
 export default withStyles(styles)(Slide);
