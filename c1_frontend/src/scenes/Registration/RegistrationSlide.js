@@ -2,8 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Content } from "../../components/Content/Content";
 import { Header } from "../../components/Header/Header";
-import { Subheader } from "../../components/Subheader/Subheader";
-import { CarouselBackButton } from "../../components/AutoRotatingCarousel/CarouselBackButton";
+import { SubHeader } from "../../components/SubHeader/SubHeader";
 import classNames from "classnames";
 
 const useStyles = makeStyles({
@@ -21,7 +20,6 @@ export const RegistrationSlide = ({
   ...props
 }) => {
   const classes = useStyles();
-  // const button = backButton ? <CarouselBackButton /> : null;
 
   return (
     <Content
@@ -30,8 +28,8 @@ export const RegistrationSlide = ({
       autoSpacing={false}
       {...props}
     >
-      <Header backButton={<div />} />
-      <Subheader text={subheaderText} />
+      <Header backButton={backButton} />
+      <SubHeader text={subheaderText} />
       {children}
     </Content>
   );

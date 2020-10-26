@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { modulo } from "./util";
-import { CarouselContext } from "./AutoRotatingCarousel";
+import { SwipeableViewContext } from "../../hooks/useSwipeableView";
 import Dots from "material-ui-dots";
 
 const useStyles = makeStyles({
@@ -14,7 +14,7 @@ export const CarouselDots = ({ ...props }) => {
   const classes = useStyles();
 
   return (
-    <CarouselContext.Consumer>
+    <SwipeableViewContext.Consumer>
       {({ setSlideIndex, numSlides, index }) =>
         numSlides > 1 && (
           <Dots
@@ -26,6 +26,6 @@ export const CarouselDots = ({ ...props }) => {
           />
         )
       }
-    </CarouselContext.Consumer>
+    </SwipeableViewContext.Consumer>
   );
 };

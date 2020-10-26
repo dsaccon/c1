@@ -11,7 +11,7 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
   },
 }));
 
-export const Subheader = ({ text, children, ...props }) => {
+export const SubHeader = ({ text, children, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -22,6 +22,6 @@ export const Subheader = ({ text, children, ...props }) => {
   );
 };
 
-Subheader.propTypes = {
+SubHeader.propTypes = {
   text: PropTypes.string,
 };

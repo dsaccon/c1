@@ -11,11 +11,11 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
   autoSpacing: {
     "& > *": {
-      marginBottom: spacing(3),
+      marginBottom: spacing(1),
     },
   },
   padding: {
-    padding: "10%",
+    padding: spacing(2),
   },
   centerItems: {
     alignItems: "center",

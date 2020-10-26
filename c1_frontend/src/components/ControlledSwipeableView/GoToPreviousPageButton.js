@@ -1,13 +1,13 @@
 import React from "react";
 import { BackButton } from "../BackButton/BackButton";
-import { CarouselContext } from "./AutoRotatingCarousel";
+import { SwipeableViewContext } from "../../hooks/useSwipeableView";
 
-export const CarouselBackButton = ({ ...props }) => {
+export const GoToPreviousPageButton = ({ ...props }) => {
   return (
-    <CarouselContext.Consumer>
+    <SwipeableViewContext.Consumer>
       {({ goToPreviousSlide }) => (
         <BackButton onClick={goToPreviousSlide} {...props} />
       )}
-    </CarouselContext.Consumer>
+    </SwipeableViewContext.Consumer>
   );
 };

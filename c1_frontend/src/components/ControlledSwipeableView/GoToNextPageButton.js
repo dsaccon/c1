@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { CarouselContext } from "../../components/AutoRotatingCarousel/AutoRotatingCarousel";
+import { SwipeableViewContext } from "../../hooks/useSwipeableView";
 
 const useStyles = makeStyles({
   button: {
@@ -13,7 +13,7 @@ export const GoToNextPageButton = () => {
   const classes = useStyles();
 
   return (
-    <CarouselContext.Consumer>
+    <SwipeableViewContext.Consumer>
       {({ goToNextSlide }) => (
         <Button
           fullWidth
@@ -25,6 +25,6 @@ export const GoToNextPageButton = () => {
           NEXT
         </Button>
       )}
-    </CarouselContext.Consumer>
+    </SwipeableViewContext.Consumer>
   );
 };

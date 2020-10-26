@@ -1,11 +1,12 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
 import { Footer } from "../../components/Footer/Footer";
-import { GoToNextPageButton } from "./GoToNextPageButton";
+import { GoToNextPageButton } from "../../components/ControlledSwipeableView/GoToNextPageButton";
 import { RegistrationSlide } from "./RegistrationSlide";
-import Button from "@material-ui/core/Button";
+import { GoToPreviousPageButton } from "../../components/ControlledSwipeableView/GoToPreviousPageButton";
 
 const useStyles = makeStyles(({}) => ({}));
 
@@ -13,7 +14,10 @@ export const CertificationsSlide = ({}) => {
   const classes = useStyles();
 
   return (
-    <RegistrationSlide backButton subheaderText="Certifications">
+    <RegistrationSlide
+      backButton={<GoToPreviousPageButton />}
+      subheaderText="Certifications"
+    >
       <Content>
         <ScalableTypography color="textSecondary">
           Tell us what certifications you hold.
@@ -39,7 +43,9 @@ export const CertificationsSlide = ({}) => {
           </Button>
         </Content>
       </Content>
-      <Footer>{/*<GoToNextPageButton />*/}</Footer>
+      <Footer>
+        <GoToNextPageButton />
+      </Footer>
     </RegistrationSlide>
   );
 };

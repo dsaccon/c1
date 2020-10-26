@@ -5,6 +5,8 @@ import { ScalableTypography } from "../../components/Typography/ScalableTypograp
 import { Footer } from "../../components/Footer/Footer";
 import { RegistrationSlide } from "./RegistrationSlide";
 import Button from "@material-ui/core/Button";
+import { GoToPreviousPageButton } from "../../components/ControlledSwipeableView/GoToPreviousPageButton";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   button: {
@@ -16,7 +18,10 @@ export const IndustryExperienceSlide = ({}) => {
   const classes = useStyles();
 
   return (
-    <RegistrationSlide backButton subheaderText="Languages">
+    <RegistrationSlide
+      backButton={<GoToPreviousPageButton />}
+      subheaderText="Industry Experience"
+    >
       <Content>
         <ScalableTypography color="textSecondary">
           Select the industries you are experienced in.
@@ -47,10 +52,11 @@ export const IndustryExperienceSlide = ({}) => {
           fullWidth
           className={classes.button}
           variant="contained"
-          onClick={() => console.log("GO TO THING TODO")}
+          component={Link}
+          to="/push-notifications"
           color="primary"
         >
-          NEXT
+          Submit
         </Button>
       </Footer>
     </RegistrationSlide>

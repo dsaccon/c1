@@ -3,9 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
 import { Footer } from "../../components/Footer/Footer";
-import { GoToNextPageButton } from "./GoToNextPageButton";
+import { GoToNextPageButton } from "../../components/ControlledSwipeableView/GoToNextPageButton";
 import { RegistrationSlide } from "./RegistrationSlide";
 import Button from "@material-ui/core/Button";
+import { GoToPreviousPageButton } from "../../components/ControlledSwipeableView/GoToPreviousPageButton";
 
 const useStyles = makeStyles(({}) => ({}));
 
@@ -13,7 +14,10 @@ export const LanguagesSlide = ({}) => {
   const classes = useStyles();
 
   return (
-    <RegistrationSlide backButton subheaderText="Languages">
+    <RegistrationSlide
+      backButton={<GoToPreviousPageButton />}
+      subheaderText="Languages"
+    >
       <Content>
         <ScalableTypography color="textSecondary">
           Next, select the languages you are fluent in.
@@ -39,7 +43,9 @@ export const LanguagesSlide = ({}) => {
           </Button>
         </Content>
       </Content>
-      <Footer>{/*<GoToNextPageButton />*/}</Footer>
+      <Footer>
+        <GoToNextPageButton />
+      </Footer>
     </RegistrationSlide>
   );
 };

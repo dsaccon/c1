@@ -4,7 +4,9 @@ import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
 import { RegistrationSlide } from "./RegistrationSlide";
 import { Footer } from "../../components/Footer/Footer";
-import { GoToNextPageButton } from "./GoToNextPageButton";
+import { GoToNextPageButton } from "../../components/ControlledSwipeableView/GoToNextPageButton";
+import { BackButton } from "../../components/BackButton/BackButton";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(({}) => ({}));
@@ -12,10 +14,11 @@ const useStyles = makeStyles(({}) => ({}));
 export const YourLocationSlide = ({}) => {
   const classes = useStyles();
 
-  const [active, setActive] = useState(true);
-
   return (
-    <RegistrationSlide backButton={false} subheaderText="YOUR LOCATION">
+    <RegistrationSlide
+      backButton={<BackButton component={Link} to="/login" />}
+      subheaderText="YOUR LOCATION"
+    >
       <Content>
         <ScalableTypography color="textSecondary">
           To make a CorrosionOne profile, you need to answer a few questions
@@ -25,12 +28,7 @@ export const YourLocationSlide = ({}) => {
           First tell us where you’re located.
         </ScalableTypography>
         <Content centerItems padding={false}>
-          <Button
-            onClick={() => setActive(!active)}
-            disabled={!active}
-            variant="contained"
-            fullWidth
-          >
+          <Button variant="contained" fullWidth>
             United States
           </Button>
           <Button variant="contained" fullWidth>
@@ -47,7 +45,9 @@ export const YourLocationSlide = ({}) => {
           </Button>
         </Content>
       </Content>
-      <Footer>{/*<GoToNextPageButton />*/}</Footer>
+      <Footer>
+        <GoToNextPageButton />
+      </Footer>
     </RegistrationSlide>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Content } from "../../components/Content/Content";
-import { CarouselBackButton } from "../../components/AutoRotatingCarousel/CarouselBackButton";
+import { GoToPreviousPageButton } from "../../components/ControlledSwipeableView/GoToPreviousPageButton";
 import { Header } from "../../components/Header/Header";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
 import { CarouselDots } from "../../components/AutoRotatingCarousel/CarouselDots";
@@ -20,7 +20,7 @@ export const LandingPageSlide = ({ media, title, subtitle }) => {
 
   return (
     <Content className={classes.content} padding={false} autoSpacing={false}>
-      <Header backButton={<CarouselBackButton />} />
+      <Header backButton={<GoToPreviousPageButton />} />
       {media}
       <Content className={classes.textHolder}>
         <ScalableTypography className={classes.title} sizing="title">

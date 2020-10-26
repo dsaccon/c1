@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import Carousel from "./SwipableCarouselView";
 import { modulo } from "./util";
 import { makeStyles } from "@material-ui/core/styles";
+import {
+  SwipeableViewContext,
+  useSwipeableView,
+} from "../../hooks/useSwipeableView";
 
 const useStyles = makeStyles({
   carousel: {
     height: "100%",
   },
 });
-
-export const CarouselContext = React.createContext();
 
 export const AutoRotatingCarousel = ({
   children,
@@ -21,13 +23,16 @@ export const AutoRotatingCarousel = ({
   const classes = useStyles();
   const hasMultipleChildren = children.length != null;
 
-  const [slideIndex, setSlideIndex] = useState(0);
-  const goToPreviousSlide = () => setSlideIndex(slideIndex - 1);
-  const goToNextSlide = () => setSlideIndex(slideIndex + 1);
+  const [
+    slideIndex,
+    setSlideIndex,
+    goToPreviousSlide,
+    goToNextSlide,
+  ] = useSwipeableView(0);
   const handleContentClick = (e) => e.stopPropagation() || e.preventDefault();
 
   return (
-    <CarouselContext.Provider
+    <SwipeableViewContext.Provider
       value={{
         goToPreviousSlide,
         goToNextSlide,
@@ -48,7 +53,7 @@ export const AutoRotatingCarousel = ({
           {children}
         </Carousel>
       </div>
-    </CarouselContext.Provider>
+    </SwipeableViewContext.Provider>
   );
 };
 
