@@ -24,7 +24,7 @@ const useStyles = makeStyles(({ palette }) => ({
     width: "75%",
     maxWidth: "40rem",
     maxHeight: "40rem",
-    margin: "20% auto 0",
+    margin: "auto",
   },
   button: {
     margin: "auto",
