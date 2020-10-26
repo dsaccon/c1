@@ -39,9 +39,7 @@ export const LanguagesSlide = ({}) => {
           </Button>
         </Content>
       </Content>
-      <Footer>
-        <GoToNextPageButton />
-      </Footer>
+      <Footer>{/*<GoToNextPageButton />*/}</Footer>
     </RegistrationSlide>
   );
 };

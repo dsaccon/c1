@@ -47,9 +47,7 @@ export const YourLocationSlide = ({}) => {
           </Button>
         </Content>
       </Content>
-      <Footer>
-        <GoToNextPageButton />
-      </Footer>
+      <Footer>{/*<GoToNextPageButton />*/}</Footer>
     </RegistrationSlide>
   );
 };

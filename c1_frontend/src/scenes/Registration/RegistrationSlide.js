@@ -21,7 +21,7 @@ export const RegistrationSlide = ({
   ...props
 }) => {
   const classes = useStyles();
-  const button = backButton ? <CarouselBackButton /> : null;
+  // const button = backButton ? <CarouselBackButton /> : null;
 
   return (
     <Content
@@ -30,7 +30,7 @@ export const RegistrationSlide = ({
       autoSpacing={false}
       {...props}
     >
-      <Header backButton={button} />
+      <Header backButton={<div />} />
       <Subheader text={subheaderText} />
       {children}
     </Content>

@@ -6,6 +6,7 @@ import { WorkEligibilitySlide } from "./WorkEligibilitySlide";
 import { CertificationsSlide } from "./CertificationsSlide";
 import { LanguagesSlide } from "./LanguagesSlide";
 import { IndustryExperienceSlide } from "./IndustryExperienceSlide";
+import SwipeableViews from "react-swipeable-views";
 
 const useStyles = makeStyles({});
 
@@ -13,12 +14,16 @@ export const Registration = ({ ...props }) => {
   const classes = useStyles();
 
   return (
-    <AutoRotatingCarousel autoplay={false}>
+    <SwipeableViews
+      disabled={false}
+      // index={1}
+      disableLazyLoading={true}
+    >
       <YourLocationSlide />
       <WorkEligibilitySlide />
       <LanguagesSlide />
       <CertificationsSlide />
       <IndustryExperienceSlide />
-    </AutoRotatingCarousel>
+    </SwipeableViews>
   );
 };
