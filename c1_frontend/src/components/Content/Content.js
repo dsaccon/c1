@@ -11,7 +11,7 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
   autoSpacing: {
     "& > *": {
-      marginBottom: spacing(1),
+      marginBottom: spacing(2),
     },
   },
   padding: {
