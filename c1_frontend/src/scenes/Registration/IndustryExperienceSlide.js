@@ -21,24 +21,26 @@ export const IndustryExperienceSlide = ({}) => {
         <ScalableTypography color="textSecondary">
           Select the industries you are experienced in.
         </ScalableTypography>
-        <Button variant="contained" fullWidth>
-          Marine
-        </Button>
-        <Button variant="contained" fullWidth>
-          Deep Water
-        </Button>
-        <Button variant="contained" fullWidth>
-          Pipelines
-        </Button>
-        <Button variant="contained" fullWidth>
-          Terminals
-        </Button>
-        <Button variant="contained" fullWidth>
-          Petroleum
-        </Button>
-        <Button variant="contained" fullWidth>
-          Food & Beverages
-        </Button>
+        <Content centerItems padding={false}>
+          <Button variant="contained" fullWidth>
+            Marine
+          </Button>
+          <Button variant="contained" fullWidth>
+            Deep Water
+          </Button>
+          <Button variant="contained" fullWidth>
+            Pipelines
+          </Button>
+          <Button variant="contained" fullWidth>
+            Terminals
+          </Button>
+          <Button variant="contained" fullWidth>
+            Petroleum
+          </Button>
+          <Button variant="contained" fullWidth>
+            Food & Beverages
+          </Button>
+        </Content>
       </Content>
       <Footer>
         <Button

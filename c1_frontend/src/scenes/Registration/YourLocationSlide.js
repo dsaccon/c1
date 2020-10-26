@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
@@ -12,6 +12,8 @@ const useStyles = makeStyles(({}) => ({}));
 export const YourLocationSlide = ({}) => {
   const classes = useStyles();
 
+  const [active, setActive] = useState(true);
+
   return (
     <RegistrationSlide backButton={false} subheaderText="YOUR LOCATION">
       <Content>
@@ -22,21 +24,28 @@ export const YourLocationSlide = ({}) => {
         <ScalableTypography color="textSecondary">
           First tell us where you’re located.
         </ScalableTypography>
-        <Button variant="contained" fullWidth>
-          United States
-        </Button>
-        <Button variant="contained" fullWidth>
-          Canada
-        </Button>
-        <Button variant="contained" fullWidth>
-          United Kingdom
-        </Button>
-        <Button variant="contained" fullWidth>
-          Saudi Arabia
-        </Button>
-        <Button variant="contained" fullWidth>
-          European Union
-        </Button>
+        <Content centerItems padding={false}>
+          <Button
+            onClick={() => setActive(!active)}
+            disabled={!active}
+            variant="contained"
+            fullWidth
+          >
+            United States
+          </Button>
+          <Button variant="contained" fullWidth>
+            Canada
+          </Button>
+          <Button variant="contained" fullWidth>
+            United Kingdom
+          </Button>
+          <Button variant="contained" fullWidth>
+            Saudi Arabia
+          </Button>
+          <Button variant="contained" fullWidth>
+            European Union
+          </Button>
+        </Content>
       </Content>
       <Footer>
         <GoToNextPageButton />

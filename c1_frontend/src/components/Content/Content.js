@@ -17,12 +17,16 @@ const useStyles = makeStyles(({ spacing }) => ({
   padding: {
     padding: "10%",
   },
+  centerItems: {
+    alignItems: "center",
+  },
 }));
 
 export const Content = ({
   className,
   autoSpacing,
   padding,
+  centerItems,
   children,
   ...props
 }) => {
@@ -35,6 +39,7 @@ export const Content = ({
         {
           [classes.autoSpacing]: autoSpacing,
           [classes.padding]: padding,
+          [classes.centerItems]: centerItems,
         },
         className
       )}
@@ -48,9 +53,11 @@ export const Content = ({
 Content.propTypes = {
   autoSpacing: PropTypes.bool,
   padding: PropTypes.bool,
+  centerItems: PropTypes.bool,
 };
 
 Content.defaultProps = {
   autoSpacing: true,
   padding: true,
+  centerItems: false,
 };

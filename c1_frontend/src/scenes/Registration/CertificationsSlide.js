@@ -18,24 +18,26 @@ export const CertificationsSlide = ({}) => {
         <ScalableTypography color="textSecondary">
           Tell us what certifications you hold.
         </ScalableTypography>
-        <Button variant="contained" fullWidth>
-          NACE1
-        </Button>
-        <Button variant="contained" fullWidth>
-          NACE2
-        </Button>
-        <Button variant="contained" fullWidth>
-          NACE3
-        </Button>
-        <Button variant="contained" fullWidth>
-          SSPC
-        </Button>
-        <Button variant="contained" fullWidth>
-          Six Sigma
-        </Button>
-        <Button variant="contained" fullWidth>
-          Cisco
-        </Button>
+        <Content centerItems padding={false}>
+          <Button variant="contained" fullWidth>
+            NACE1
+          </Button>
+          <Button variant="contained" fullWidth>
+            NACE2
+          </Button>
+          <Button variant="contained" fullWidth>
+            NACE3
+          </Button>
+          <Button variant="contained" fullWidth>
+            SSPC
+          </Button>
+          <Button variant="contained" fullWidth>
+            Six Sigma
+          </Button>
+          <Button variant="contained" fullWidth>
+            Cisco
+          </Button>
+        </Content>
       </Content>
       <Footer>
         <GoToNextPageButton />

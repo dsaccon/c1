@@ -18,24 +18,26 @@ export const LanguagesSlide = ({}) => {
         <ScalableTypography color="textSecondary">
           Next, select the languages you are fluent in.
         </ScalableTypography>
-        <Button variant="contained" fullWidth>
-          English
-        </Button>
-        <Button variant="contained" fullWidth>
-          French
-        </Button>
-        <Button variant="contained" fullWidth>
-          Spanish
-        </Button>
-        <Button variant="contained" fullWidth>
-          Arabic
-        </Button>
-        <Button variant="contained" fullWidth>
-          Chinese (Mandarin)
-        </Button>
-        <Button variant="contained" fullWidth>
-          Korean
-        </Button>
+        <Content centerItems padding={false}>
+          <Button variant="contained" fullWidth>
+            English
+          </Button>
+          <Button variant="contained" fullWidth>
+            French
+          </Button>
+          <Button variant="contained" fullWidth>
+            Spanish
+          </Button>
+          <Button variant="contained" fullWidth>
+            Arabic
+          </Button>
+          <Button variant="contained" fullWidth>
+            Chinese (Mandarin)
+          </Button>
+          <Button variant="contained" fullWidth>
+            Korean
+          </Button>
+        </Content>
       </Content>
       <Footer>
         <GoToNextPageButton />

@@ -18,21 +18,23 @@ export const WorkEligibilitySlide = ({}) => {
         <ScalableTypography color="textSecondary">
           Now, tell us in which country or countries you are eligible to work.
         </ScalableTypography>
-        <Button variant="contained" fullWidth>
-          United States
-        </Button>
-        <Button variant="contained" fullWidth>
-          Canada
-        </Button>
-        <Button variant="contained" fullWidth>
-          United Kingdom
-        </Button>
-        <Button variant="contained" fullWidth>
-          Saudi Arabia
-        </Button>
-        <Button variant="contained" fullWidth>
-          European Union
-        </Button>
+        <Content centerItems padding={false}>
+          <Button variant="contained" fullWidth>
+            United States
+          </Button>
+          <Button variant="contained" fullWidth>
+            Canada
+          </Button>
+          <Button variant="contained" fullWidth>
+            United Kingdom
+          </Button>
+          <Button variant="contained" fullWidth>
+            Saudi Arabia
+          </Button>
+          <Button variant="contained" fullWidth>
+            European Union
+          </Button>
+        </Content>
       </Content>
       <Footer>
         <GoToNextPageButton />
