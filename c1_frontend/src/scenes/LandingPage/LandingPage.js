@@ -43,7 +43,7 @@ export const LandingPage = () => {
 
   return (
     <>
-      <AutoRotatingCarousel className={classes.carousel}>
+      <AutoRotatingCarousel autoplay className={classes.carousel}>
         <Content padding={false} className={classes.content}>
           <LandingPageSvg className={classes.corrosionIcon} />
         </Content>
