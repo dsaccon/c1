@@ -26,6 +26,7 @@ export const Available = ({ certifications }) => {
 
   return (
     <Content
+      centerItems
       className={classNames({
         [classes.noCertifications]: certifications.length === 0,
       })}
@@ -40,7 +41,7 @@ export const Available = ({ certifications }) => {
             Verify your certifications to access the best jobs
           </ScalableTypography>
           <CertificateSingle className={classes.certificateSingle} />
-          <ScalableTypography sizing="small" color="textPrimary">
+          <ScalableTypography color="textPrimary">
             Use your hard-earned certifications to impress job posters and score
             high-quality work.
           </ScalableTypography>

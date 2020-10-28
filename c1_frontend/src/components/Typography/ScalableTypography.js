@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     fontWeight: 400,
   },
   small: {
-    fonSize: "1vh",
+    fontSize: "1vh",
     fontWeight: 300,
   },
 });

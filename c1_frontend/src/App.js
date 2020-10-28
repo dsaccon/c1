@@ -6,7 +6,9 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Registration } from "./scenes/Registration/Registration";
 import { PushNotifications } from "./scenes/PushNotifications/PushNotifications";
 import { JobFeed } from "./scenes/JobFeed/JobFeed";
-import { ChooseCertificationType } from "./scenes/ChooseCertificationType/ChooseCertificationType";
+import { ChooseCertification } from "./scenes/CertificateVerification/ChooseCertification";
+import { TakePhotoCertification } from "./scenes/CertificateVerification/TakePhotoCertification";
+import { PhotoPreviewCertification } from "./scenes/CertificateVerification/PhotoPreviewCertification";
 
 const useStyles = makeStyles({
   app: {
@@ -38,7 +40,13 @@ const App = () => {
           <JobFeed />
         </Route>
         <Route path="/choose-certification-type">
-          <ChooseCertificationType />
+          <ChooseCertification />
+        </Route>
+        <Route path="/take-photo-certification">
+          <TakePhotoCertification />
+        </Route>
+        <Route path="/photo-preview-certification">
+          <PhotoPreviewCertification />
         </Route>
         <Route path="/">
           <LandingPage />
