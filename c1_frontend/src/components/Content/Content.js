@@ -20,6 +20,9 @@ const useStyles = makeStyles(({ spacing }) => ({
   centerItems: {
     alignItems: "center",
   },
+  scrollable: {
+    overflowY: "scroll",
+  },
 }));
 
 export const Content = ({
@@ -28,6 +31,7 @@ export const Content = ({
   padding,
   centerItems,
   children,
+  scrollable,
   ...props
 }) => {
   const classes = useStyles();
@@ -40,6 +44,7 @@ export const Content = ({
           [classes.autoSpacing]: autoSpacing,
           [classes.padding]: padding,
           [classes.centerItems]: centerItems,
+          [classes.scrollable]: scrollable,
         },
         className
       )}
@@ -54,10 +59,12 @@ Content.propTypes = {
   autoSpacing: PropTypes.bool,
   padding: PropTypes.bool,
   centerItems: PropTypes.bool,
+  scrollable: PropTypes.bool,
 };
 
 Content.defaultProps = {
   autoSpacing: true,
   padding: true,
   centerItems: false,
+  scrollable: false,
 };

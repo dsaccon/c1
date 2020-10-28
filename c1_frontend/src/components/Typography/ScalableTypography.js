@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: "2.5vh",
-    fontWeight: 600,
+    fontWeight: 500,
   },
   normal: {
     fontSize: "2vh",
