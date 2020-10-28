@@ -6,6 +6,7 @@ import { Certification } from "./Certification";
 import classNames from "classnames";
 import Button from "@material-ui/core/Button";
 import { CertificateSingle } from "../../components/Icons/CertificateSingle";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(({ palette }) => ({
   noCertifications: {
@@ -43,7 +44,13 @@ export const Available = ({ certifications }) => {
             Use your hard-earned certifications to impress job posters and score
             high-quality work.
           </ScalableTypography>
-          <Button fullWidth color="primary" variant="contained">
+          <Button
+            component={Link}
+            to={"/choose-certification-type"}
+            fullWidth
+            color="primary"
+            variant="contained"
+          >
             Upload Certifications
           </Button>
         </>
