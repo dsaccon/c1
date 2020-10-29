@@ -1,15 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Header } from "../../components/Header/Header";
-import { CertificationSubHeader } from "./CertificationSubHeader";
 import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
-import { Certification } from "./Certification";
 import { SubHeader } from "../../components/SubHeader/SubHeader";
 import { Footer } from "../../components/Footer/Footer";
 import Button from "@material-ui/core/Button";
 import { HandCertificate } from "../../components/Icons/HandCertificate";
 import { Link } from "react-router-dom";
+import { HeaderDetails } from "../../components/Header/HeaderDetails";
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
   content: {
@@ -34,7 +33,10 @@ export const TakePhotoCertification = ({}) => {
   return (
     <>
       <Header>
-        <CertificationSubHeader backTo="/choose-certification-type" />
+        <HeaderDetails
+          text="Certifications"
+          backTo="/choose-certification-type"
+        />
       </Header>
       <SubHeader text="<<Cert Name>>" />
       <Content className={classes.content} centerItems>

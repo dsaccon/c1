@@ -3,10 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Header } from "../../components/Header/Header";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
 import { Content } from "../../components/Content/Content";
-import Button from "@material-ui/core/Button";
 import { Certification } from "./Certification";
-import { BackButton } from "../../components/BackButton/BackButton";
-import { CertificationSubHeader } from "./CertificationSubHeader";
+import { HeaderDetails } from "../../components/Header/HeaderDetails";
 
 const useStyles = makeStyles(({ spacing }) => ({
   subHeader: {
@@ -38,7 +36,7 @@ export const ChooseCertification = () => {
   return (
     <>
       <Header>
-        <CertificationSubHeader backTo="/job-feed" />
+        <HeaderDetails text="Certifications" backTo="/job-feed" />
       </Header>
       <Content centerItems>
         <ScalableTypography color="textSecondary">

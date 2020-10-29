@@ -9,6 +9,7 @@ import { JobFeed } from "./scenes/JobFeed/JobFeed";
 import { ChooseCertification } from "./scenes/CertificateVerification/ChooseCertification";
 import { TakePhotoCertification } from "./scenes/CertificateVerification/TakePhotoCertification";
 import { PhotoPreviewCertification } from "./scenes/CertificateVerification/PhotoPreviewCertification";
+import { JobDetails } from "./scenes/JobDetails/JobDetails";
 
 const useStyles = makeStyles({
   app: {
@@ -47,6 +48,9 @@ const App = () => {
         </Route>
         <Route path="/photo-preview-certification">
           <PhotoPreviewCertification />
+        </Route>
+        <Route path="/job-details">
+          <JobDetails />
         </Route>
         <Route path="/">
           <LandingPage />

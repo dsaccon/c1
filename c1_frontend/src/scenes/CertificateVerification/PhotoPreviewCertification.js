@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Header } from "../../components/Header/Header";
-import { CertificationSubHeader } from "./CertificationSubHeader";
 import { SubHeader } from "../../components/SubHeader/SubHeader";
 import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
@@ -9,6 +8,7 @@ import { Footer } from "../../components/Footer/Footer";
 import Button from "@material-ui/core/Button";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import { Link } from "react-router-dom";
+import { HeaderDetails } from "../../components/Header/HeaderDetails";
 
 const useStyles = makeStyles(({ spacing }) => ({
   button: {
@@ -29,7 +29,10 @@ export const PhotoPreviewCertification = ({}) => {
   return (
     <>
       <Header>
-        <CertificationSubHeader backTo="/take-photo-certification" />
+        <HeaderDetails
+          text="Certifications"
+          backTo="/take-photo-certification"
+        />
       </Header>
       <SubHeader text="<<Cert Name>>" />
       <Content centerItems>

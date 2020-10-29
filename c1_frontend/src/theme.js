@@ -18,6 +18,7 @@ export const theme = createMuiTheme({
     },
     background: {
       default: "#F4F4F4",
+      paper: "#C9D7DD",
     },
   },
   typography: {

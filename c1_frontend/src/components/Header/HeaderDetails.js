@@ -15,14 +15,14 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
 }));
 
-export const CertificationSubHeader = ({ backTo }) => {
+export const HeaderDetails = ({ backTo, text }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.subHeader}>
       <BackButton component={Link} to={backTo} className={classes.backButton} />
       <ScalableTypography sizing="title" className={classes.certificationsText}>
-        CERTIFICATIONS
+        {text}
       </ScalableTypography>
     </div>
   );
