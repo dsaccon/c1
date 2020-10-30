@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { SubHeader } from "../../components/SubHeader/SubHeader";
 import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
-import { FindJobs } from "../../components/Icons/FindJobs";
+import { FindJobsSvg } from "../../components/Icons/FindJobsSvg";
 import { Footer } from "../../components/Footer/Footer";
 import Button from "@material-ui/core/Button";
 
@@ -42,7 +42,7 @@ export const PushNotifications = ({}) => {
           We'll let you know about new jobs in your area as they appear!
         </ScalableTypography>
       </Content>
-      <FindJobs className={classes.findJobs} />
+      <FindJobsSvg className={classes.findJobs} />
       <Footer>
         <Button
           className={classes.button}

@@ -20,7 +20,13 @@ export const HeaderDetails = ({ backTo, text }) => {
 
   return (
     <div className={classes.subHeader}>
-      <BackButton component={Link} to={backTo} className={classes.backButton} />
+      {backTo && (
+        <BackButton
+          component={Link}
+          to={backTo}
+          className={classes.backButton}
+        />
+      )}
       <ScalableTypography sizing="title" className={classes.certificationsText}>
         {text}
       </ScalableTypography>

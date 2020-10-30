@@ -5,11 +5,25 @@ import { HeaderDetails } from "../../components/Header/HeaderDetails";
 import { SubHeader } from "../../components/SubHeader/SubHeader";
 import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
-import Paper from "@material-ui/core/Paper";
+import MessageIcon from "@material-ui/icons/Message";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
-const useStyles = makeStyles(({}) => ({}));
+const useStyles = makeStyles(({ spacing }) => ({
+  footer: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  button: {
+    borderRadius: 0,
+    padding: spacing(1),
+  },
+  icon: {
+    marginRight: spacing(0.5),
+  },
+}));
 
 export const JobDetails = ({}) => {
   const classes = useStyles();
@@ -57,6 +71,29 @@ export const JobDetails = ({}) => {
           keeping of all records.
         </ScalableTypography>
       </Content>
+      <div className={classes.footer}>
+        <Button
+          className={classes.button}
+          size="large"
+          fullWidth
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/submit-bid"
+        >
+          Submit Bid
+        </Button>
+        <Button
+          className={classes.button}
+          size="large"
+          fullWidth
+          variant="contained"
+          color="secondary"
+        >
+          <MessageIcon className={classes.icon} color="primary" />
+          Message Owner
+        </Button>
+      </div>
     </>
   );
 };

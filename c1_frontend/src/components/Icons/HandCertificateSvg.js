@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   cls14: { fill: "#50afd3" },
 });
 
-export const HandCertificate = ({ ...props }) => {
+export const HandCertificateSvg = ({ ...props }) => {
   const classes = useStyles();
 
   return (

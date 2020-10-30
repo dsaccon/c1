@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   cls16: { fill: "#045163" },
 });
 
-export const FindJobs = ({ ...props }) => {
+export const FindJobsSvg = ({ ...props }) => {
   const classes = useStyles();
 
   return (

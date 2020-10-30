@@ -6,7 +6,7 @@ import { ScalableTypography } from "../../components/Typography/ScalableTypograp
 import { SubHeader } from "../../components/SubHeader/SubHeader";
 import { Footer } from "../../components/Footer/Footer";
 import Button from "@material-ui/core/Button";
-import { HandCertificate } from "../../components/Icons/HandCertificate";
+import { HandCertificateSvg } from "../../components/Icons/HandCertificateSvg";
 import { Link } from "react-router-dom";
 import { HeaderDetails } from "../../components/Header/HeaderDetails";
 
@@ -45,7 +45,7 @@ export const TakePhotoCertification = ({}) => {
           certificate. You can also take a photo of a website on a screen. The
           image must show your certification number and expiration date.
         </ScalableTypography>
-        <HandCertificate className={classes.handCertificate} />
+        <HandCertificateSvg className={classes.handCertificate} />
       </Content>
       <Footer>
         <Button

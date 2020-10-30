@@ -12,6 +12,7 @@ import { Tabs } from "../../components/Tabs/Tabs";
 import { Tab } from "../../components/Tabs/Tab";
 import { Available } from "./Available";
 import { Content } from "../../components/Content/Content";
+import { IconFooter } from "../../components/Footer/IconFooter";
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
   subHeader: {
@@ -90,14 +91,7 @@ export const JobFeed = ({}) => {
       )}
       {tabValue === "Upcoming" && <Content />}
       {tabValue === "History" && <Content />}
-      <Footer>
-        <div className={classes.iconHolder}>
-          <HomeIcon className={classes.footerIcon} color="primary" />
-          <PersonIcon className={classes.footerIcon} color="primary" />
-          <CardMembershipIcon className={classes.footerIcon} color="primary" />
-          <ChatIcon className={classes.footerIcon} color="primary" />
-        </div>
-      </Footer>
+      <IconFooter />
     </>
   );
 };

@@ -5,7 +5,7 @@ import { ScalableTypography } from "../../components/Typography/ScalableTypograp
 import { Certification } from "./Certification";
 import classNames from "classnames";
 import Button from "@material-ui/core/Button";
-import { CertificateSingle } from "../../components/Icons/CertificateSingle";
+import { CertificateSingleSvg } from "../../components/Icons/CertificateSingleSvg";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(({ palette }) => ({
@@ -40,7 +40,7 @@ export const Available = ({ certifications }) => {
           <ScalableTypography sizing="title" color="textPrimary">
             Verify your certifications to access the best jobs
           </ScalableTypography>
-          <CertificateSingle className={classes.certificateSingle} />
+          <CertificateSingleSvg className={classes.certificateSingle} />
           <ScalableTypography color="textPrimary">
             Use your hard-earned certifications to impress job posters and score
             high-quality work.

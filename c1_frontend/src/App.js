@@ -10,6 +10,8 @@ import { ChooseCertification } from "./scenes/CertificateVerification/ChooseCert
 import { TakePhotoCertification } from "./scenes/CertificateVerification/TakePhotoCertification";
 import { PhotoPreviewCertification } from "./scenes/CertificateVerification/PhotoPreviewCertification";
 import { JobDetails } from "./scenes/JobDetails/JobDetails";
+import { SubmitBid } from "./scenes/JobDetails/SubmitBid";
+import { BidSubmissionSuccess } from "./scenes/JobDetails/BidSubmissionSuccess";
 
 const useStyles = makeStyles({
   app: {
@@ -51,6 +53,12 @@ const App = () => {
         </Route>
         <Route path="/job-details">
           <JobDetails />
+        </Route>
+        <Route path="/submit-bid">
+          <SubmitBid />
+        </Route>
+        <Route path="/bid-submission-success">
+          <BidSubmissionSuccess />
         </Route>
         <Route path="/">
           <LandingPage />

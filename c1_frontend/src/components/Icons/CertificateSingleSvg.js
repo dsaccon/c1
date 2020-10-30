@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   cls7: { fill: "#50afd3" },
 });
 
-export const CertificateSingle = ({ ...props }) => {
+export const CertificateSingleSvg = ({ ...props }) => {
   const classes = useStyles();
 
   return (
