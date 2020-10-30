@@ -5,6 +5,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import CardMembershipIcon from "@material-ui/icons/CardMembership";
 import ChatIcon from "@material-ui/icons/Chat";
 import { Footer } from "./Footer";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(({ spacing }) => ({
   iconHolder: {
@@ -23,10 +24,14 @@ export const IconFooter = ({}) => {
   return (
     <Footer>
       <div className={classes.iconHolder}>
-        <HomeIcon className={classes.footerIcon} color="primary" />
+        <Link to="/job-feed">
+          <HomeIcon className={classes.footerIcon} color="primary" />
+        </Link>
         <PersonIcon className={classes.footerIcon} color="primary" />
         <CardMembershipIcon className={classes.footerIcon} color="primary" />
-        <ChatIcon className={classes.footerIcon} color="primary" />
+        <Link to="/messages">
+          <ChatIcon className={classes.footerIcon} color="primary" />
+        </Link>
       </div>
     </Footer>
   );

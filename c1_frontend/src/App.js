@@ -12,6 +12,7 @@ import { PhotoPreviewCertification } from "./scenes/CertificateVerification/Phot
 import { JobDetails } from "./scenes/JobDetails/JobDetails";
 import { SubmitBid } from "./scenes/JobDetails/SubmitBid";
 import { BidSubmissionSuccess } from "./scenes/JobDetails/BidSubmissionSuccess";
+import { Messages } from "./scenes/Messages/Messages";
 
 const useStyles = makeStyles({
   app: {
@@ -59,6 +60,9 @@ const App = () => {
         </Route>
         <Route path="/bid-submission-success">
           <BidSubmissionSuccess />
+        </Route>
+        <Route path="/messages">
+          <Messages />
         </Route>
         <Route path="/">
           <LandingPage />

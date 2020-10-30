@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Header } from "../../components/Header/Header";
-import { Footer } from "../../components/Footer/Footer";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import HomeIcon from "@material-ui/icons/Home";
-import PersonIcon from "@material-ui/icons/Person";
-import CardMembershipIcon from "@material-ui/icons/CardMembership";
-import ChatIcon from "@material-ui/icons/Chat";
 import { Tabs } from "../../components/Tabs/Tabs";
 import { Tab } from "../../components/Tabs/Tab";
 import { Available } from "./Available";
