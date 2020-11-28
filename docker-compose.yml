@@ -38,18 +38,19 @@ services:
       - ./data.sql.gz:/docker-entrypoint-initdb.d/data.sql.gz
       - ./:/app
 
-  #c1_frontend:
-  #  build: ./c1_frontend/
-  #  container_name: c1_frontend
-  #  command: "npm start"
-  #  restart: on-failure
-  #  ports: ["8000:8000"]
-  #  environment:
-  #    - PORT=8000
-  #  env_file:
-  #    - env_vars
-  #  volumes:
-  #    - ./c1_frontend:/app
-  #    - /app/node_modules
-  #  networks:
-  #    - basic
+  c1_frontend:
+    build: ./c1_frontend/
+    container_name: c1_frontend
+    command: "npm start"
+    restart: on-failure
+    ports: ["8000:8000"]
+    expose: ["8000"]
+    environment:
+      - PORT=8000
+    env_file:
+      - env_vars
+    volumes:
+      - ./c1_frontend:/app
+      - /app/node_modules
+    networks:
+      - basic
