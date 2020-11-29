@@ -19,10 +19,12 @@ AZURE_CLIENT_ID = os.environ['AZURE_CLIENT_ID']
 AZURE_CLIENT_SECRET = os.environ['AZURE_CLIENT_SECRET']
 AZURE_AUTH_ENDPOINT = os.environ['AZURE_AUTH_ENDPOINT']
 AZURE_TOKEN_ENDPOINT = os.environ['AZURE_TOKEN_ENDPOINT']
+ADMIN_HOST = os.environ['ADMIN_HOST']
 
 azure_blueprint = make_azure_blueprint(
   client_id=AZURE_CLIENT_ID,
-  client_secret=AZURE_CLIENT_SECRET)
+  client_secret=AZURE_CLIENT_SECRET,
+  redirect_url=ADMIN_HOST + '/login/azure/success')
 application.register_blueprint(azure_blueprint, url_prefix="/login")
 
 def get_ip():
@@ -86,10 +88,15 @@ def login_plaintext():
   else:
     return redirect("/?error=1")
 
-@application.route('/login/')
+@application.route("/login/")
+def azure_push_login():
+  return redirect(url_for("azure.login", _external=True))
+
+@application.route('/login/azure/success')
 def azure_login():
-  if not azure.authorized:
-    return redirect(url_for("azure.login", _external=True))
+  #if not azure.authorized:
+  #  return redirect(url_for("azure.login", 
+  #    _external=True))
   resp = azure.get("/v1.0/me")
   assert resp.ok
   authed_user = json.loads(resp.text)

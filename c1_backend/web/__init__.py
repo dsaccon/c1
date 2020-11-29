@@ -14,6 +14,7 @@ application = Flask(__name__)
 application.secret_key = "dcb632ee"
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ['SQLALCHEMY_TRACK_MODIFICATIONS']
 application.config['GOOGLE_MAPS_API_KEY'] = os.environ.get('GOOGLE_MAPS_API_KEY')
+application.config['PREFERRED_URL_SCHEME'] = os.environ.get('FLASK_PREFERRED_URL_SCHEME')
 
 gunicorn_error_logger = logging.getLogger('gunicorn.error')
 application.logger.handlers.extend(gunicorn_error_logger.handlers)
