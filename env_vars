@@ -1,6 +1,5 @@
 FLASK_APP=application.py
 FLASK_DEBUG=1
-FLASK_PREFERRED_URL_SCHEME=http
 
 ADMIN_HOST=http://localhost:8001
 

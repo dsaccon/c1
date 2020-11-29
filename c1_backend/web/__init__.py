@@ -5,6 +5,7 @@ from flask_login import LoginManager, login_required, login_user, \
 from flask_talisman import Talisman
 from flask_migrate import Migrate, MigrateCommand
 from .helpers import dictify_obj
+from werkzeug.middleware.proxy_fix import ProxyFix
 import logging
 import os
 import requests
@@ -14,7 +15,6 @@ application = Flask(__name__)
 application.secret_key = "dcb632ee"
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.environ['SQLALCHEMY_TRACK_MODIFICATIONS']
 application.config['GOOGLE_MAPS_API_KEY'] = os.environ.get('GOOGLE_MAPS_API_KEY')
-application.config['PREFERRED_URL_SCHEME'] = os.environ.get('FLASK_PREFERRED_URL_SCHEME')
 
 gunicorn_error_logger = logging.getLogger('gunicorn.error')
 application.logger.handlers.extend(gunicorn_error_logger.handlers)
@@ -24,6 +24,7 @@ login_manager = LoginManager()
 login_manager.init_app(application)
 
 if os.environ.get('FORCE_SSL') == "TRUE":
+  application.wsgi_app = ProxyFix(application.wsgi_app)
   csp = {'default-src': ['\'self\'', '\'unsafe-inline\'', '*'],
     'img-src': ['\'self\'', '\'unsafe-inline\'', '*'],
     'script-src': ['\'self\'', '\'unsafe-inline\'', '*']}
