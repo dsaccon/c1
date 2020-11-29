@@ -3,8 +3,6 @@ boto3==1.9.18
 Flask==1.0.2
 Flask-Login==0.4.1
 requests==2.21.0
-Flask-OAuth==0.12
-Flask-OAuthlib==0.9.5
 flask-talisman==0.7.0
 psycopg2==2.7.3.1
 SQLAlchemy==1.2.16
@@ -25,6 +23,5 @@ Markdown==3.1.1
 google-api-python-client==1.6.4
 google-auth==1.6.3
 future==0.17.1 
-Werkzeug==0.16.1
 Unidecode==1.1.1
 Flask-Dance==3.1.0

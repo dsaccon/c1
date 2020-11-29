@@ -11,9 +11,19 @@ from flask_login import LoginManager, login_required, \
 from web.models import *
 from werkzeug.security import check_password_hash
 from sqlalchemy import func
-from .azure import azure
+from flask_dance.contrib.azure import make_azure_blueprint, azure
 
 LOGIN_DURATION = datetime.timedelta(days=31)
+
+AZURE_CLIENT_ID = os.environ['AZURE_CLIENT_ID']
+AZURE_CLIENT_SECRET = os.environ['AZURE_CLIENT_SECRET']
+AZURE_AUTH_ENDPOINT = os.environ['AZURE_AUTH_ENDPOINT']
+AZURE_TOKEN_ENDPOINT = os.environ['AZURE_TOKEN_ENDPOINT']
+
+azure_blueprint = make_azure_blueprint(
+  client_id=AZURE_CLIENT_ID,
+  client_secret=AZURE_CLIENT_SECRET)
+application.register_blueprint(azure_blueprint, url_prefix="/login")
 
 def get_ip():
   if request.environ.get('HTTP_X_FORWARDED_FOR'):
@@ -76,33 +86,17 @@ def login_plaintext():
   else:
     return redirect("/?error=1")
 
-@application.route('/login/azure')
+@application.route('/login/')
 def azure_login():
-  return azure.authorize(callback=url_for('oauth_redirect', _external=True),
-    state=request.args.get('next'))
-
-@application.route("/oauthredirect")
-def oauth_redirect():
-  next_url = None
-  if request.args.get('state'):
-    next_url_b64 = request.args.get('state')
-    next_url = base64.b64decode(next_url_b64)
-
-  resp = azure.authorized_response()
-  access_token = resp.get('access_token')
-  print("TOKEN!!!")
-  print(access_token)
-  
-  headers = {'Authorization': 'Bearer %s' % access_token}
-  req = requests.get('https://graph.microsoft.com/v1.0/me',
-    headers=headers)
-  print(req.text)
-  print(json.loads(req.text))
-  # {'@odata.context': 'https://graph.microsoft.com/v1.0/$metadata#users/$entity', 'businessPhones': [], 'displayName': 'Tom Hayden', 'givenName': 'Tom', 'jobTitle': None, 'mail': 'thayden@corrosionone.com', 'mobilePhone': None, 'officeLocation': None, 'preferredLanguage': 'en-US', 'surname': 'Hayden', 'userPrincipalName': 'thayden@corrosionone.com', 'id': '8d60b3c0-145b-45af-ab8f-9d385c7ae875'}
-
-  authed_user = json.loads(req.text)
+  if not azure.authorized:
+    return redirect(url_for("azure.login"))
+  resp = azure.get("/v1.0/me")
+  assert resp.ok
+  authed_user = json.loads(resp.text)
+  application.logger.warn(authed_user)
+  application.logger.warn(resp.text)
   u = (db.session.query(User)
-    .filter(func.trim(User.email) == authed_user['mail'])
+    .filter(func.trim(User.email) == authed_user['userPrincipalName'])
     .filter(User.login_type == 'azure')
     .first())
 
@@ -115,14 +109,10 @@ def oauth_redirect():
     ulh.user_id = u.user_id
     ulh.ip_address = get_ip()
     ulh.login_type = 'azure'
-    ulh.token_id = access_token
+    ulh.token_id = None
     db.session.add(ulh)
     db.session.commit()
     login_user(u, remember=True, duration=LOGIN_DURATION)
-    if next_url and u.is_admin:
-      return redirect(next_url)
-    else:
-      return redirect("/home")
+    return redirect("/home")
   else:
     return redirect("/?error=1")
-

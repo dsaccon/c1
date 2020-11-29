@@ -10,6 +10,5 @@ def home():
 
 @application.route("/home")
 @login_required
-@admin_required
 def home_loggedin():
   return render_template("index.html") 

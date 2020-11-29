@@ -12,3 +12,7 @@ AZURE_CLIENT_ID=8247b70f-de7c-409d-83ea-21691b9533fa
 AZURE_CLIENT_SECRET=8XUSG8c3Ea~Rq4._zM_v.nCfmR_Vgizs9_
 AZURE_AUTH_ENDPOINT=https://login.microsoftonline.com/7684eb88-796a-464a-869f-bbcdf96713da/oauth2/v2.0/authorize
 AZURE_TOKEN_ENDPOINT=https://login.microsoftonline.com/7684eb88-796a-464a-869f-bbcdf96713da/oauth2/v2.0/token
+
+OAUTHLIB_INSECURE_TRANSPORT=True
+
+SENTRY_DSN=
