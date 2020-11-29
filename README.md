@@ -95,9 +95,28 @@ export AWS_SECRET_ACCESS_KEY=
 export AWS_DEFAULT_REGION=us-east-2
 ```
 
-Once you have that, run the `release-beta.sh` script and it should deploy the current react site out to beta.corrosionone.com
+Once you have that, run the following:
+
+```
+./release-beta.sh
+```
+
+It should deploy the current react site out to beta.corrosionone.com. This will be hosted on an AWS S3 bucket and distributed via AWS Cloudfront, so the invalidation & site update may take a few minutes from the time of release to when you see it live.
 
 ## Releasing Back-end Code
+
+Releasing backend code is a little trickier because you will have to have the following components which contain secrets and should be treated with caution.
+
+- An `awskeys.sh` file that has your AWS keys
+- A `prod_config/env_vars` file that has the production AWS env variables 
+
+Once you have those, just run 
+
+```
+./release-backend.sh
+```
+
+And it should deploy out the backend code.
 
 
 ## Database Merged heads
