@@ -1,4 +1,4 @@
-![c1 logo](favicon.svg)
+<img src="https://github.com/Corrosion-One/corrosion-one/raw/master/favicon.svg" width=250>
 
 Corrosion One 
 ------------------
@@ -100,6 +100,16 @@ Once you have that, run the `release-beta.sh` script and it should deploy the cu
 ## Releasing Back-end Code
 
 
+## Database Merged heads
+
+Sometimes if two or more developers are commiting code on the same branch which changes the database schema, you end up with diverged heads. To solve and merge heads back together you can run the following command
+
+```
+docker exec -ti c1_backend flask db merge heads
+docker exec -it c1_backend flask db upgrade
+```
+
+This will create a database migration that you will then have to add to version control and make sure you commit.
 
 
 ## Tips
