@@ -116,7 +116,7 @@ Once you have those, just run
 ./release-backend.sh
 ```
 
-And it should deploy out the backend code.
+And it should deploy out the backend code. This may take 5 minutes or more, because it will have to run any database migrations, create a new instance out on AWS ECS, and then update all the load balancer configurations. Once deployed, it will be live on `backend.corrosionone.com` and on `api.corrosionone.com`
 
 
 ## Database Merged heads
@@ -130,6 +130,14 @@ docker exec -it c1_backend flask db upgrade
 
 This will create a database migration that you will then have to add to version control and make sure you commit.
 
+## Notes on development workflow
+
+Some quick notes on the preferred development workflow for this project:
+
+- Feel free to work directly on the master branch and contribute code directly to master. Remote branches are fine for larger bodies of work, but at least during the initial sprint, let's keep in master.
+- Release your code at least once a day and update the team with any notes on what you've released
+
+If you're not sure about anything feel free to bug @haydenth
 
 ## Tips
 

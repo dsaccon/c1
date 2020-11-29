@@ -7,3 +7,5 @@ env_vars_prod
 .idea
 
 awskeys.sh
+
+prod_config/env_vars_prod

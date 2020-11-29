@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+  c1_backend:
+    image: 154389458697.dkr.ecr.us-east-2.amazonaws.com/c1_backend:latest
+    command: bash -c "flask db upgrade && gunicorn3 --log-level DEBUG --access-logfile - --error-logfile - --workers=2 --keep-alive=45 --timeout=45 -b :80 application"
+    ports: ["80:80"]
+    env_file:
+      - env_vars_prod
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: default
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: backend
