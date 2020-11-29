@@ -89,7 +89,7 @@ def login_plaintext():
 @application.route('/login/')
 def azure_login():
   if not azure.authorized:
-    return redirect(url_for("azure.login"))
+    return redirect(url_for("azure.login", _external=True))
   resp = azure.get("/v1.0/me")
   assert resp.ok
   authed_user = json.loads(resp.text)
