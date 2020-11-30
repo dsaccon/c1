@@ -8,6 +8,10 @@ This is the core codebase for corrosion one. It contains
 - c1_backend: python flask based backend
 - c1_frontned: react pwa based web frontend
 
+## IMPORTANT: Developer Notes
+
+Please follow the mandatory style guides for code acceptance. [Python Style Guide](https://github.com/haydenth/style-guides/blob/master/PYTHON.md) and [Javascript style Guide](https://github.com/haydenth/style-guides/blob/master/JAVASCRIPT.md). If you think there are mistakes in the style guides, please submit a pull request to @haydenth
+
 
 ## Setting up the frontend
 
