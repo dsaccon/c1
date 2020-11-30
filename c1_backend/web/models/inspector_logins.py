@@ -7,7 +7,6 @@ class InspectorLogin(db.Model):
     autoincrement=True, primary_key=True)
   inspector_id = db.Column(db.Integer,
     db.ForeignKey('users.id'), index=True)
-  inspector = db.relationship('Inspector')
   created_at = db.Column(db.DateTime)
   created_ip_address = db.Column(db.String)
   api_key = db.Column(db.String, index=True)
