@@ -6,6 +6,7 @@ from flask_talisman import Talisman
 from flask_migrate import Migrate, MigrateCommand
 from .helpers import dictify_obj
 from werkzeug.middleware.proxy_fix import ProxyFix
+import base64
 import logging
 import os
 import requests
@@ -97,4 +98,5 @@ from . import login
 from . import views
 from . import api
 
-
+# extra helper functions inside of JINJA
+application.jinja_env.filters['b64decode'] = base64.b64decode

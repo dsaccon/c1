@@ -18,6 +18,10 @@
         <div class='col-lg-4 text-center align-center' style='background: #efefef;'>
           <img class='text-center' src='/static/img/c1.png' style='max-width: 80%;'>
 
+          {% if request.args.get('email') %}
+            <div class='alert alert-danger'>Cannot login with the email address {{(request.args.get('email')|b64decode).decode('utf-8')}} </div>
+          {% endif %}
+
           <div class="login-form">
             <form action="/login/password" method="post">
               <div class="text-center social-btn">

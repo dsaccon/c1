@@ -68,7 +68,16 @@ def login_plaintext():
     .filter(User.login_type == 'password')
     .first())
   if u is None:
-    return redirect("/?error=1")
+    ulh = UsersLoginHistory()
+    ulh.created_at = datetime.datetime.now()
+    ulh.ip_address = get_ip()
+    ulh.login_type = 'azure'
+    ulh.result = 'FAILURE'
+    ulh.email = username
+    db.session.add(ulh)
+    db.session.commit()
+    b64_email = base64.b64encode(username.encode('utf-8'))
+    return redirect("/login?error=2&email=" + b64_email.decode('utf-8'))
   if check_password_hash(u.password_hash, password):
     ulh = UsersLoginHistory()
     ulh.created_at = datetime.datetime.now()
@@ -81,12 +90,17 @@ def login_plaintext():
     login_user(u, remember=False, duration=LOGIN_DURATION)
     if u.is_admin:
       return redirect("/home")
-    elif u.is_affiliate:
-      return redirect("/affiliate-calendar")
     else:
-      return 'You are not an admin or an affiliate. Call for help!' 
-  else:
-    return redirect("/?error=1")
+      ulh = UsersLoginHistory()
+      ulh.created_at = datetime.datetime.now()
+      ulh.ip_address = get_ip()
+      ulh.login_type = 'azure'
+      ulh.result = 'FAILURE'
+      ulh.email = email
+      db.session.add(ulh)
+      db.session.commit()
+      b64_email = base64.b64encode(email.encode('utf-8'))
+      return redirect("/login?error=2&email=" + b64_email.decode('utf-8'))
 
 @application.route("/login/")
 def azure_push_login():
@@ -100,10 +114,9 @@ def azure_login():
   resp = azure.get("/v1.0/me")
   assert resp.ok
   authed_user = json.loads(resp.text)
-  application.logger.warn(authed_user)
-  application.logger.warn(resp.text)
+  email = authed_user['userPrincipalName']
   u = (db.session.query(User)
-    .filter(func.trim(User.email) == authed_user['userPrincipalName'])
+    .filter(func.trim(User.email) == email)
     .filter(User.login_type == 'azure')
     .first())
 
@@ -116,10 +129,20 @@ def azure_login():
     ulh.user_id = u.user_id
     ulh.ip_address = get_ip()
     ulh.login_type = 'azure'
-    ulh.token_id = None
+    ulh.result = 'SUCCESS'
+    ulh.email = email
     db.session.add(ulh)
     db.session.commit()
     login_user(u, remember=True, duration=LOGIN_DURATION)
     return redirect("/home")
   else:
-    return redirect("/?error=1")
+    ulh = UsersLoginHistory()
+    ulh.created_at = datetime.datetime.now()
+    ulh.ip_address = get_ip()
+    ulh.login_type = 'azure'
+    ulh.result = 'FAILURE'
+    ulh.email = email
+    db.session.add(ulh)
+    db.session.commit()
+    b64_email = base64.b64encode(email.encode('utf-8'))
+    return redirect("/login?error=1&email=" + b64_email.decode('utf-8'))

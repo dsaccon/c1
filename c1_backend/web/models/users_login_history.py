@@ -12,3 +12,5 @@ class UsersLoginHistory(db.Model):
   ip_address = db.Column(db.String)
   token_id = db.Column(db.String, index=True)
   platform = db.Column(db.String, index=True)
+  result = db.Column(db.String)
+  email = db.Column(db.String)
