@@ -11,3 +11,5 @@ class Inspector(db.Model):
   login_type = db.Column(db.String) # google, password
   password_hash = db.Column(db.String)
   disabled_at = db.Column(db.DateTime)
+  phone_no = db.Column(db.String)
+  language_code = db.Column(db.String, default='en')
