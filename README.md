@@ -139,6 +139,17 @@ Some quick notes on the preferred development workflow for this project:
 
 If you're not sure about anything feel free to bug @haydenth
 
+## API
+
+The production API host is at `api.corrosionone.com`. please follow the following format for API endpoints
+
+- Store them in a file at `c1_backend/web/api/`
+- Please prefix all routes with `/api/` to avoid confusion with the administrative services
+
+## Timezones 
+
+This might sound irritating to some, but please store any timstamps worked with in the database in US Central timezone (US/Central). However, when passing information from the frontend -> API feel free to use UTC or whatever format works best (Timestamp, TZ) or UTC timezone.
+
 ## Tips
 
 Create an alias from `docker-compose` to `dc`. Add this to your `.bashrc
