@@ -4,6 +4,7 @@ from flask_login import LoginManager, login_required, login_user, \
   logout_user, current_user
 from flask_talisman import Talisman
 from flask_migrate import Migrate, MigrateCommand
+from flask_dance.contrib.google import make_google_blueprint
 from .helpers import dictify_obj
 from werkzeug.middleware.proxy_fix import ProxyFix
 import base64
@@ -83,6 +84,12 @@ application.config['STRIPE_PUBLIC_KEY'] = os.environ.get('REACT_APP_STRIPE_PUBLI
 
 application.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 application.config['JSON_SORT_KEYS'] = False
+
+# Oauth setup
+application.config["GOOGLE_OAUTH_CLIENT_ID"] = os.environ["GOOGLE_OAUTH_CLIENT_ID"]
+application.config["GOOGLE_OAUTH_CLIENT_SECRET"] = os.environ["GOOGLE_OAUTH_CLIENT_SECRET"]
+google_bp = make_google_blueprint(scope=["profile", "email"])
+application.register_blueprint(google_bp, url_prefix="/login")
 
 # admin required decorator
 def admin_required(func):

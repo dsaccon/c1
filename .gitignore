@@ -13,3 +13,7 @@ prod_config/env_vars_prod
 *.swo
 
 .eslintcache
+
+# virtual env
+env/
+venv
