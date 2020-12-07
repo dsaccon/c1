@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Header } from "../../components/Header/Header";
-import { BackButton } from "../../components/BackButton/BackButton";
 import { Link } from "react-router-dom";
 import { SubHeader } from "../../components/SubHeader/SubHeader";
 import { Content } from "../../components/Content/Content";
@@ -31,7 +30,7 @@ export const PushNotifications = ({}) => {
 
   return (
     <Content className={classes.content} padding={false} autoSpacing={false}>
-      <Header backButton={<BackButton component={Link} to={"/login"} />} />
+      <Header />
       <SubHeader text="Notifications" />
       <Content centerItems>
         <ScalableTypography sizing="title">Did you know?</ScalableTypography>

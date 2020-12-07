@@ -7,10 +7,12 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_dance.contrib.google import make_google_blueprint
 from .helpers import dictify_obj
 from werkzeug.middleware.proxy_fix import ProxyFix
+from functools import wraps
 import base64
 import logging
 import os
 import requests
+import jwt
 from .models import *
 
 application = Flask(__name__)
@@ -85,12 +87,6 @@ application.config['STRIPE_PUBLIC_KEY'] = os.environ.get('REACT_APP_STRIPE_PUBLI
 application.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 application.config['JSON_SORT_KEYS'] = False
 
-# Oauth setup
-application.config["GOOGLE_OAUTH_CLIENT_ID"] = os.environ["GOOGLE_OAUTH_CLIENT_ID"]
-application.config["GOOGLE_OAUTH_CLIENT_SECRET"] = os.environ["GOOGLE_OAUTH_CLIENT_SECRET"]
-google_bp = make_google_blueprint(scope=["profile", "email"])
-application.register_blueprint(google_bp, url_prefix="/login")
-
 # admin required decorator
 def admin_required(func):
   def func_wrapper(*args, **kwargs):
@@ -100,6 +96,19 @@ def admin_required(func):
       return redirect("/")
   func_wrapper.__name__ = func.__name__
   return func_wrapper
+
+
+def valid_google_jwt_required(func):
+    @wraps(func)
+    def func_wrapper(*arg, **kwargs):
+        jwt_token = request.headers.get("Authorization")
+        print("JWT TOKEN", jwt_token)
+        # token = jwt.decode(jwt_token)
+        # print("TOKEN", token)
+        return jsonify({ "token": jwt_token })
+
+    return func_wrapper
+
 
 from . import login
 from . import views

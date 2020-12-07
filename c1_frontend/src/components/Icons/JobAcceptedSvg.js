@@ -27,7 +27,6 @@ export const JobAcceptedSvg = ({ ...props }) => {
   return (
     <SvgIcon
       id="Layer_1"
-      dataName="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 790.81136 436.3943"
       {...props}

@@ -25,7 +25,6 @@ export const HandCertificateSvg = ({ ...props }) => {
   return (
     <SvgIcon
       id="Layer_1"
-      dataName="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 470.31741 786.29736"
       {...props}

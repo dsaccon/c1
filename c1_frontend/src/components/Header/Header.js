@@ -2,6 +2,7 @@ import React from "react";
 import { CorrosionOne } from "../Icons/CorrosionOne";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import classNames from "classnames";
+import { GoogleLogout } from "../Auth/GoogleLogout";
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
   header: {
@@ -22,6 +23,7 @@ export const Header = ({ backButton, className, children, ...props }) => {
       {backButton}
       <CorrosionOne className={classes.corrosionOne} />
       {children}
+      <GoogleLogout />
     </div>
   );
 };
