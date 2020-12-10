@@ -4,13 +4,15 @@ import { Header } from "../../components/Header/Header";
 import { SubHeader } from "../../components/SubHeader/SubHeader";
 import { Content } from "../../components/Content/Content";
 import { GoogleLogin } from "react-google-login";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { AuthContext, refreshTokenSetup } from "../../components/Auth/auth";
 import Button from "@material-ui/core/Button";
 import { corrosionClient } from "../../api/corrosionClient";
 
 export const Login = () => {
   const history = useHistory();
+  const location = useLocation();
+  console.log(history, location);
   const onFailure = (res) => {
     console.log("LOGIN FAILURE: ", res);
   };
@@ -25,10 +27,14 @@ export const Login = () => {
               clientId="591260303822-7bc0jb459rppkuhemoba2qamqhqqm90f.apps.googleusercontent.com"
               buttonText="Login With Google"
               onSuccess={(res) => {
-                console.log("LOGIN SUCCESS: ", res);
                 setAuthState({ setAuthState, authResponse: res });
                 refreshTokenSetup(res, setAuthState);
-                history.push("/push-notifications");
+                const redirectFrom = location.state?.redirectedFrom;
+                if (redirectFrom !== undefined && redirectFrom !== null) {
+                  history.push({ pathname: redirectFrom, state: {} });
+                } else {
+                  history.push("/push-notifications");
+                }
               }}
               onFailure={onFailure}
               cookiePolicy={"single_host_origin"}

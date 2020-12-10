@@ -15,6 +15,7 @@ import { BidSubmissionSuccess } from "./scenes/JobDetails/BidSubmissionSuccess";
 import { Messages } from "./scenes/Messages/Messages";
 import { AuthContext, useAuth } from "./components/Auth/auth";
 import { RequireAuth } from "./components/Auth/RequireAuth";
+import { EnterPhoneNumber } from "./scenes/PhoneNumberCollection/EnterPhoneNumber";
 
 const useStyles = makeStyles({
   app: {
@@ -69,6 +70,9 @@ const App = () => {
             </Route>
             <Route path="/messages">
               <Messages />
+            </Route>
+            <Route path="/enter-phone-number">
+              <EnterPhoneNumber />
             </Route>
           </RequireAuth>
           <Route path="/">

@@ -1,10 +1,21 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 
 export const RequireAuth = ({ children, authState }) => {
+  const location = useLocation();
+
   return authState?.authResponse === null ||
     authState?.authResponse === undefined ? (
-    <Redirect to="/login" />
+    <Redirect
+      push
+      to={{
+        pathname: "/login",
+        state: {
+          redirectedFrom: location.pathname,
+        },
+      }}
+      from={location.pathname}
+    />
   ) : (
     children
   );
