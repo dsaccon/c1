@@ -15,7 +15,10 @@ import { BidSubmissionSuccess } from "./scenes/JobDetails/BidSubmissionSuccess";
 import { Messages } from "./scenes/Messages/Messages";
 import { AuthContext, useAuth } from "./components/Auth/auth";
 import { RequireAuth } from "./components/Auth/RequireAuth";
+import { ConfirmPhoneNumber } from "./scenes/PhoneNumberCollection/ConfirmPhoneNumber";
+import { NotFound404 } from "./scenes/NotFound404/NotFound404";
 import { EnterPhoneNumber } from "./scenes/PhoneNumberCollection/EnterPhoneNumber";
+import { SuccessfullyConfirmedPhoneNumber } from "./scenes/PhoneNumberCollection/SuccessfullyConfirmedPhoneNumber";
 
 const useStyles = makeStyles({
   app: {
@@ -28,12 +31,14 @@ const useStyles = makeStyles({
 const App = () => {
   const classes = useStyles();
   const [authState, setAuthState] = useAuth();
-  console.log("AUTH STATE: ", authState);
 
   return (
     <AuthContext.Provider value={{ authResponse: null, setAuthState }}>
       <div className={classes.app}>
         <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
           <Route path="/landing-page">
             <LandingPage />
           </Route>
@@ -74,10 +79,14 @@ const App = () => {
             <Route path="/enter-phone-number">
               <EnterPhoneNumber />
             </Route>
+            <Route path="/confirm-phone-number">
+              <ConfirmPhoneNumber />
+            </Route>
+            <Route path="/successfully-confirmed-phone-number">
+              <SuccessfullyConfirmedPhoneNumber />
+            </Route>
           </RequireAuth>
-          <Route path="/">
-            <LandingPage />
-          </Route>
+          <Route component={NotFound404} />
         </Switch>
       </div>
     </AuthContext.Provider>

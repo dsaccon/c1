@@ -7,6 +7,8 @@ import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
 import { IconFooter } from "../../components/Footer/IconFooter";
 import { JobAcceptedSvg } from "../../components/Icons/JobAcceptedSvg";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(({ palette }) => ({
   content: {
@@ -38,7 +40,18 @@ export const BidSubmissionSuccess = ({}) => {
           A confirmation email has been sent to EMAIL.
         </ScalableTypography>
       </Content>
-      <IconFooter />
+      <div className={classes.footer}>
+        <Button
+          className={classes.button}
+          color="primary"
+          variant="contained"
+          fullWidth
+          component={Link}
+          to="/bid-submission-success"
+        >
+          Submit Bid
+        </Button>
+      </div>
     </>
   );
 };

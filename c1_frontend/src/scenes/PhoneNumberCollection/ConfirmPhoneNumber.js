@@ -5,7 +5,6 @@ import { HeaderDetails } from "../../components/Header/HeaderDetails";
 import { SubHeader } from "../../components/SubHeader/SubHeader";
 import { Content } from "../../components/Content/Content";
 import { ScalableTypography } from "../../components/Typography/ScalableTypography";
-import { Select } from "../../components/Form/Select";
 import { TextInput } from "../../components/Form/TextInput";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
@@ -20,25 +19,24 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
 }));
 
-export const EnterPhoneNumber = ({}) => {
+export const ConfirmPhoneNumber = ({}) => {
   const classes = useStyles();
 
   return (
     <>
       <Header>
-        <HeaderDetails text="SETTINGS" />
+        <HeaderDetails backTo="/enter-phone-number" text="SETTINGS" />
       </Header>
-      <SubHeader text="Enter Phone Number" centerText={false} />
+      <SubHeader text="Confirm Phone Number" centerText={false} />
       <Content centerItems>
         <ScalableTypography sizing="title" color="textSecondary">
-          We use your phone number in order to send you notifications on jobs
-          and will provide your contact information when you submit a bid,
-          including your phone number.
+          We’ve sent you a text message with a four digit confirmation code.
+          Please enter that number below
         </ScalableTypography>
-        <Select>
-          <option value="United States">United States (+1)</option>
-        </Select>
         <TextInput />
+        <ScalableTypography sizing="title" color="error">
+          Not working? Click here to send us a message!
+        </ScalableTypography>
       </Content>
       <div className={classes.footer}>
         <Button

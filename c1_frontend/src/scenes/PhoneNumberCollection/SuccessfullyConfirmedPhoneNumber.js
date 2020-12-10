@@ -20,7 +20,7 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
 }));
 
-export const EnterPhoneNumber = ({}) => {
+export const SuccessfullyConfirmedPhoneNumber = ({}) => {
   const classes = useStyles();
 
   return (
@@ -28,17 +28,11 @@ export const EnterPhoneNumber = ({}) => {
       <Header>
         <HeaderDetails text="SETTINGS" />
       </Header>
-      <SubHeader text="Enter Phone Number" centerText={false} />
+      <SubHeader text="Confirmed" centerText={false} />
       <Content centerItems>
         <ScalableTypography sizing="title" color="textSecondary">
-          We use your phone number in order to send you notifications on jobs
-          and will provide your contact information when you submit a bid,
-          including your phone number.
+          Your number has been confirmed!
         </ScalableTypography>
-        <Select>
-          <option value="United States">United States (+1)</option>
-        </Select>
-        <TextInput />
       </Content>
       <div className={classes.footer}>
         <Button
@@ -47,9 +41,9 @@ export const EnterPhoneNumber = ({}) => {
           variant="contained"
           fullWidth
           component={Link}
-          to="/successfully-confirmed-phone-number"
+          to="/job-details"
         >
-          Submit
+          Back
         </Button>
       </div>
     </>

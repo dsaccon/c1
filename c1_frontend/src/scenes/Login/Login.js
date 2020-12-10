@@ -12,10 +12,10 @@ import { corrosionClient } from "../../api/corrosionClient";
 export const Login = () => {
   const history = useHistory();
   const location = useLocation();
-  console.log(history, location);
   const onFailure = (res) => {
     console.log("LOGIN FAILURE: ", res);
   };
+
   return (
     <AuthContext.Consumer>
       {({ setAuthState, authResponse }) => (
