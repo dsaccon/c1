@@ -47,7 +47,7 @@ export const EnterPhoneNumber = ({}) => {
           variant="contained"
           fullWidth
           component={Link}
-          to="/successfully-confirmed-phone-number"
+          to="/confirm-phone-number"
         >
           Submit
         </Button>

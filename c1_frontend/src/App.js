@@ -33,7 +33,13 @@ const App = () => {
   const [authState, setAuthState] = useAuth();
 
   return (
-    <AuthContext.Provider value={{ authResponse: null, setAuthState }}>
+    <AuthContext.Provider
+      value={{
+        authResponse: authState.authResponse,
+        setAuthState,
+        authType: authState.authType,
+      }}
+    >
       <div className={classes.app}>
         <Switch>
           <Route exact path="/">

@@ -5,7 +5,11 @@ import { SubHeader } from "../../components/SubHeader/SubHeader";
 import { Content } from "../../components/Content/Content";
 import { GoogleLogin } from "react-google-login";
 import { useHistory, useLocation } from "react-router-dom";
-import { AuthContext, refreshTokenSetup } from "../../components/Auth/auth";
+import {
+  AuthContext,
+  refreshTokenSetupGoogle,
+} from "../../components/Auth/auth";
+import FacebookLogin from "react-facebook-login";
 import Button from "@material-ui/core/Button";
 import { corrosionClient } from "../../api/corrosionClient";
 
@@ -16,9 +20,18 @@ export const Login = () => {
     console.log("LOGIN FAILURE: ", res);
   };
 
+  const redirect = () => {
+    const redirectFrom = location.state?.redirectedFrom;
+    if (redirectFrom !== undefined && redirectFrom !== null) {
+      history.push({ pathname: redirectFrom, state: {} });
+    } else {
+      history.push("/push-notifications");
+    }
+  };
+
   return (
     <AuthContext.Consumer>
-      {({ setAuthState, authResponse }) => (
+      {({ setAuthState }) => (
         <>
           <Header />
           <SubHeader text="YOUR ACCOUNT" />
@@ -27,18 +40,32 @@ export const Login = () => {
               clientId="591260303822-7bc0jb459rppkuhemoba2qamqhqqm90f.apps.googleusercontent.com"
               buttonText="Login With Google"
               onSuccess={(res) => {
-                setAuthState({ setAuthState, authResponse: res });
-                refreshTokenSetup(res, setAuthState);
-                const redirectFrom = location.state?.redirectedFrom;
-                if (redirectFrom !== undefined && redirectFrom !== null) {
-                  history.push({ pathname: redirectFrom, state: {} });
-                } else {
-                  history.push("/push-notifications");
-                }
+                console.log("RES: ", res);
+                setAuthState({
+                  setAuthState,
+                  authResponse: res,
+                  authType: "GOOGLE",
+                });
+                refreshTokenSetupGoogle(res, setAuthState);
+                redirect();
               }}
               onFailure={onFailure}
-              cookiePolicy={"single_host_origin"}
-              isSignedIn={true}
+              cookiePolicy="single_host_origin"
+            />
+            <FacebookLogin
+              appId="214625390144981"
+              autoload={false}
+              fields="name,email,picture"
+              callback={(res) => {
+                // TODO need to make call to server for jwt token and refresh timeout but need to solve cors error first
+                console.log("SETTING AUTH STATE: ", "FACEBOOK");
+                setAuthState({
+                  authResponse: res,
+                  setAuthState,
+                  authType: "FACEBOOK",
+                });
+                redirect();
+              }}
             />
             {/*<Button variant='contained' onClick={() => {*/}
             {/*  corrosionClient.post('http://localhost:8001/test', {}, { headers: { Authorization: `Bearer token ${authResponse}` }})*/}

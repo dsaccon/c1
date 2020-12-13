@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const refreshTokenSetup = (res, setAuthState) => {
+export const refreshTokenSetupGoogle = (res, setAuthState) => {
   let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
 
   const refreshToken = async () => {
@@ -25,6 +25,7 @@ export const useAuth = () => {
   const [authState, setAuthState] = useState({
     authResponse: null,
     setAuthState: () => {},
+    authType: null,
   });
   return [authState, setAuthState];
 };

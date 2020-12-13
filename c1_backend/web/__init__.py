@@ -6,13 +6,10 @@ from flask_talisman import Talisman
 from flask_migrate import Migrate, MigrateCommand
 from .helpers import dictify_obj
 from werkzeug.middleware.proxy_fix import ProxyFix
-from functools import wraps
 import base64
 import logging
 import os
 import requests
-from google.oauth2 import id_token
-from google.auth.transport import requests
 from .models import *
 
 application = Flask(__name__)
@@ -96,23 +93,6 @@ def admin_required(func):
       return redirect("/")
   func_wrapper.__name__ = func.__name__
   return func_wrapper
-
-
-CLIENT_ID_GOOGLE = "591260303822-7bc0jb459rppkuhemoba2qamqhqqm90f.apps.googleusercontent.com"
-
-def valid_google_jwt_required(func):
-    @wraps(func)
-    def func_wrapper(*args, **kwargs):
-        jwt_token = request.headers.get("Authorization")
-        try:
-            idinfo = id_token.verify_oauth2_token(jwt_token, requests.Request(), CLIENT_ID_GOOGLE)
-        except ValueError as value_error:
-            application.logger.debug("INVALID TOKEN")
-            return jsonify({ "error": "error with google jwt token: " + str(value_error) })
-        return func(*args, **kwargs)
-
-    return func_wrapper
-
 
 from . import login
 from . import views
