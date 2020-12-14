@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { MsalAuthProvider, LoginType } from "react-aad-msal";
 
 export const refreshTokenSetupGoogle = (res, setAuthState) => {
   let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
