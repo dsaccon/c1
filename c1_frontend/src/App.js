@@ -2,6 +2,7 @@ import React from "react";
 import { LandingPage } from "./scenes/LandingPage/LandingPage";
 import { Switch, Route } from "react-router-dom";
 import { Login } from "./scenes/Login/Login";
+// import { AzureAD } from 'react-aad-msal';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { Registration } from "./scenes/Registration/Registration";
 import { PushNotifications } from "./scenes/PushNotifications/PushNotifications";
@@ -13,7 +14,7 @@ import { JobDetails } from "./scenes/JobDetails/JobDetails";
 import { SubmitBid } from "./scenes/JobDetails/SubmitBid";
 import { BidSubmissionSuccess } from "./scenes/JobDetails/BidSubmissionSuccess";
 import { Messages } from "./scenes/Messages/Messages";
-import { AuthContext, useAuth } from "./components/Auth/auth";
+import { AuthContext, authProvider, useAuth } from "./components/Auth/auth";
 import { RequireAuth } from "./components/Auth/RequireAuth";
 import { ConfirmPhoneNumber } from "./scenes/PhoneNumberCollection/ConfirmPhoneNumber";
 import { NotFound404 } from "./scenes/NotFound404/NotFound404";
@@ -38,6 +39,7 @@ const App = () => {
         authResponse: authState.authResponse,
         setAuthState,
         authType: authState.authType,
+        msal: authState.msal,
       }}
     >
       <div className={classes.app}>

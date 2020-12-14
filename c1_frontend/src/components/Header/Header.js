@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { GoogleLogout } from "../Auth/GoogleLogout";
 import { AuthContext } from "../Auth/auth";
 import { FacebookLogout } from "../Auth/FacebookLogout";
+import { MicrosoftLogout } from "../Auth/MicrosoftLogout";
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
   header: {
@@ -31,6 +32,7 @@ export const Header = ({ backButton, className, children, ...props }) => {
             {children}
             {authType === "GOOGLE" && <GoogleLogout />}
             {authType === "FACEBOOK" && <FacebookLogout />}
+            {authType === "MICROSOFT" && <MicrosoftLogout />}
           </div>
         );
       }}

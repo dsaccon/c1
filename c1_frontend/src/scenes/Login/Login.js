@@ -12,6 +12,7 @@ import {
 import FacebookLogin from "react-facebook-login";
 import Button from "@material-ui/core/Button";
 import { corrosionClient } from "../../api/corrosionClient";
+import MicrosoftLogin from "react-microsoft-login";
 
 export const Login = () => {
   const history = useHistory();
@@ -65,6 +66,23 @@ export const Login = () => {
                   authType: "FACEBOOK",
                 });
                 redirect();
+              }}
+            />
+            <MicrosoftLogin
+              clientId="1d1ea85d-8393-4740-ad0a-6ca0e32a1c70"
+              authCallback={(err, data, msal) => {
+                console.log("MSAL: ", msal);
+                if (err === null || err === undefined) {
+                  setAuthState({
+                    authResponse: data,
+                    setAuthState,
+                    authType: "MICROSOFT",
+                    msal: msal,
+                  });
+                  redirect();
+                } else {
+                  console.error("FAILED TO LOGIN MICROSOFT: ", err);
+                }
               }}
             />
             {/*<Button variant='contained' onClick={() => {*/}
