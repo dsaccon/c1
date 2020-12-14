@@ -10,9 +10,10 @@ import {
   refreshTokenSetupGoogle,
 } from "../../components/Auth/auth";
 import FacebookLogin from "react-facebook-login";
+import AppleLogin from "react-apple-login";
+import MicrosoftLogin from "react-microsoft-login";
 import Button from "@material-ui/core/Button";
 import { corrosionClient } from "../../api/corrosionClient";
-import MicrosoftLogin from "react-microsoft-login";
 
 export const Login = () => {
   const history = useHistory();
@@ -82,6 +83,22 @@ export const Login = () => {
                   redirect();
                 } else {
                   console.error("FAILED TO LOGIN MICROSOFT: ", err);
+                }
+              }}
+            />
+            <AppleLogin
+              clientId="corrosionone.com"
+              redirectURI={window.location}
+              callback={(res) => {
+                if (res) {
+                  setAuthState({
+                    authResponse: res,
+                    setAuthState,
+                    authType: "APPLE",
+                  });
+                  redirect();
+                } else {
+                  console.error("FAILED TO LOGIN APPLE: ");
                 }
               }}
             />
