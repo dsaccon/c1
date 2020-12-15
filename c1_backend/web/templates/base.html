@@ -47,8 +47,14 @@
       <!-- actual navbar magic here -->
       <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item {{'active' if '/' in request.path}}">
+            <li class="nav-item {{'active' if '/home' in request.path}}">
               <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li class="nav-item {{'active' if '/owners' in request.path}}">
+              <a class="nav-link" href="/owners">Owners</a>
+            </li>
+            <li class="nav-item {{'active' if '/jobs' in request.path}}">
+              <a class="nav-link" href="/jobs">Jobs</a>
             </li>
           </ul>
         <!-- if logged in -->
@@ -71,7 +77,6 @@
     </div>
   </nav>
   <div class='container-fluid' style='margin-top: 10px'>
-    asdf
     {% block content %}
     {% endblock content %}
   </div>
