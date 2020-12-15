@@ -22,3 +22,8 @@ def owners_loggedin():
 @login_required
 def jobs_loggedin():
   return render_template("jobs.html")
+
+@application.route("/certifications")
+@login_required
+def certifications_loggedin():
+  return render_template("certifications.html")
