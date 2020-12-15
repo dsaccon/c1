@@ -10,6 +10,7 @@
   <link href="/static/css/global.css?{{ range(1, 9999) | random }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   {% include "headerincludes.html" %}
@@ -55,6 +56,9 @@
             </li>
             <li class="nav-item {{'active' if '/jobs' in request.path}}">
               <a class="nav-link" href="/jobs">Jobs</a>
+            </li>
+            <li class="nav-item {{'active' if '/certifications' in request.path}}">
+              <a class="nav-link" href="/certifications">Certifications</a>
             </li>
           </ul>
         <!-- if logged in -->
