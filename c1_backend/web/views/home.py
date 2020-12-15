@@ -11,4 +11,14 @@ def home():
 @application.route("/home")
 @login_required
 def home_loggedin():
-  return render_template("index.html") 
+  return render_template("index.html")
+
+@application.route("/owners")
+@login_required
+def owners_loggedin():
+  return render_template("owners.html")
+
+@application.route("/jobs")
+@login_required
+def jobs_loggedin():
+  return render_template("jobs.html")
