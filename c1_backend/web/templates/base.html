@@ -60,6 +60,9 @@
             <li class="nav-item {{'active' if '/certifications' in request.path}}">
               <a class="nav-link" href="/certifications">Certifications</a>
             </li>
+            <li class="nav-item {{'active' if '/parent-organizations' in request.path}}">
+              <a class="nav-link" href="/parent-organizations">Parent Organizations</a>
+            </li>
           </ul>
         <!-- if logged in -->
         {% if current_user %}
