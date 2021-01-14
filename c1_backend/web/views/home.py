@@ -27,47 +27,64 @@ def jobs_loggedin():
 @login_required
 def certifications_loggedin():
   if request.method == 'POST':
-    new_name = request.form['new-name']
-    new_short_name = request.form['new-short-name']
-    new_url = request.form['new-url']
-    new_row_order = request.form['new-row-order']
-    if new_name and new_short_name and new_url and new_row_order:
-      row = Certification(new_name, new_short_name, new_url, new_row_order)
-      db.session.add(row)
+    if all((
+        'name' in request.form,
+        'short_name' in request.form,
+        'url' in request.form,
+        'row_order' in request.form,
+        'certification_id' in request.form,
+        'parent_organization' in request.form)):
+      # Edit
+      name = request.form['name']
+      short_name = request.form['short_name']
+      url = request.form['url']
+      row_order = request.form['row_order']
+      id_ = request.form['certification_id']
+      parent_org = db.session.query(ParentOrganization).filter(
+        ParentOrganization.name==request.form['parent_organization']).first()
+
+      cert = Certification.query.get(id_)
+      cert.name = name
+      cert.short_name = short_name
+      cert.url = url
+      cert.row_order = row_order
+      cert.parent_organization = parent_org
+      db.session.add(cert)
+      db.session.commit()
+
+    elif all((
+        'new-name' in request.form,
+        'new-short-name' in request.form,
+        'new-url' in request.form,
+        'new-row-order' in request.form,
+        'new-parent-org' in request.form)):
+      # Add new
+      new_name = request.form['new-name']
+      new_short_name = request.form['new-short-name']
+      new_url = request.form['new-url']
+      new_row_order = request.form['new-row-order']
+      new_parent_org = request.form['new-parent-org']
+
+      parent_org = db.session.query(ParentOrganization).filter(
+        ParentOrganization.name==new_parent_org).first()
+      cert = Certification(
+        name=new_name, short_name=new_short_name, url=new_url,
+        row_order=new_row_order, parent_organization=parent_org)
+      db.session.add(cert)
       db.session.commit()
 
   all_certs = Certification.query.all()
   all_certs.sort(key=lambda x: int(x.row_order))
+  all_parent_orgs = ParentOrganization.query.all()
 
-  return render_template("certifications.html", certs = all_certs)
+  return render_template(
+    "certifications.html", certs=all_certs, parent_orgs=all_parent_orgs)
 
-@application.route("/certifications/<int:id>/edit", methods=('GET', 'POST'))
+@application.route("/certifications/<int:id_>/delete")
 @login_required
-def certifications_loggedin_edit(id):
-  if request.method == 'POST':
-    new_name = request.form['new-name']
-    new_short_name = request.form['new-short-name']
-    new_url = request.form['new-url']
-    new_row_order = request.form['new-row-order']
-    if new_name and new_short_name and new_url and new_row_order:
-      # Drop existing row
-      row = db.session.query(Certification).filter(Certification.certification_id==id).delete()
-      db.session.commit()
-
-      # Add new row
-      row = Certification(new_name, new_short_name, new_url, new_row_order)
-      db.session.add(row)
-      db.session.commit()
-
-      return redirect("/certifications")
-
-  row = db.session.query(Certification).filter(Certification.certification_id==id).first()
-  return render_template("certifications_edit.html", cert = row)
-
-@application.route("/certifications/<int:id>/delete")
-@login_required
-def certifications_loggedin_delete(id):
-  row = db.session.query(Certification).filter(Certification.certification_id==id).delete()
+def certifications_loggedin_delete(id_):
+  cert = Certification.query.get(id_)
+  db.session.delete(cert)
   db.session.commit()
 
   return redirect("/certifications")
@@ -76,44 +93,46 @@ def certifications_loggedin_delete(id):
 @login_required
 def parent_orgs_loggedin():
   if request.method == 'POST':
-    new_name = request.form['new-name']
-    new_short_name = request.form['new-short-name']
-    new_url = request.form['new-url']
-    if new_name and new_short_name and new_url:
-      row = ParentOrganization(new_name, new_short_name, new_url)
-      db.session.add(row)
+    if all((
+        'name' in request.form,
+        'short_name' in request.form,
+        'url' in request.form)):
+      # Edit
+      name = request.form['name']
+      short_name = request.form['short_name']
+      url = request.form['url']
+      id_ = request.form['parent_org_id']
+      parent = ParentOrganization.query.get(id_)
+      parent.name = name
+      parent.short_name = short_name
+      parent.url = url
+      db.session.add(parent)
+      db.session.commit()
+
+    elif all((
+        'new-name' in request.form,
+        'new-short-name' in request.form,
+        'new-url' in request.form)):
+      # Add new
+      new_name = request.form['new-name']
+      new_short_name = request.form['new-short-name']
+      new_url = request.form['new-url']
+      parent = ParentOrganization(
+        name=new_name, short_name=new_short_name, url=new_url)
+      db.session.add(parent)
       db.session.commit()
 
   all_parent_orgs = ParentOrganization.query.all()
+  all_parent_orgs.sort(key=lambda x: int(x.id))
 
-  return render_template("parent_organizations.html", parent_orgs = all_parent_orgs)
+  return render_template(
+    "parent_organizations.html", parent_orgs=all_parent_orgs)
 
-@application.route("/parent-organizations/<int:id>/edit", methods=('GET', 'POST'))
+@application.route("/parent-organizations/<int:id_>/delete")
 @login_required
-def parent_orgs_loggedin_edit(id):
-  if request.method == 'POST':
-    new_name = request.form['new-name']
-    new_short_name = request.form['new-short-name']
-    new_url = request.form['new-url']
-    if new_name and new_short_name and new_url:
-      # Drop existing row
-      row = db.session.query(ParentOrganization).filter(ParentOrganization.id==id).delete()
-      db.session.commit()
-
-      # Add new row
-      row = ParentOrganization(new_name, new_short_name, new_url)
-      db.session.add(row)
-      db.session.commit()
-
-      return redirect("/parent-organizations")
-
-  row = db.session.query(ParentOrganization).filter(ParentOrganization.id==id).first()
-  return render_template("parent_organizations_edit.html", parent_org = row)
-
-@application.route("/parent-organizations/<int:id>/delete")
-@login_required
-def parent_orgs_loggedin_delete(id):
-  row = db.session.query(ParentOrganization).filter(ParentOrganization.id==id).delete()
+def parent_orgs_loggedin_delete(id_):
+  parent = ParentOrganization.query.get(id_)
+  db.session.delete(parent)
   db.session.commit()
 
   return redirect("/parent-organizations")
