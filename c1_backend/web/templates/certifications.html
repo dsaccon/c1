@@ -1,66 +1,333 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Short name</th>
-            <th scope="col">URL</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for cert in certs %}
-            <div class="row">
-                <tr>
-                    <div class="col-8">
-                        <td>{{cert.name}}</td>
-                        <td>{{cert.short_name}}</td>
-                        <td>{{cert.url}}</td>
-                    </div>
-                    <div class="col-2">
-                        <td>
-                            <a class="btn btn-primary"
-                               href="/certifications/{{cert.certification_id}}/edit"
-                               role="button">Edit</a>
+<style>
+  body {
+      color: #404E67;
+      background: #F5F7FA;
+      font-family: 'Open Sans', sans-serif;
+  }
+  .table-wrapper {
+      width: 1100px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  }
+  .table-title {
+      padding-bottom: 10px;
+      margin: 0 0 10px;
+  }
+  .table-title h2 {
+      margin: 6px 0 0;
+      font-size: 22px;
+  }
+  .table-title .add-new {
+      float: right;
+      height: 30px;
+      font-weight: bold;
+      font-size: 12px;
+      text-shadow: none;
+      min-width: 100px;
+      border-radius: 50px;
+      line-height: 13px;
+  }
+  .table-title .add-new i {
+      margin-right: 4px;
+  }
+  table.table {
+      table-layout: fixed;
+  }
+  table.table tr th, table.table tr td {
+      border-color: #e9e9e9;
+      width: 100px;
+  }
+  table.table th i {
+      font-size: 13px;
+      margin: 0 5px;
+      cursor: pointer;
+  }
+  table.table th:last-child {
+      width: 60px;
+  }
+  table.table td a {
+      cursor: pointer;
+      display: inline-block;
+      margin: 0 5px;
+      min-width: 24px;
+  }
+  table.table td a.add {
+      color: #27C46B;
+  }
+  table.table td a.edit {
+      color: #FFC107;
+  }
+  table.table td a.delete {
+      color: #E34724;
+  }
+  table.table td i {
+      font-size: 19px;
+  }
+  table.table td a.add i {
+      font-size: 24px;
+      margin-right: -1px;
+      position: relative;
+      top: 3px;
+  }
+  table.table .form-control {
+      height: 32px;
+      line-height: 32px;
+      box-shadow: none;
+      border-radius: 2px;
+  }
+  table.table .form-control.error {
+      border-color: #f50000;
+  }
+  table.table td .add {
+      display: none;
+  }
+  .modal.modal-wide .modal-dialog {
+      width: 100%;
+  }
+  .modal-wide .modal-body {
+      overflow-y: auto;
+  }
+</style>
+
+<script>
+$(document).ready(function(){
+
+    window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('certs-form');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+        }, false);
+    });
+    }, false);
+
+    $('[data-toggle="tooltip"]').tooltip();
+    var actions = $("table td:last-child").html();
+    // Add row on add button click
+    $(document).on("click", ".add", function(){
+      var empty = false;
+      var input = $(this).parents("tr").find('input[type="text"]');
+          input.each(function(){
+        if(!$(this).val()){
+          $(this).addClass("error");
+          empty = true;
+        } else{
+                  $(this).removeClass("error");
+              }
+      });
+      $(this).parents("tr").find(".error").first().focus();
+      if(!empty){
+        input.each(function(){
+          $(this).parent("td").html($(this).val());
+        });
+        $(this).parents("tr").find(".add, .edit").toggle();
+        $(".add-new").removeAttr("disabled");
+      }
+      });
+    // Edit row on edit button click
+    $(document).on("click", ".edit", function(){
+        $(this).parents("tr").find("td.datarow").css("display", "none");
+        $(this).parents("tr").find("td.formrow").css("display", "table-cell");
+        // $(this).parents("tr").find("td.data-row").each(function(){
+        //     $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+        // });
+      $(this).parents("tr").find(".add, .edit").toggle();
+      $(".add-new").attr("disabled", "disabled");
+      });
+    // close form row
+    $(document).on("click", ".formrowreset", function(){
+        $(this).parents("tr").find("td.datarow").css("display", "table-cell");
+        $(this).parents("tr").find("td.formrow").css("display", "none");
+        $(this).parents("tr").find(".add, .edit").toggle();
+        $(".add-new").removeAttr("disabled");
+      });
+    // Delete row on delete button click
+    $(document).on("click", ".delete", function(){
+          $(this).parents("tr").remove();
+      $(".add-new").removeAttr("disabled");
+      });
+    $('certs-form').get(0).reset();
+    $('new-name').get(0).reset();
+    $('new-short-name').get(0).reset();
+    $('new-url').get(0).reset();
+    $('new-row-order').get(0).reset();
+    $('new-parent-org').get(0).reset();
+  });
+</script>
+
+  <body>
+  <div class="container-fluid">
+      <div class="table-responsive">
+          <div class="table-wrapper">
+              <div class="table-title">
+                  <div class="row">
+                      <div class="col-sm-8"><h2>Certifications</h2></div>
+                      <div class="col-sm-4">
+                          <!-- Button to trigger modal -->
+                          <button
+                              type="button"
+                              class="btn btn-info add-new"
+                              data-toggle="modal"
+                              data-target="#addNewModal"
+                          ><i class="fa fa-plus"></i> Add New</button>
+                          <!-- Modal -->
+                          <div class="modal fade" id="addNewModal" style="width: 100%" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                              <div class="modal-dialog modal-lg" style="width: 100%" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLongTitle">Add new certification</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <form method="POST" action="/certifications" class="certs-form" novalidate>
+                                        <div class="modal-body">
+                                            <div class="container-fluid">
+                                                <div class="row" style="display: grid; grid-template-columns: repeat(5, 17.5%); column-gap: 10px;">
+                                                    <div class="form-group mx-auto mb-2">
+                                                        <label for="new-name">Name</label>
+                                                        <input type="text" class="form-control" name="new-name"
+                                                            id="new-name"
+                                                            required>
+                                                        </input>
+                                                    </div>
+                                                    <div class="form-group mx-auto mb-2">
+                                                        <label for="new-short-name">Short name</label>
+                                                        <input type="text" class="form-control" name="new-short-name"
+                                                            id="new-short-name"
+                                                            required>
+                                                        </input>
+                                                    </div>
+                                                    <div class="form-group mx-auto mb-2">
+                                                        <label for="new-url">Url</label>
+                                                        <input type="text" class="form-control" name="new-url"
+                                                            id="new-url"
+                                                            required>
+                                                        </input>
+                                                    </div>
+                                                    <div class="form-group mx-auto mb-2">
+                                                        <label for="new-row-order">Row order</label>
+                                                        <input type="number" class="form-control" name="new-row-order"
+                                                            id="new-row-order" value=0
+                                                            required>
+                                                        </input>
+                                                    </div>
+                                                    <div class="form-group mx-auto mb-2">
+                                                        <label for="new-parent-org">Parent org</label>
+                                                        <select name="new-parent-org" class="selectpicker" data-width="130%" style="vertical-align: middle" required>
+                                                            {% for parent_org in parent_orgs %}
+                                                                <option>{{ parent_org.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-info">Save changes</button>
+                                        </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Short name</th>
+                          <th>URL</th>
+                          <th>Parent organization</th>
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for cert in certs %}
+                      <div class="row">
+                        <tr>
+                          <td class="datarow">{{cert.name}}</td>
+                          <td class="datarow">{{cert.short_name}}</td>
+                          <td class="datarow">{{cert.url}}</td>
+                          <td class="datarow">{{cert.parent_organization.name}}</td>
+                          <td colspan="4" class="formrow" style="display:none">
+                            <form method="POST" action="/certifications" class="certs-form" novalidate>
+                                <input type="hidden" name="certification_id" value="{{ cert.certification_id }}">
+                                <input type="hidden" name="row_order" value="{{ cert.row_order }}">
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="form-group mx-auto mb-2">
+                                                <input type="text" class="form-control" name="name"
+                                                    id="new-name" value="{{ cert.name }}"
+                                                    placeholder="Name" required {{ cert.name }} >
+                                                </input>
+                                            </div>
+                                            <div class="form-group mx-auto mb-2">
+                                                <input type="text" class="form-control" name="short_name"
+                                                    id="new-short-name" value="{{ cert.short_name }}"
+                                                    placeholder="Short name" required {{ cert.short_name }} >
+                                                </input>
+                                            </div>
+                                            <div class="form-group mx-auto mb-2">
+                                                <input type="text" class="form-control" name="url"
+                                                    id="new-url" value="{{ cert.url }}"
+                                                    placeholder="Url" required {{ cert.url }} >
+                                                </input>
+                                            </div>
+                                            <div class="form-group mx-auto mb-2">
+                                                <select title="{{ cert.parent_organization.name }}" name="parent_organization" class="selectpicker" data-width="fit" style="vertical-align: middle" required>
+                                                    {% for parent_org in parent_orgs %}
+                                                        <option>{{ parent_org.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm formrowreset">Close</button>
+                                    <button type="submit" class="btn btn-info btn-sm">Save changes</button>
+                                </div>
+                            </form>
                         </td>
-                    </div>
-                    <div class="col-2">
-                        <td>
-                            <a class="btn btn-danger"
-                               href="/certifications/{{cert.certification_id}}/delete"
-                               role="button">Delete</a>
-                        </td>
-                    </div>
-                </tr>
-            </div>
-            {% endfor %}
-        </tbody>
-    </table>
-    <form class="form-inline" method="POST">
-        <button type="submit" class="btn btn-success btn-sm mb-2">Add new row</button>
-        <div class="form-group mx-sm-3 mb-2">
-            <input type="text" class="form-control" name="new-name"
-                id="new-name" placeholder="Name"{{ request.form['new-name'] }}>
-            </input>
-        </div>
-        <div class="form-group mx-sm-3 mb-2">
-            <input type="text" class="form-control" name="new-short-name"
-                id="new-short-name" placeholder="Short name"{{ request.form['new-short-name'] }}>
-            </input>
-        </div>
-        <div class="form-group mx-sm-3 mb-2">
-            <input type="text" class="form-control" name="new-url"
-                id="new-url" placeholder="Url"{{ request.form['new-url'] }}>
-            </input>
-        </div>
-        <div class="form-group mx-sm-3 mb-2">
-            <input type="number" class="form-control" name="new-row-order"
-                id="new-row-order" placeholder="Row order"{{ request.form['new-row-order'] }}>
-            </input>
-        </div>
-    </form>
-</div>
+                          <td>
+                            <form method="POST" action="/certifications">
+                                <a class="add"
+                                    title="Add"
+                                    data-toggle="tooltip">
+                                <i class="material-icons">&#xE03B;</i></a>
+                                <a class="edit"
+                                    title="Edit"
+                                    data-toggle="tooltip"
+                                ><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete"
+                                    title="Delete"
+                                    data-toggle="tooltip"
+                                    href="/certifications/{{ cert.certification_id }}/delete"
+                                ><i class="material-icons">&#xE872;</i></a>
+                            </form>
+                          </td>
+                        </tr>
+                      </div>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+  </body>
 {% endblock %}
