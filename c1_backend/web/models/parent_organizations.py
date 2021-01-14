@@ -8,9 +8,4 @@ class ParentOrganization(db.Model):
   name = db.Column(db.String)
   short_name = db.Column(db.String)
   url = db.Column(db.String)
-  certifications = relationship("Certification", back_populates="parent_organization")
-
-  def __init__(self, name, short_name, url):
-    self.name = name
-    self.short_name = short_name
-    self.url = url
+  certifications = relationship("Certification", backref="parent_organization", lazy="dynamic")
