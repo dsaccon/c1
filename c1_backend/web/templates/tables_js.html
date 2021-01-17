@@ -1,80 +1,73 @@
 <script>
-
-    // Disable form submissions if there are invalid fields
-    (function() {
-      'use strict';
-      window.addEventListener('load', function() {
-        // Get the forms we want to add validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-          form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          }, false);
-        });
-      }, false);
-    })();
-    
-    $(document).ready(function(){
-        // Prevent browser POST re-submit on page reload
-        if ( window.history.replaceState ) {
-          window.history.replaceState( null, null, window.location.href );
-        }
-    
-        $('[data-toggle="tooltip"]').tooltip();
-        var actions = $("table td:last-child").html();
-        // Add row on add button click
-        $(document).on("click", ".add", function(){
-          var empty = false;
-          var input = $(this).parents("tr").find('input[type="text"]');
-              input.each(function(){
-            if(!$(this).val()){
-              $(this).addClass("error");
-              empty = true;
-            } else{
-                      $(this).removeClass("error");
-                  }
-          });
-          $(this).parents("tr").find(".error").first().focus();
-          if(!empty){
-            input.each(function(){
-              $(this).parent("td").html($(this).val());
-            });
-            $(this).parents("tr").find(".add, .edit").toggle();
-            $(".add-new").removeAttr("disabled");
+  // Disable form submissions if there are invalid fields
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Get the forms we want to add validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
           }
-          });
-        // Edit row on edit button click
-        $(document).on("click", ".edit", function(){
-            $(this).parents("tr").find("td.datarow").css("display", "none");
-            $(this).parents("tr").find("td.formrow").css("display", "table-cell");
-            // $(this).parents("tr").find("td.data-row").each(function(){
-            //     $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-            // });
-          $(this).parents("tr").find(".add, .edit").toggle();
-          $(".add-new").attr("disabled", "disabled");
-          });
-        // close form row
-        $(document).on("click", ".formrowreset", function(){
-            $(this).parents("tr").find("td.datarow").css("display", "table-cell");
-            $(this).parents("tr").find("td.formrow").css("display", "none");
-            $(this).parents("tr").find(".add, .edit").toggle();
-            $(".add-new").removeAttr("disabled");
-          });
-        // Delete row on delete button click
-        $(document).on("click", ".delete", function(){
-              $(this).parents("tr").remove();
-          $(".add-new").removeAttr("disabled");
-          });
-        $('certs-form').get(0).reset();
-        $('new-name').get(0).reset();
-        $('new-short-name').get(0).reset();
-        $('new-url').get(0).reset();
-        $('new-row-order').get(0).reset();
-        $('new-parent-org').get(0).reset();
+          form.classList.add('was-validated');
+        }, false);
       });
-    </script
+    }, false);
+  })();
+
+  $(document).ready(function(){
+    // Prevent browser POST re-submit on page reload
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+
+    $('[data-toggle="tooltip"]').tooltip();
+    var actions = $("table td:last-child").html();
+    // Add row on add button click
+    $(document).on("click", ".add", function(){
+      var empty = false;
+      var input = $(this).parents("tr").find('input[type="text"]');
+      input.each(function(){
+        if(!$(this).val()){
+          $(this).addClass("error");
+          empty = true;
+        } else{
+                  $(this).removeClass("error");
+              }
+      });
+      $(this).parents("tr").find(".error").first().focus();
+      if(!empty){
+        input.each(function(){
+          $(this).parent("td").html($(this).val());
+        });
+        $(this).parents("tr").find(".add, .edit").toggle();
+        $(".add-new").removeAttr("disabled");
+      }
+    });
+    // Edit row on edit button click
+    $(document).on("click", ".edit", function(){
+      $(this).parents("tr").find("td.datarow").css("display", "none");
+      $(this).parents("tr").find("td.formrow").css("display", "table-cell");
+      // $(this).parents("tr").find("td.data-row").each(function(){
+      //     $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+      // });
+      $(this).parents("tr").find(".add, .edit").toggle();
+      $(".add-new").attr("disabled", "disabled");
+    });
+    // close form row
+    $(document).on("click", ".formrowreset", function(){
+      $(this).parents("tr").find("td.datarow").css("display", "table-cell");
+      $(this).parents("tr").find("td.formrow").css("display", "none");
+      $(this).parents("tr").find(".add, .edit").toggle();
+      $(".add-new").removeAttr("disabled");
+    });
+    // Delete row on delete button click
+    $(document).on("click", ".delete", function(){
+      $(this).parents("tr").remove();
+      $(".add-new").removeAttr("disabled");
+    });
+  });
+</script
