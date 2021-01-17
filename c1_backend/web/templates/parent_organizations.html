@@ -88,206 +88,139 @@
   }
 </style>
 
-<script>
-$(document).ready(function(){
+{% include "tables_js.html" %}
 
-    window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('parent-orgs-form');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-        }, false);
-    });
-    }, false)
-
-    $('[data-toggle="tooltip"]').tooltip();
-    var actions = $("table td:last-child").html();
-    // Add row on add button click
-    $(document).on("click", ".add", function(){
-      var empty = false;
-      var input = $(this).parents("tr").find('input[type="text"]');
-          input.each(function(){
-        if(!$(this).val()){
-          $(this).addClass("error");
-          empty = true;
-        } else{
-                  $(this).removeClass("error");
-              }
-      });
-      $(this).parents("tr").find(".error").first().focus();
-      if(!empty){
-        input.each(function(){
-          $(this).parent("td").html($(this).val());
-        });
-        $(this).parents("tr").find(".add, .edit").toggle();
-        $(".add-new").removeAttr("disabled");
-      }
-      });
-    // Edit row on edit button click
-    $(document).on("click", ".edit", function(){
-        $(this).parents("tr").find("td.datarow").css("display", "none");
-        $(this).parents("tr").find("td.formrow").css("display", "table-cell");
-        // $(this).parents("tr").find("td.data-row").each(function(){
-        //     $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-        // });
-      $(this).parents("tr").find(".add, .edit").toggle();
-      $(".add-new").attr("disabled", "disabled");
-      });
-    // close form row
-    $(document).on("click", ".formrowreset", function(){
-        $(this).parents("tr").find("td.datarow").css("display", "table-cell");
-        $(this).parents("tr").find("td.formrow").css("display", "none");
-        $(this).parents("tr").find(".add, .edit").toggle();
-        $(".add-new").removeAttr("disabled");
-      });
-    // Delete row on delete button click
-    $(document).on("click", ".delete", function(){
-          $(this).parents("tr").remove();
-      $(".add-new").removeAttr("disabled");
-      });
-  });
-</script>
-
-  <body>
-  <div class="container-fluid">
-      <div class="table-responsive">
-          <div class="table-wrapper">
-              <div class="table-title">
-                  <div class="row">
-                      <div class="col-sm-8"><h2>Parent Organizations</h2></div>
-                      <div class="col-sm-4">
-                          <!-- Button to trigger modal -->
-                          <button
-                              type="button"
-                              class="btn btn-info add-new"
-                              data-toggle="modal"
-                              data-target="#addNewModal"
-                          ><i class="fa fa-plus"></i> Add New</button>
-                          <!-- Modal -->
-                          <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                              <div class="modal-dialog modal-lg" role="document">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLongTitle">Add new Parent Organization</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                          </button>
-                                      </div>
-                                      <form method="POST" action="/parent-organizations" class="parent-orgs-form" novalidate>
-                                        <div class="modal-body">
-                                            <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="form-group mx-auto mb-2">
-                                                        <label for="new-name">Name</label>
-                                                        <input type="text" class="form-control" name="new-name"
-                                                            id="new-name" required>
-                                                        </input>
-                                                    </div>
-                                                    <div class="form-group mx-auto mb-2">
-                                                        <label for="new-short-name">Short name</label>
-                                                        <input type="text" class="form-control" name="new-short-name"
-                                                            id="new-short-name" required>
-                                                        </input>
-                                                    </div>
-                                                    <div class="form-group mx-auto mb-2">
-                                                        <label for="new-url">Url</label>
-                                                        <input type="text" class="form-control" name="new-url"
-                                                            id="new-url" required>
-                                                        </input>
-                                                    </div>
+<body>
+<div class="container-fluid">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Parent Organizations</h2></div>
+                    <div class="col-sm-4">
+                        <!-- Button to trigger modal -->
+                        <button
+                            type="button"
+                            class="btn btn-info add-new"
+                            data-toggle="modal"
+                            data-target="#addNewModal"
+                        ><i class="fa fa-plus"></i> Add New</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Add new Parent Organization</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form method="POST" action="/parent-organizations" class="needs-validation" novalidate>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="form-group mx-auto mb-2">
+                                                    <label for="new-name">Name</label>
+                                                    <input type="text" class="form-control" name="new-name" id="new-name" required>
+                                                    </input>
+                                                </div>
+                                                <div class="form-group mx-auto mb-2">
+                                                    <label for="new-short-name">Short name</label>
+                                                    <input type="text" class="form-control" name="new-short-name" id="new-short-name" required>
+                                                    </input>
+                                                </div>
+                                                <div class="form-group mx-auto mb-2">
+                                                    <label for="new-url">Url</label>
+                                                    <input type="text" class="form-control" name="new-url" id="new-url" required>
+                                                    </input>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-info">Save changes</button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-info">Save changes</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Short name</th>
+                        <th>URL</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for parent_org in parent_orgs %}
+                    <div class="row">
+                    <tr>
+                        <td class="datarow">{{parent_org.name}}</td>
+                        <td class="datarow">{{parent_org.short_name}}</td>
+                        <td class="datarow">{{parent_org.url}}</td>
+                        <td colspan="3" class="formrow" style="display:none">
+                        <form method="POST" action="/parent-organizations" class="needs-validation" novalidate>
+                            <input type="hidden" name="parent_org_id" value="{{ parent_org.id }}">
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="form-group mx-auto mb-2">
+                                            <input type="text" class="form-control" name="name"
+                                                id="new-name" value="{{ parent_org.name }}"
+                                                placeholder="Name" required {{ parent_org.name }} >
+                                            </input>
                                         </div>
-                                      </form>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <table class="table table-bordered">
-                  <thead>
-                      <tr>
-                          <th>Name</th>
-                          <th>Short name</th>
-                          <th>URL</th>
-                          <th>Action</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {% for parent_org in parent_orgs %}
-                      <div class="row">
-                        <tr>
-                          <td class="datarow">{{parent_org.name}}</td>
-                          <td class="datarow">{{parent_org.short_name}}</td>
-                          <td class="datarow">{{parent_org.url}}</td>
-                          <td colspan="3" class="formrow" style="display:none">
-                            <form method="POST" action="/parent-organizations" class="parent-orgs-form" novalidate>
-                                <input type="hidden" name="parent_org_id" value="{{ parent_org.id }}">
-                                <div class="modal-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="form-group mx-auto mb-2">
-                                                <input type="text" class="form-control" name="name"
-                                                    id="new-name" value="{{ parent_org.name }}"
-                                                    placeholder="Name" required {{ parent_org.name }} >
-                                                </input>
-                                            </div>
-                                            <div class="form-group mx-auto mb-2">
-                                                <input type="text" class="form-control" name="short_name"
-                                                    id="new-short-name" value="{{ parent_org.short_name }}"
-                                                    placeholder="Short name" required {{parent_org.short_name}} >
-                                                </input>
-                                            </div>
-                                            <div class="form-group mx-auto mb-2">
-                                                <input type="text" class="form-control" name="url"
-                                                    id="new-url" value="{{ parent_org.url }}"
-                                                    placeholder="Url" required {{parent_org.url}} >
-                                                </input>
-                                            </div>
+                                        <div class="form-group mx-auto mb-2">
+                                            <input type="text" class="form-control" name="short_name"
+                                                id="new-short-name" value="{{ parent_org.short_name }}"
+                                                placeholder="Short name" required {{parent_org.short_name}} >
+                                            </input>
+                                        </div>
+                                        <div class="form-group mx-auto mb-2">
+                                            <input type="text" class="form-control" name="url"
+                                                id="new-url" value="{{ parent_org.url }}"
+                                                placeholder="Url" required {{parent_org.url}} >
+                                            </input>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm formrowreset">Close</button>
-                                    <button type="submit" class="btn btn-info btn-sm">Save changes</button>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm formrowreset">Close</button>
+                                <button type="submit" class="btn btn-info btn-sm">Save changes</button>
+                            </div>
+                        </form>
+                    </td>
+                        <td>
+                        <form method="POST" action="/parent-organizations">
+                            <a class="add"
+                                title="Add"
+                                data-toggle="tooltip">
+                            <i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit"
+                                title="Edit"
+                                data-toggle="tooltip"
+                            ><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete"
+                                title="Delete"
+                                data-toggle="tooltip"
+                                href="/parent-organizations/{{ parent_org.id }}/delete"
+                            ><i class="material-icons">&#xE872;</i></a>
+                        </form>
                         </td>
-                          <td>
-                            <form method="POST" action="/parent-organizations">
-                                <a class="add"
-                                    title="Add"
-                                    data-toggle="tooltip">
-                                <i class="material-icons">&#xE03B;</i></a>
-                                <a class="edit"
-                                    title="Edit"
-                                    data-toggle="tooltip"
-                                ><i class="material-icons">&#xE254;</i></a>
-                                <a class="delete"
-                                    title="Delete"
-                                    data-toggle="tooltip"
-                                    href="/parent-organizations/{{ parent_org.id }}/delete"
-                                ><i class="material-icons">&#xE872;</i></a>
-                            </form>
-                          </td>
-                        </tr>
-                      </div>
-                      {% endfor %}
-                  </tbody>
-              </table>
-          </div>
-      </div>
-  </div>
-  </body>
+                    </tr>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
 {% endblock %}
