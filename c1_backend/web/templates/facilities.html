@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+      color: #404E67;
+      background: #F5F7FA;
+      font-family: 'Open Sans', sans-serif;
+  }
+  .table-wrapper {
+      width: 1100px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  }
+  .table-title {
+      padding-bottom: 10px;
+      margin: 0 0 10px;
+  }
+  .table-title h2 {
+      margin: 6px 0 0;
+      font-size: 22px;
+  }
+  .table-title .add-new {
+      float: right;
+      height: 30px;
+      font-weight: bold;
+      font-size: 12px;
+      text-shadow: none;
+      min-width: 100px;
+      border-radius: 50px;
+      line-height: 13px;
+  }
+  .table-title .add-new i {
+      margin-right: 4px;
+  }
+  table.table {
+      table-layout: fixed;
+  }
+  table.table tr th, table.table tr td {
+      border-color: #e9e9e9;
+      width: 100px;
+  }
+  table.table th i {
+      font-size: 13px;
+      margin: 0 5px;
+      cursor: pointer;
+  }
+  table.table th:last-child {
+      width: 60px;
+  }
+  table.table td a {
+      cursor: pointer;
+      display: inline-block;
+      margin: 0 5px;
+      min-width: 24px;
+  }
+  table.table td a.add {
+      color: #27C46B;
+  }
+  table.table td a.edit {
+      color: #FFC107;
+  }
+  table.table td a.delete {
+      color: #E34724;
+  }
+  table.table td i {
+      font-size: 19px;
+  }
+  table.table td a.add i {
+      font-size: 24px;
+      margin-right: -1px;
+      position: relative;
+      top: 3px;
+  }
+  table.table .form-control {
+      height: 32px;
+      line-height: 32px;
+      box-shadow: none;
+      border-radius: 2px;
+  }
+  table.table .form-control.error {
+      border-color: #f50000;
+  }
+  table.table td .add {
+      display: none;
+  }
+  .modal.modal-wide .modal-dialog {
+      width: 100%;
+  }
+  .modal-wide .modal-body {
+      overflow-y: auto;
+  }
+</style>
+
+{% include "tables_js.html" %}
+
+<body>
+<div class="container-fluid">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Facilities</h2></div>
+                    <div class="col-sm-4">
+                        <!-- Button to trigger modal -->
+                        <button
+                            type="button"
+                            class="btn btn-info add-new"
+                            data-toggle="modal"
+                            data-target="#addNewModal"
+                        ><i class="fa fa-plus"></i> Add New</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="addNewModal" style="width: 100%" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" style="width: 100%" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Add new facility</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form method="POST" action="" class="needs-validation" novalidate>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row" style="display: grid; grid-template-columns: repeat(4, 24%); column-gap: 10px;">
+                                                <div class="form-group mx-auto mb-2">
+                                                    <label for="new-name">Name</label>
+                                                    <input type="text" class="form-control" name="new-name" id="new-name" required>
+                                                    </input>
+                                                </div>
+                                                <div class="form-group mx-auto mb-2">
+                                                    <label for="new-owner">Owner</label>
+                                                    <select name="new-owner" class="selectpicker" data-width="100%" style="vertical-align: middle" required>
+                                                        {% for owner in owners %}
+                                                            <option>{{ owner.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mx-auto mb-2">
+                                                    <label for="new-address">Address</label>
+                                                    <input type="text" class="form-control" name="new-address" id="new-address" required>
+                                                    </input>
+                                                </div>
+                                                <div class="form-group mx-auto mb-2">
+                                                    <label for="new-location">Location</label>
+                                                    <input type="text" class="form-control" name="new-location" id="new-location" required>
+                                                    </input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="0-btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-info">Save changes</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Owner</th>
+                        <th>Address</th>
+                        <th>Location</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for facility in facilities %}
+                    <div class="row">
+                    <tr>
+                        <td class="datarow">{{facility.name}}</td>
+                        <td class="datarow">{{facility.owner.name}}</td>
+                        <td class="datarow">{{facility.address}}</td>
+                        <td class="datarow">{{facility.location}}</td>
+                        <td colspan="4" class="formrow" style="display:none">
+                        <form method="POST" action="" class="needs-validation" novalidate>
+                            <input type="hidden" name="facility_id" value="{{ facility.facility_id }}">
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="form-group mx-auto mb-2">
+                                            <input type="text" class="form-control" name="name"
+                                                id="new-name" value="{{ facility.name }}"
+                                                placeholder="Name" required {{ facility.name }} >
+                                            </input>
+                                        </div>
+                                        <div class="form-group mx-auto mb-2">
+                                            <select title="{{ facility.owner.name }}" name="owner" class="selectpicker" data-width="fit" style="vertical-align: middle" required>
+                                                {% for owner in owners %}
+                                                    {% if owner.name == facility.owner.name %}
+                                                    <option selected>{{ owner.name }}</option>
+                                                    {% else %}
+                                                    <option>{{ owner.name }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group mx-auto mb-2">
+                                            <input type="text" class="form-control" name="address"
+                                                id="new-address" value="{{ facility.address }}"
+                                                placeholder="Address" required {{ facility.address }} >
+                                            </input>
+                                        </div>
+                                        <div class="form-group mx-auto mb-2">
+                                            <input type="text" class="form-control" name="location"
+                                                id="new-location" value="{{ facility.location }}"
+                                                placeholder="Location" required {{ facility.location }} >
+                                            </input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm formrowreset">Close</button>
+                                <button type="submit" class="btn btn-info btn-sm">Save changes</button>
+                            </div>
+                        </form>
+                    </td>
+                        <td>
+                        <form method="POST" action="">
+                            <a class="add"
+                                title="Add"
+                                data-toggle="tooltip">
+                            <i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit"
+                                title="Edit"
+                                data-toggle="tooltip"
+                            ><i class="material-icons">&#xE254;</i></a>
+                            <a class="delete"
+                                title="Delete"
+                                data-toggle="tooltip"
+                                href="/facilities/{{ facility.facility_id }}/delete"
+                            ><i class="material-icons">&#xE872;</i></a>
+                        </form>
+                        </td>
+                    </tr>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}
