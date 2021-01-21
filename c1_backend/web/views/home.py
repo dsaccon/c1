@@ -13,15 +13,196 @@ def home():
 def home_loggedin():
   return render_template("index.html")
 
-@application.route("/owners")
+#@application.route("/owners")
+#@login_required
+#def owners_loggedin():
+#  return render_template("owners.html")
+
+@application.route("/owners", methods=('GET', 'POST'))
 @login_required
 def owners_loggedin():
-  return render_template("owners.html")
+  if request.method == 'POST':
+    if all((
+        'name' in request.form,
+        'owner_type' in request.form,
+        'industry' in request.form,
+        'hq_address' in request.form)):
+      # Edit
+      name = request.form['name']
+      owner_type = request.form['owner_type']
+      industry = request.form['industry']
+      hq_address = request.form['hq_address']
+      id_ = request.form['owner_id']
+      owner = Owner.query.get(id_)
+      owner.name = name
+      owner.owner_type = owner_type
+      owner.industry = industry
+      owner.hq_address = hq_address
+      db.session.add(owner)
+      db.session.commit()
 
-@application.route("/jobs")
+    elif all((
+        'new-name' in request.form,
+        'new-owner-type' in request.form,
+        'new-industry' in request.form,
+        'new-hq-address' in request.form)):
+      # Add new
+      new_name = request.form['new-name']
+      new_owner_type = request.form['new-owner-type']
+      new_industry = request.form['new-industry']
+      new_hq_address = request.form['new-hq-address']
+
+      owner = Owner(
+        name=new_name, owner_type=new_owner_type,
+        industry=new_industry, hq_address=new_hq_address)
+      db.session.add(owner)
+      db.session.commit()
+
+  all_owners = Owner.query.all()
+  all_owners.sort(key=lambda x: int(x.owner_id))
+
+  return render_template(
+    "owners.html", owners=all_owners)
+
+@application.route("/owners/<int:id_>/delete")
+@login_required
+def owners_loggedin_delete(id_):
+  owner = Owner.query.get(id_)
+  db.session.delete(owner)
+  db.session.commit()
+
+  return redirect("/owners")
+
+@application.route("/facilities", methods=('GET', 'POST'))
+@login_required
+def facilities_loggedin():
+  if request.method == 'POST':
+    if all((
+        'name' in request.form,
+        'owner' in request.form,
+        'address' in request.form,
+        'location' in request.form)):
+      # Edit
+      name = request.form['name']
+      address = request.form['address']
+      location = request.form['location']
+      id_ = request.form['facility_id']
+      owner = db.session.query(Owner).filter(
+        Owner.name==request.form['owner']).first()
+
+      facility = Facility.query.get(id_)
+      facility.name = name
+      facility.owner = owner
+      facility.address = address
+      facility.location = location
+      db.session.add(facility)
+      db.session.commit()
+
+    elif all((
+        'new-name' in request.form,
+        'new-owner' in request.form,
+        'new-address' in request.form,
+        'new-location' in request.form)):
+      # Add new
+      new_name = request.form['new-name']
+      new_owner = request.form['new-owner']
+      new_address = request.form['new-address']
+      new_location = request.form['new-location'].split(',')
+      new_location = f'POINT({new_location[0]} {new_location[1]})'
+
+      owner = db.session.query(Owner).filter(
+        Owner.name==new_owner).first()
+      facility = Facility(
+        name=new_name, owner=owner, address=new_address,
+        location=new_location)
+      db.session.add(facility)
+      db.session.commit()
+
+  all_facilities = Facility.query.all()
+  all_facilities.sort(key=lambda x: int(x.facility_id))
+  all_owners = Owner.query.all()
+  all_owners.sort(key=lambda x: int(x.owner_id))
+
+  return render_template(
+    "facilities.html", facilities=all_facilities, owners=all_owners)
+
+@application.route("/facilities/<int:id_>/delete")
+@login_required
+def facilities_loggedin_delete(id_):
+  facility = Facility.query.get(id_)
+  db.session.delete(facility)
+  db.session.commit()
+
+  return redirect("/facilities")
+
+@application.route("/jobs", methods=('GET', 'POST'))
 @login_required
 def jobs_loggedin():
-  return render_template("jobs.html")
+  if request.method == 'POST':
+    if all((
+        'name' in request.form,
+        'owner' in request.form,
+        'facility' in request.form,
+        'start_date' in request.form,
+        'end_date' in request.form,
+        'job_id' in request.form)):
+      # Edit
+      name = request.form['name']
+      start_date = request.form['start_date']
+      end_date = request.form['end_date']
+      id_ = request.form['job_id']
+      owner = db.session.query(Owner).filter(
+        Owner.name==request.form['owner']).first()
+      facility = db.session.query(Facility).filter(
+        Facility.name==request.form['facility']).first()
+
+      job = Job.query.get(id_)
+      job.name = name
+      job.owner = owner
+      job.facility = facility
+      job.start_date = start_date
+      job.end_date = end_date
+      db.session.add(job)
+      db.session.commit()
+
+    elif all((
+        'new-name' in request.form,
+        'new-owner' in request.form,
+        'new-facility' in request.form,
+        'new-start-date' in request.form,
+        'new-end-date' in request.form)):
+      # Add new
+      new_name = request.form['new-name']
+      new_owner = request.form['new-owner']
+      new_facility = request.form['new-facility']
+      new_start_date = request.form['new-start-date']
+      new_end_date = request.form['new-end-date']
+
+      owner = db.session.query(Owner).filter(
+        Owner.name==new_owner).first()
+      facility = db.session.query(Facility).filter(
+        Facility.name==new_facility).first()
+      job = Job(
+        name=new_name, facility=facility,
+        start_date=new_start_date, end_date=new_end_date)
+      db.session.add(job)
+      db.session.commit()
+
+  all_jobs = Job.query.all()
+  all_jobs.sort(key=lambda x: int(x.job_id))
+  all_owners = Owner.query.all()
+  all_facilities = Facility.query.all()
+
+  return render_template("jobs.html", jobs=all_jobs, owners=all_owners, facilities=all_facilities)
+
+@application.route("/jobs/<int:id_>/delete")
+@login_required
+def jobs_loggedin_delete(id_):
+  job = Job.query.get(id_)
+  db.session.delete(job)
+  db.session.commit()
+
+  return redirect("/jobs")
 
 @application.route("/certifications", methods=('GET', 'POST'))
 @login_required
@@ -32,8 +213,8 @@ def certifications_loggedin():
         'short_name' in request.form,
         'url' in request.form,
         'row_order' in request.form,
-        'certification_id' in request.form,
-        'parent_organization' in request.form)):
+        'parent_organization' in request.form,
+        'certification_id' in request.form)):
       # Edit
       name = request.form['name']
       short_name = request.form['short_name']
