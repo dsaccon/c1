@@ -8,4 +8,5 @@ class ParentOrganization(db.Model):
   name = db.Column(db.String)
   short_name = db.Column(db.String)
   url = db.Column(db.String)
-  certifications = relationship("Certification", backref="parent_organization", lazy="dynamic")
+  certifications = relationship(
+    "Certification", backref="parent_organization", lazy="dynamic")
