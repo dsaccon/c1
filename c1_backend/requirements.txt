@@ -23,6 +23,7 @@ Flask-SQLAlchemy==2.4.4
 flask-talisman==0.7.0
 Flask-Testing==0.7.1
 future==0.17.1
+GeoAlchemy2==0.8.4
 google-api-python-client==1.6.4
 google-auth==1.6.3
 httplib2==0.18.1
