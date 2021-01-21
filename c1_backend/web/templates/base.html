@@ -13,6 +13,9 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- bootstrap-datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
+
   {% include "headerincludes.html" %}
       
   <!-- font awesome -->
@@ -21,6 +24,9 @@
   <!-- sorttable -->
   <script src="/static/js/sorttable.js?{{ range(1, 9999) | random }}"></script>
   <script src="/static/js/autoform.js?{{ range(1, 9999) | random }}"></script>
+
+  <!-- bootstrap-datepicker -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
 
   <!-- enable twitter bootstrap tooltips -->
   <script>
@@ -53,6 +59,9 @@
             </li>
             <li class="nav-item {{'active' if '/owners' in request.path}}">
               <a class="nav-link" href="/owners">Owners</a>
+            </li>
+            <li class="nav-item {{'active' if '/facilities' in request.path}}">
+              <a class="nav-link" href="/facilities">Facilities</a>
             </li>
             <li class="nav-item {{'active' if '/jobs' in request.path}}">
               <a class="nav-link" href="/jobs">Jobs</a>
