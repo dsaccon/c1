@@ -2,6 +2,7 @@ from flask import render_template, abort, redirect, request
 from flask_login import login_required, current_user
 from web import application, db, admin_required
 from web.models import *
+import datetime as dt
 import os
 
 @application.route("/")
@@ -12,11 +13,6 @@ def home():
 @login_required
 def home_loggedin():
   return render_template("index.html")
-
-#@application.route("/owners")
-#@login_required
-#def owners_loggedin():
-#  return render_template("owners.html")
 
 @application.route("/owners", methods=('GET', 'POST'))
 @login_required
@@ -80,12 +76,10 @@ def facilities_loggedin():
     if all((
         'name' in request.form,
         'owner' in request.form,
-        'address' in request.form,
-        'location' in request.form)):
+        'address' in request.form)):
       # Edit
       name = request.form['name']
       address = request.form['address']
-      location = request.form['location']
       id_ = request.form['facility_id']
       owner = db.session.query(Owner).filter(
         Owner.name==request.form['owner']).first()
@@ -94,7 +88,6 @@ def facilities_loggedin():
       facility.name = name
       facility.owner = owner
       facility.address = address
-      facility.location = location
       db.session.add(facility)
       db.session.commit()
 
@@ -102,24 +95,31 @@ def facilities_loggedin():
         'new-name' in request.form,
         'new-owner' in request.form,
         'new-address' in request.form,
+        'new-lat' in request.form,
+        'new-long' in request.form,
         'new-location' in request.form)):
       # Add new
       new_name = request.form['new-name']
       new_owner = request.form['new-owner']
       new_address = request.form['new-address']
+      new_latitude = request.form['new-lat']
+      new_longitude = request.form['new-long']
       new_location = request.form['new-location'].split(',')
-      new_location = f'POINT({new_location[0]} {new_location[1]})'
+      if new_latitude and new_longitude:
+        new_coordinates = f'POINT({new_latitude} {new_longitude})'
 
-      owner = db.session.query(Owner).filter(
-        Owner.name==new_owner).first()
-      facility = Facility(
-        name=new_name, owner=owner, address=new_address,
-        location=new_location)
-      db.session.add(facility)
-      db.session.commit()
+        owner = db.session.query(Owner).filter(
+          Owner.name==new_owner).first()
+        facility = Facility(
+          name=new_name, owner=owner, address=new_address,
+          location=new_coordinates, location_name=new_location)
+        db.session.add(facility)
+        db.session.commit()
 
   all_facilities = Facility.query.all()
   all_facilities.sort(key=lambda x: int(x.facility_id))
+  for facility in all_facilities:
+    facility.location_name = facility.location_name[1:-1].replace('"', '')
   all_owners = Owner.query.all()
   all_owners.sort(key=lambda x: int(x.owner_id))
 
@@ -190,6 +190,11 @@ def jobs_loggedin():
 
   all_jobs = Job.query.all()
   all_jobs.sort(key=lambda x: int(x.job_id))
+  for job in all_jobs:
+    start = job.start_date
+    end = job.end_date
+    job.start_date = dt.datetime(start.year, start.month, start.day).strftime('%m/%d/%Y')
+    job.end_date = dt.datetime(end.year, end.month, end.day).strftime('%m/%d/%Y')
   all_owners = Owner.query.all()
   all_facilities = Facility.query.all()
 
