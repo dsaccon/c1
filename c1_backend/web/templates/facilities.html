@@ -92,6 +92,9 @@
   .modal-wide .modal-body {
       overflow-y: auto;
   }
+  .pac-container {
+      z-index: 10000 !important;
+  }
 </style>
 
 {% include "tables_js.html" %}
@@ -145,8 +148,11 @@
                                                 </div>
                                                 <div class="form-group mx-auto mb-2">
                                                     <label for="new-location">Location</label>
-                                                    <input type="text" class="form-control" name="new-location" id="new-location" required>
+                                                    <input type="text" id="autocomplete" class="form-control"
+                                                        name="new-location" placeholder="Enter location" required>
                                                     </input>
+                                                    <input type="hidden" name="new-lat" id="new-latitude">
+                                                    <input type="hidden" name="new-long" id="new-longitude">
                                                 </div>
                                             </div>
                                         </div>
@@ -179,7 +185,7 @@
                         <td class="datarow">{{facility.name}}</td>
                         <td class="datarow">{{facility.owner.name}}</td>
                         <td class="datarow">{{facility.address}}</td>
-                        <td class="datarow">{{facility.location}}</td>
+                        <td class="datarow">{{facility.location_name}}</td>
                         <td colspan="4" class="formrow" style="display:none">
                         <form method="POST" action="" class="needs-validation" novalidate>
                             <input type="hidden" name="facility_id" value="{{ facility.facility_id }}">
@@ -205,15 +211,12 @@
                                         </div>
                                         <div class="form-group mx-auto mb-2">
                                             <input type="text" class="form-control" name="address"
-                                                id="new-address" value="{{ facility.address }}"
-                                                placeholder="Address" required {{ facility.address }} >
+                                                id="new-address" value="{{ facility.address }}" required >
                                             </input>
                                         </div>
                                         <div class="form-group mx-auto mb-2">
                                             <input type="text" class="form-control" name="location"
-                                                id="new-location" value="{{ facility.location }}"
-                                                placeholder="Location" required {{ facility.location }} >
-                                            </input>
+                                            value="{{ facility.location_name }}" required ></input>
                                         </div>
                                     </div>
                                 </div>
@@ -250,4 +253,21 @@
     </div>
 </div>
 </body>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc5pRvZ5N4mG2WprhyrrKafoyGe1U4HdQ&libraries=places&callback=initAutocomplete" async defer></script>
+<script>
+    var placeSearch, autocomplete;
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});
+        autocomplete.addListener('place_changed', updateData);
+    }
+    function updateData() {
+        var place = autocomplete.getPlace();
+        var latitude = place.geometry.location.lat();
+        var longitude = place.geometry.location.lng();
+        document.getElementById("new-latitude").value = latitude
+        document.getElementById("new-longitude").value = longitude
+    }
+</script>
 {% endblock %}
