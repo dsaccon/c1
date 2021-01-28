@@ -10,6 +10,6 @@ class Facility(db.Model):
   name = db.Column(db.Text)
   owner_id = db.Column(db.Integer, db.ForeignKey('owners.owner_id'))
   address = db.Column(db.Text)
+  location_name = db.Column(db.Text)
   location = db.Column(Geometry(geometry_type="POINT"))
-#  job = relationship("Job", backref="facility", uselist=False)
   job = relationship("Job", backref="facility", lazy="dynamic")
