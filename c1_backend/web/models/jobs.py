@@ -7,8 +7,7 @@ class Job(db.Model):
   job_id = db.Column(db.Integer,
     autoincrement=True, primary_key=True)
   name = db.Column(db.Text)
-#  owner_id = db.Column(db.Integer, db.ForeignKey('owners.owner_id'))
   facility_id = db.Column(db.Integer, db.ForeignKey('facilities.facility_id'))
-  start_date = db.Column(db.DateTime)
-  end_date = db.Column(db.DateTime)
+  start_date = db.Column(db.DateTime(timezone=True))
+  end_date = db.Column(db.DateTime(timezone=True))
   bid = relationship("Bid", backref="job", lazy="dynamic")
