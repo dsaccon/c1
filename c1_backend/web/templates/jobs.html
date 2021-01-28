@@ -124,7 +124,7 @@
                                     <form method="POST" action="" class="needs-validation" novalidate>
                                     <div class="modal-body">
                                         <div class="container-fluid">
-                                            <div class="row" style="display: grid; grid-template-columns: repeat(5, 17.5%); column-gap: 10px;">
+                                            <div class="row" style="display: grid; grid-template-columns: repeat(5, 18%); column-gap: 19px;">
                                                 <div class="form-group mx-auto mb-2">
                                                     <label for="new-name">Name</label>
                                                     <input type="text" class="form-control" name="new-name" id="new-name" required>
@@ -132,7 +132,7 @@
                                                 </div>
                                                 <div class="form-group mx-auto mb-2">
                                                     <label for="new-owner">Owner</label>
-                                                    <select name="new-owner" id="new-owner" class="selectpicker" data-width="95%" style="vertical-align: middle" required>
+                                                    <select name="new-owner" id="new-owner" class="selectpicker" data-width="90%" style="vertical-align: middle" required>
                                                         {% for owner in owners %}
                                                             <option>{{ owner.name }}</option>
                                                         {% endfor %}
@@ -140,22 +140,12 @@
                                                 </div>
                                                 <div class="form-group mx-auto mb-2">
                                                     <label for="new-facility">Facility</label>
-                                                    <select name="new-facility" id="new-facility" class="selectpicker" data-width="80%" style="vertical-align: middle" required>
+                                                    <select name="new-facility" id="new-facility" class="selectpicker" data-width="90%" style="vertical-align: middle" required>
                                                         {% for facility in facilities %}
                                                             <option owner-name="{{ facility.owner }}">{{ facility.name }}</option>
                                                         {% endfor %}
                                                     </select>
                                                 </div>
-                                                <span id="option-container" style="visibility: hidden; position:absolute;"></span>
-                                                <script>
-                                                    function filterFacility(){
-                                                      var owner = $("#new-owner").find('option:selected').text(); // stores owner
-                                                      $("#option-container").children().appendTo("#new-facility"); // moves <option> contained in #option-container back to their <select>
-                                                      var toMove = $("#new-facility").children("[owner-name!='"+owner+"']"); // selects facility elements to move out
-                                                      toMove.appendTo("#option-container"); // moves facility elements in #option-container
-                                                      $("#new-facility").removeAttr("disabled"); // enables select
-                                                };
-                                                </script>
                                                 <div class="form-group mx-auto mb-2">
                                                     <label for="new-start-date">Start date</label>
                                                     <input type="text" class="form-control" name="new-start-date" data-date-autoclose="true"
@@ -168,6 +158,16 @@
                                                         id="new-end-date" data-provide="datepicker" placeholder="Enter date" required>
                                                     </input>
                                                 </div>
+                                                <span id="option-container" style="visibility: hidden; position:absolute;"></span>
+                                                <script>
+                                                    function filterFacility(){
+                                                      var owner = $("#new-owner").find('option:selected').text(); // stores owner
+                                                      $("#option-container").children().appendTo("#new-facility"); // moves <option> contained in #option-container back to their <select>
+                                                      var toMove = $("#new-facility").children("[owner-name!='"+owner+"']"); // selects facility elements to move out
+                                                      toMove.appendTo("#option-container"); // moves facility elements in #option-container
+                                                      $("#new-facility").removeAttr("disabled"); // enables select
+                                                };
+                                                </script>
                                             </div>
                                         </div>
                                     </div>
@@ -197,17 +197,22 @@
                     {% for job in jobs %}
                     <div class="row">
                     <tr>
-                        <td class="datarow">{{job.name}}</td>
-                        <td class="datarow">{{job.facility.owner.name}}</td>
-                        <td class="datarow">{{job.facility.name}}</td>
-                        <td class="datarow">{{job.start_date}}</td>
-                        <td class="datarow">{{job.end_date}}</td>
-                        <td colspan="4" class="formrow" style="display:none">
+                        <td width="20%" class="datarow">{{job.name}}</td>
+                        {% if job.facility is none %}
+                            {% set owner_name, facility_name = "", "" %}
+                        {% else %}
+                            {% set owner_name, facility_name = job.facility.owner.name, job.facility.name %}
+                        {% endif %}
+                        <td width="20%" class="datarow">{{ owner_name }}</td>
+                        <td width="20%" class="datarow">{{ facility_name }}</td>
+                        <td width="20%" class="datarow">{{ job.start_date }}</td>
+                        <td width="20%" class="datarow">{{ job.end_date }}</td>
+                        <td colspan="5" class="formrow" style="display:none">
                         <form method="POST" action="" class="needs-validation" novalidate>
                             <input type="hidden" name="job_id" value="{{ job.job_id }}">
                             <div class="modal-body">
                                 <div class="container-fluid">
-                                    <div class="row">
+                                    <div class="row" style="display: grid; grid-template-columns: repeat(5, 18%); column-gap: 19px;">
                                         <div class="form-group mx-auto mb-2">
                                             <input type="text" class="form-control" name="name"
                                                 id="new-name" value="{{ job.name }}"
@@ -215,9 +220,9 @@
                                             </input>
                                         </div>
                                         <div class="form-group mx-auto mb-2">
-                                            <select title="{{ job.facility.owner.name }}" name="owner" class="selectpicker" data-width="fit" style="vertical-align: middle" required>
+                                            <select title="{{ owner_name }}" name="owner" class="selectpicker" data-width="fit" style="vertical-align: middle" required>
                                                 {% for owner in owners %}
-                                                    {% if owner.name == job.facility.owner.name %}
+                                                    {% if owner.name == owner_name %}
                                                     <option selected>{{ owner.name }}</option>
                                                     {% else %}
                                                     <option>{{ owner.name }}</option>
@@ -226,9 +231,9 @@
                                             </select>
                                         </div>
                                         <div class="form-group mx-auto mb-2">
-                                            <select title="{{ job.facility.name }}" name="facility" class="selectpicker" data-width="fit" style="vertical-align: middle" required>
+                                            <select title="{{ facility_name }}" name="facility" class="selectpicker" data-width="fit" style="vertical-align: middle" required>
                                                 {% for facility in facilities %}
-                                                    {% if facility.name == job.facility.name %}
+                                                    {% if facility.name == facility_name %}
                                                     <option selected>{{ facility.name }}</option>
                                                     {% else %}
                                                     <option>{{ facility.name }}</option>
@@ -237,14 +242,18 @@
                                             </select>
                                         </div>
                                         <div class="form-group mx-auto mb-2">
-                                            <input type="text" class="form-control" name="start_date" data-date-autoclose="true" data-provide="datepicker"
-                                                id="new-start-date" value="{{ job.start_date }}" placeholder="Facility" required {{ job.start_date }} >
-                                            </input>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="start_date" data-date-autoclose="true" data-provide="datepicker"
+                                                    id="new-start-date" value="{{ job.start_date }}" placeholder="Facility" required {{ job.start_date }} >
+                                                </input>
+                                            </div>
                                         </div>
                                         <div class="form-group mx-auto mb-2">
-                                            <input type="text" class="form-control" name="end_date" data-date-autoclose="true" data-provide="datepicker"
-                                                id="new-end-date" value="{{ job.end_date }}" placeholder="Facility" required {{ job.end_date }} >
-                                            </input>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="end_date" data-date-autoclose="true" data-provide="datepicker"
+                                                    id="new-end-date" value="{{ job.end_date }}" placeholder="Facility" required {{ job.end_date }} >
+                                                </input>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
